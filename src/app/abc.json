@@ -1,0 +1,350 @@
+{
+    "success": true,
+    "message": "Hospital details retrieved successfully",
+    "data": {
+        "hospital": {
+            "id": "53171dc6-6bdb-4d87-a0ea-5a42395c44fb",
+            "name": "Rani Traum",
+            "logo": null,
+            "themeColor": "#2563EB",
+            "address": {
+                "city": "Kanpur",
+                "state": "Kanpur",
+                "street": "Ordinance ki galiya no 3",
+                "country": "India",
+                "pincode": "208961",
+                "district": "Kanpur"
+            },
+            "contactInfo": {
+                "phone": "7880035145",
+                "website": null
+            }
+        },
+        "doctors": [
+            {
+                "id": "96827b96-31b2-405b-bd9d-6240da990085",
+                "name": "Rani",
+                "specialization": "cardiology",
+                "qualification": "MD,MBBS",
+                "experience": 12,
+                "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/2560px-Image_created_with_a_mobile_phone.png",
+                "schedules": [
+                    {
+                        "id": "04e19bc1-6c19-450f-a0b3-ce03f172f7a8",
+                        "dayOfWeek": 3,
+                        "timeRanges": [
+                            {
+                                "end": "12:00",
+                                "start": "09:00"
+                            },
+                            {
+                                "end": "16:00",
+                                "start": "14:00"
+                            },
+                            {
+                                "end": "18:00",
+                                "start": "17:00"
+                            }
+                        ],
+                        "avgConsultationTime": 5,
+                        "status": "active"
+                    },
+                    {
+                        "id": "ced12b1c-bee3-4181-92b6-32f53500f911",
+                        "dayOfWeek": 4,
+                        "timeRanges": [
+                            {
+                                "end": "12:00",
+                                "start": "09:00"
+                            },
+                            {
+                                "end": "17:00",
+                                "start": "14:00"
+                            }
+                        ],
+                        "avgConsultationTime": 10,
+                        "status": "active"
+                    }
+                ],
+                "availability": {
+                    "today": {
+                        "slots": [],
+                        "totalSlots": 0,
+                        "availableSlots": 0,
+                        "occupiedSlots": 0,
+                        "date": "2025-05-28",
+                        "dayName": "Wednesday"
+                    },
+                    "tomorrow": {
+                        "slots": [
+                            {
+                                "start": "09:00",
+                                "end": "09:10",
+                                "available": false,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:00 am - 09:10 am",
+                                "reason": "Already booked",
+                                "blockedBy": "booked"
+                            },
+                            {
+                                "start": "09:10",
+                                "end": "09:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:10 am - 09:20 am"
+                            },
+                            {
+                                "start": "09:20",
+                                "end": "09:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:20 am - 09:30 am"
+                            },
+                            {
+                                "start": "09:30",
+                                "end": "09:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:30 am - 09:40 am"
+                            },
+                            {
+                                "start": "09:40",
+                                "end": "09:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:40 am - 09:50 am"
+                            },
+                            {
+                                "start": "09:50",
+                                "end": "10:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "09:50 am - 10:00 am"
+                            },
+                            {
+                                "start": "10:00",
+                                "end": "10:10",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:00 am - 10:10 am"
+                            },
+                            {
+                                "start": "10:10",
+                                "end": "10:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:10 am - 10:20 am"
+                            },
+                            {
+                                "start": "10:20",
+                                "end": "10:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:20 am - 10:30 am"
+                            },
+                            {
+                                "start": "10:30",
+                                "end": "10:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:30 am - 10:40 am"
+                            },
+                            {
+                                "start": "10:40",
+                                "end": "10:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:40 am - 10:50 am"
+                            },
+                            {
+                                "start": "10:50",
+                                "end": "11:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "10:50 am - 11:00 am"
+                            },
+                            {
+                                "start": "11:00",
+                                "end": "11:10",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:00 am - 11:10 am"
+                            },
+                            {
+                                "start": "11:10",
+                                "end": "11:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:10 am - 11:20 am"
+                            },
+                            {
+                                "start": "11:20",
+                                "end": "11:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:20 am - 11:30 am"
+                            },
+                            {
+                                "start": "11:30",
+                                "end": "11:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:30 am - 11:40 am"
+                            },
+                            {
+                                "start": "11:40",
+                                "end": "11:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:40 am - 11:50 am"
+                            },
+                            {
+                                "start": "11:50",
+                                "end": "12:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "11:50 am - 12:00 pm"
+                            },
+                            {
+                                "start": "14:00",
+                                "end": "14:10",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:00 pm - 02:10 pm"
+                            },
+                            {
+                                "start": "14:10",
+                                "end": "14:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:10 pm - 02:20 pm"
+                            },
+                            {
+                                "start": "14:20",
+                                "end": "14:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:20 pm - 02:30 pm"
+                            },
+                            {
+                                "start": "14:30",
+                                "end": "14:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:30 pm - 02:40 pm"
+                            },
+                            {
+                                "start": "14:40",
+                                "end": "14:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:40 pm - 02:50 pm"
+                            },
+                            {
+                                "start": "14:50",
+                                "end": "15:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "02:50 pm - 03:00 pm"
+                            },
+                            {
+                                "start": "15:00",
+                                "end": "15:10",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:00 pm - 03:10 pm"
+                            },
+                            {
+                                "start": "15:10",
+                                "end": "15:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:10 pm - 03:20 pm"
+                            },
+                            {
+                                "start": "15:20",
+                                "end": "15:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:20 pm - 03:30 pm"
+                            },
+                            {
+                                "start": "15:30",
+                                "end": "15:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:30 pm - 03:40 pm"
+                            },
+                            {
+                                "start": "15:40",
+                                "end": "15:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:40 pm - 03:50 pm"
+                            },
+                            {
+                                "start": "15:50",
+                                "end": "16:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "03:50 pm - 04:00 pm"
+                            },
+                            {
+                                "start": "16:00",
+                                "end": "16:10",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:00 pm - 04:10 pm"
+                            },
+                            {
+                                "start": "16:10",
+                                "end": "16:20",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:10 pm - 04:20 pm"
+                            },
+                            {
+                                "start": "16:20",
+                                "end": "16:30",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:20 pm - 04:30 pm"
+                            },
+                            {
+                                "start": "16:30",
+                                "end": "16:40",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:30 pm - 04:40 pm"
+                            },
+                            {
+                                "start": "16:40",
+                                "end": "16:50",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:40 pm - 04:50 pm"
+                            },
+                            {
+                                "start": "16:50",
+                                "end": "17:00",
+                                "available": true,
+                                "date": "2025-05-29",
+                                "timeDisplay": "04:50 pm - 05:00 pm"
+                            }
+                        ],
+                        "totalSlots": 36,
+                        "availableSlots": 35,
+                        "occupiedSlots": 1,
+                        "date": "2025-05-29",
+                        "dayName": "Thursday"
+                    },
+                    "summary": {
+                        "totalAvailableSlots": 35,
+                        "hasAvailability": true
+                    }
+                }
+            }
+        ],
+        "fetchedAt": "2025-05-28T17:02:36.558Z"
+    }
+}
