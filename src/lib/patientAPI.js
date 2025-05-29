@@ -204,22 +204,22 @@ export async function getDetails(subdomain) {
 
 
 /**
- * Create a new appointment (hospital internal)
+ * cancel a  appointment 
  */
-export async function cancelAppointment(subdomain) {
+export async function cancelAppointment(id) {
   try {
-    const response = await fetchWithTimeout(`${BASE_URL}/appointments/details/${subdomain}`, {
-      method: 'GET',
+    const response = await fetchWithTimeout(`${BASE_URL}/appointments/${id}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
       cache: 'no-store'
     });
 
-    const result = await handleApiResponse(response, 'Failed to get details');
+    const result = await handleApiResponse(response, 'Failed to delete appointment');
     return result;
   } catch (error) {
-    console.error('createAppointment - Error getting appointment creation details:', {
+    console.error('cancelAppointment - Error deleting appointment:', {
       message: error.message,
       status: error.status,
       data: error.data,

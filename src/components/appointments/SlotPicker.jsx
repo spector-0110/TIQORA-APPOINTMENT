@@ -68,7 +68,6 @@ const SlotPicker = ({
     } else {
       return date.toLocaleDateString('en-IN', {
         weekday: 'short',
-        day: '2-digit',
         month: 'short'
       });
     }
@@ -117,7 +116,7 @@ const SlotPicker = ({
             <Clock className="h-6 w-6 text-blue-600" />
           </div>
           <CardTitle className="text-xl font-semibold">Loading Available Slots</CardTitle>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-gray-400 mt-2">
             Fetching available appointment times for Dr. {selectedDoctor?.name}
           </p>
         </CardHeader>
@@ -148,7 +147,7 @@ const SlotPicker = ({
             No Available Slots
           </CardTitle>
           <p className="text-sm text-gray-500 mt-2">
-            Dr. {selectedDoctor?.name} has no available appointment slots in the next 14 days.
+            Dr. {selectedDoctor?.name} has no available appointment slots.
           </p>
         </CardHeader>
         <CardContent className="text-center">
@@ -173,24 +172,13 @@ const SlotPicker = ({
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
-      <Card>
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-            <Clock className="h-6 w-6 text-blue-600" />
-          </div>
-          <CardTitle className="text-xl font-semibold">Select Appointment Time</CardTitle>
-          <p className="text-sm text-gray-600 mt-2">
-            Choose an available time slot with Dr. {selectedDoctor?.name}
-          </p>
-        </CardHeader>
-      </Card>
 
       {/* Date Selection */}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Available Dates</CardTitle>
-          <p className="text-sm text-gray-600">
-            Select a date to view available time slots
+          <p className="text-sm text-gray-400 mt-2">
+            Choose an available Date and Time slot for consulting with Dr. {selectedDoctor?.name}
           </p>
         </CardHeader>
         <CardContent>
@@ -205,11 +193,11 @@ const SlotPicker = ({
                 <span className="text-xs font-medium">
                   {formatDate(date)}
                 </span>
-                <span className="text-xs opacity-80">
-                  {new Date(date).getDate()}
+                <span className="text-lg font-bold text-gray-500">
+                  {new Date(date).getDate()} {new Date(date).toLocaleDateString('en-IN', { month: 'short' })}
                 </span>
                 <Badge variant="secondary" className="text-xs px-1">
-                  {groupedSlots[date]?.length} slots
+                  {groupedSlots[date].filter(slots => slots.available).length} slots
                 </Badge>
               </Button>
             ))}
@@ -224,17 +212,17 @@ const SlotPicker = ({
             <CardTitle className="text-lg">
               Available Times - {formatDateFull(selectedDate)}
             </CardTitle>
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-600">
-                {groupedSlots[selectedDate].length} slots available
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-sm text-gray-300">
+                {groupedSlots[selectedDate].filter(slots => slots.available).length} slots available
               </p>
-              <div className="flex items-center gap-4 text-xs text-gray-500">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-xs text-gray-500">
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 border border-gray-300 rounded"></div>
                   <span>Available</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 bg-blue-600 rounded"></div>
+                  <div className="w-3 h-3 bg-green-600 rounded"></div>
                   <span>Selected</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -255,44 +243,48 @@ const SlotPicker = ({
 
                 return (
                   <div key={period}>
-                    <h4 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
+                    <h4 className="font-medium text-gray-100 mb-3 flex items-center gap-2">
                       <Clock className="w-4 h-4" />
                       {period}
                     </h4>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                      {periodSlots.map((slot) => (
+                      {periodSlots.map((slot) => {
+                        const isSelected = selectedSlot && 
+                          (selectedSlot.id === slot.id || 
+                           (selectedSlot.date === slot.date && selectedSlot.time === slot.time));
+                        
+                        return (
                         <Button
                           key={slot.id || `${slot.date}-${slot.time}`}
-                          variant={
-                            selectedSlot && 
-                            (selectedSlot.id === slot.id || 
-                             (selectedSlot.date === slot.date && selectedSlot.time === slot.time))
-                              ? "default" 
-                              : "outline"
-                          }
+                          variant="outline"
                           onClick={() => handleSlotSelect(slot)}
                           className={`h-auto py-2 px-3 text-xs relative ${
                             !slot.available ? 'opacity-50 cursor-not-allowed' : ''
+                          } ${
+                            isSelected 
+                              ? 'bg-green-600 hover:bg-green-700 border-green-600 text-white' 
+                              : 'hover:bg-gray-800'
                           }`}
                           disabled={!slot.available}
                         >
                           <div className="text-center">
-                            <div className="font-medium">
+                            <div className={`font-medium ${isSelected ? 'text-white' : 'text-gray-50'}`}>
                               {slot.timeDisplay ? slot.start : formatTime(slot.time)}
                             </div>
                             {slot.timeDisplay && (
-                              <div className="text-[10px] opacity-75 mt-1">
+                              <div className={`text-[10px] opacity-75 mt-1 ${isSelected ? 'text-white' : 'text-gray-50'}`}>
                                 {slot.end}
                               </div>
                             )}
                             {!slot.available && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-80 rounded">
-                                <span className="text-[8px] text-gray-600 font-medium">Booked</span>
+                              <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-800 rounded">
+                                <span className="text-[8px] text-white font-medium">Booked</span>
                               </div>
                             )}
                           </div>
                         </Button>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -322,7 +314,7 @@ const SlotPicker = ({
       <Card className="bg-gray-50">
         <CardContent className="pt-6">
           <h4 className="font-medium text-gray-900 mb-3">Booking Instructions</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400">
             <div>
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
@@ -339,7 +331,7 @@ const SlotPicker = ({
               <ul className="space-y-2">
                 <li className="flex items-start gap-2">
                   <div className="w-1 h-1 rounded-full bg-gray-400 mt-2 flex-shrink-0"></div>
-                  <span>Appointments are typically 15-30 minutes long</span>
+                  <span>Appointments are typically 5-10 minutes long</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <div className="w-1 h-1 rounded-full bg-gray-400 mt-2 flex-shrink-0"></div>

@@ -21,6 +21,7 @@ export default function SlugPage({ params }) {
   
   const [existingAppointment, setExistingAppointment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCreateNew, setShowCreateNew] = useState(false);
 
   const [successDialog, setSuccessDialog] = useState({
     isOpen: false,
@@ -62,51 +63,49 @@ export default function SlugPage({ params }) {
     }
     
     successHandledRef.current = true;
-    
-    console.log('handleAppointmentCreated called with:', appointmentDetails);
-    
+        
     // Store appointment data in cookie
     const stored = storeAppointmentInCookie(slug, appointmentDetails);
     
     if (stored) {
-      console.log('Appointment data stored in cookie successfully');
       setExistingAppointment(appointmentDetails);
+      console.log('Appointment created and stored:', appointmentDetails.data);
+
+      setShowCreateNew(false); // Reset to show existing appointment view
     } else {
       console.error('Failed to store appointment data in cookie');
     }
-    
     // Show success dialog
     setSuccessDialog({
       isOpen: true,
       title: 'Appointment Created Successfully!',
       message: 'Your appointment has been created and saved.',
       details: [
-        `Patient: ${appointmentDetails.patientName}`,
-        `Doctor: Dr. ${appointmentDetails.doctorName}`,
-        `Date: ${new Date(appointmentDetails.appointmentDate).toLocaleDateString('en-IN')}`,
-        `Time: ${new Date(appointmentDetails.startTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}`,
-        `Status: ${appointmentDetails.status}`,
+        `Patient: ${appointmentDetails.data.patientName}`,
+        `Doctor: Dr. ${appointmentDetails.data.doctor.name}`,
+        `Date: ${appointmentDetails.data.appointmentDate.split('T')[0]}`,
+        `Time: ${new Date(appointmentDetails.data.startTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}`,
+        `Status: ${appointmentDetails.data.status}`,
       ]
     });
   };
 
   const handleCreateNewAppointment = () => {
     setShowCreateNew(true);
-    setExistingAppointment(null);
+    successHandledRef.current = false; // Reset success handler for new appointment
+    // Don't clear existing appointment immediately - keep it until new one is created
   };
 
   const handleAppointmentCancelled = (appointmentId) => {
     console.log('Appointment cancelled:', appointmentId);
+
+    
     // Remove from cookie
     removeAppointmentFromCookie(slug);
     
     // Reset state to show create new
     setExistingAppointment(null);
     setShowCreateNew(true);
-  };
-
-  const handleBackToExisting = () => {
-    setShowCreateNew(false);
   };
 
   if (isLoading) {
@@ -122,11 +121,11 @@ export default function SlugPage({ params }) {
 
   return (
     <DetailsProvider subdomain={slug}>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen ">
         {/* Show existing appointment if found and not creating new */}
-        {existingAppointment ? (
+        {existingAppointment && !showCreateNew ? (
           <ExistingAppointmentView
-            appointmentData={existingAppointment}
+            appointmentData={existingAppointment.data}
             onCreateNew={handleCreateNewAppointment}
             onAppointmentCancelled={handleAppointmentCancelled}
           />

@@ -57,28 +57,28 @@ const DoctorSelector = ({
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 md:px-6">
+    <div className="w-full max-w-4xl mx-auto px-1 sm:px-4 md:px-6">
       <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-blue-50/30">
-        <CardHeader className="text-center pb-6 pt-8">
-          <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-            <Stethoscope className="h-8 w-8 text-white" />
+        <CardHeader className="text-center pb-3 pt-4 sm:pb-6 sm:pt-8">
+          <div className="mx-auto mb-2 sm:mb-4 h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+            <Stethoscope className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
           </div>
-          <CardTitle className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+          <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
             Choose Your Doctor
           </CardTitle>
-          <p className="text-gray-600 mt-3 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-600 mt-2 sm:mt-3 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto leading-relaxed px-2">
             Select from our available doctors. All listed doctors are currently accepting appointments and ready to provide excellent care.
           </p>
-          <div className="mt-4 px-4 py-2 bg-blue-100 rounded-full inline-block">
-            <span className="text-blue-700 text-sm font-medium">
+          <div className="mt-2 sm:mt-4 px-3 py-1.5 sm:px-4 sm:py-2 bg-blue-100 rounded-full inline-block">
+            <span className="text-blue-700 text-xs sm:text-sm font-medium">
               {activeDoctors.length} {activeDoctors.length === 1 ? 'Doctor' : 'Doctors'} Available
             </span>
           </div>
         </CardHeader>
         
-        <CardContent className="px-4 sm:px-6 md:px-8">
-          {/* Doctors Grid - Responsive */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-gray-100">
+        <CardContent className="px-2 sm:px-6 md:px-8">
+          {/* Doctors Grid - Highly Responsive */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-2 sm:gap-4 lg:gap-6 max-h-[65vh] sm:max-h-[60vh] overflow-y-auto pr-1 sm:pr-2 scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-gray-100">
             {activeDoctors.map((doctor) => (
               <div
                 key={doctor.id}
@@ -89,23 +89,23 @@ const DoctorSelector = ({
                 }`}
                 onClick={() => handleDoctorSelect(doctor)}
               >
-                <div className={`relative overflow-hidden rounded-xl border-2 p-4 sm:p-6 transition-all duration-300 ${
+                <div className={`relative overflow-hidden rounded-lg sm:rounded-xl border-2 p-2 sm:p-4 lg:p-6 transition-all duration-300 ${
                   selectedDoctor?.id === doctor.id 
-                    ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 shadow-xl ring-4 ring-blue-200/50' 
+                    ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 shadow-xl ring-2 sm:ring-4 ring-blue-200/50' 
                     : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-lg group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-blue-50/30'
                 }`}>
                   
                   {/* Selection Glow Effect */}
                   {selectedDoctor?.id === doctor.id && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-blue-600/10 rounded-xl" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-blue-600/10 rounded-lg sm:rounded-xl" />
                   )}
                   
-                  <div className="relative flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                  <div className="relative flex flex-col items-center space-y-2 sm:space-y-3">
                     {/* Doctor Photo */}
                     <div className="relative flex-shrink-0">
-                      <div className={`h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-hidden transition-all duration-300 ${
+                      <div className={`h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 rounded-full overflow-hidden transition-all duration-300 ${
                         selectedDoctor?.id === doctor.id 
-                          ? 'ring-4 ring-blue-300 shadow-lg' 
+                          ? 'ring-3 sm:ring-4 ring-blue-300 shadow-lg' 
                           : 'ring-2 ring-gray-200 group-hover:ring-blue-200 group-hover:shadow-md'
                       }`}>
                         {doctor.photo && doctor.photo !== "/doctor.png" ? (
@@ -116,60 +116,62 @@ const DoctorSelector = ({
                           />
                         ) : (
                           <div className="h-full w-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                            <User size={32} className="text-blue-600" />
+                            <User size={20} className="sm:hidden text-blue-600" />
+                            <User size={24} className="hidden sm:block lg:hidden text-blue-600" />
+                            <User size={32} className="hidden lg:block text-blue-600" />
                           </div>
                         )}
                       </div>
                       
                       {/* Selection Indicator */}
                       {selectedDoctor?.id === doctor.id && (
-                        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-green-400 to-green-500 rounded-full p-2 shadow-lg animate-bounce">
-                          <Check className="h-4 w-4 text-white" />
+                        <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-gradient-to-r from-green-400 to-green-500 rounded-full p-1 sm:p-2 shadow-lg animate-bounce">
+                          <Check className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                         </div>
                       )}
                       
                       {/* Available Status Indicator */}
-                      <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1.5 shadow-md">
-                        <div className="h-2 w-2 bg-white rounded-full" />
+                      <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 bg-green-500 rounded-full p-1 sm:p-1.5 shadow-md">
+                        <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 bg-white rounded-full" />
                       </div>
                     </div>
 
                     {/* Doctor Details */}
-                    <div className="flex-1 min-w-0 text-center sm:text-left">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                        <h3 className="font-bold text-lg sm:text-xl text-gray-800 truncate mb-1 sm:mb-0">
+                    <div className="flex-1 min-w-0 text-center">
+                      <div className="mb-1 sm:mb-2">
+                        <h3 className="font-bold text-sm sm:text-lg lg:text-xl text-gray-800 truncate">
                           Dr. {doctor.name}
                         </h3>
                         <Badge 
-                          className="bg-green-100 text-green-700 border-green-200 font-medium self-center sm:self-auto"
+                          className="bg-green-100 text-green-700 border-green-200 font-medium mt-1 text-xs sm:text-sm"
                         >
                           Available
                         </Badge>
                       </div>
                       
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center sm:justify-start text-sm font-medium text-blue-600">
-                          <Stethoscope className="h-4 w-4 mr-2 flex-shrink-0" />
+                      <div className="space-y-1 sm:space-y-2">
+                        <div className="flex items-center justify-center text-xs sm:text-sm font-medium text-blue-600">
+                          <Stethoscope className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 flex-shrink-0" />
                           <span className="truncate">{doctor.specialization}</span>
                         </div>
                         
                         {doctor.qualification && (
-                          <div className="flex items-center justify-center sm:justify-start text-sm text-gray-600">
-                            <Award className="h-4 w-4 mr-2 text-amber-500 flex-shrink-0" />
+                          <div className="flex items-center justify-center text-xs sm:text-sm text-gray-600">
+                            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-amber-500 flex-shrink-0" />
                             <span className="truncate">{doctor.qualification}</span>
                           </div>
                         )}
                         
                         {doctor.experience && (
-                          <div className="text-sm text-gray-500 font-medium">
+                          <div className="text-xs sm:text-sm text-gray-500 font-medium">
                             {doctor.experience} years experience
                           </div>
                         )}
                         
                         {/* Additional Info Badge */}
-                        <div className="flex justify-center sm:justify-start">
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                            Accepting New Patients
+                        <div className="flex justify-center">
+                          <span className="inline-flex items-center px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                            New Patients
                           </span>
                         </div>
                       </div>

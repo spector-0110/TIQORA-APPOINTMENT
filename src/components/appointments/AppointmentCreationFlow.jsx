@@ -21,6 +21,7 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState(null);
   
 
@@ -185,6 +186,11 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
 
   // Submit appointment
   const handleSubmitAppointment = async () => {
+    // Prevent multiple submissions
+    if (isSubmitting || isSuccess) {
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       setError(null);
@@ -216,22 +222,19 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
 
       const result = await createAppointment(validationResult.data);
       
-      // Call success callback with appointment details
-      onSuccess({
-        appointmentId: result.appointmentId,
-        patientName: patientData.name,
-        doctorName: selectedDoctor.name,
-        appointmentDate: selectedSlot.date,
-        appointmentTime: selectedSlot.timeDisplay || `${selectedSlot.start} - ${selectedSlot.end}`,
-        trackingLink: result.trackingLink
-      });
+      // Mark as successful - don't reset isSubmitting to keep button disabled
+      setIsSuccess(true);
+      
+      // Call success callback with complete backend response - store as is without manipulation
+      onSuccess(result);
 
     } catch (err) {
       console.error('Error creating appointment:', err);
       setError(err.message || 'Failed to create appointment');
-    } finally {
+      // Only reset isSubmitting on error to allow retry
       setIsSubmitting(false);
     }
+    // Note: We don't reset isSubmitting on success to prevent multiple submissions
   };
 
   const isNextDisabled = () => {
@@ -313,6 +316,17 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
         </div>
       )}
 
+      {/* Success Display */}
+      {isSuccess && (
+        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center gap-2">
+            <CheckCircle className="w-5 h-5 text-green-600" />
+            <p className="text-green-700 text-sm font-medium">Appointment Created Successfully!</p>
+          </div>
+          <p className="text-green-600 text-sm mt-1">Your appointment details have been saved and you will be redirected shortly.</p>
+        </div>
+      )}
+
       {/* Step Content */}
       <div className="mb-8">
         {currentStep === 1 && (
@@ -390,7 +404,7 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
             <Button
               variant="outline"
               onClick={handleBack}
-              disabled={isLoading || isSubmitting}
+              disabled={isLoading || isSubmitting || isSuccess}
               className="gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -413,10 +427,10 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
           ) : (
             <Button
               onClick={handleSubmitAppointment}
-              disabled={isSubmitting}
-              className="gap-2 bg-green-600 hover:bg-green-700"
+              disabled={isSubmitting || isSuccess}
+              className={`gap-2 ${(isSubmitting || isSuccess) ? 'cursor-not-allowed opacity-50' : 'bg-green-600 hover:bg-green-700'}`}
             >
-              {isSubmitting ? 'Creating...' : 'Create Appointment'}
+              {isSuccess ? 'Appointment Created!' : isSubmitting ? 'Creating Appointment...' : 'Create Appointment'}
               <CheckCircle className="w-4 h-4" />
             </Button>
           )}

@@ -44,40 +44,18 @@ function deleteCookie(name) {
 export function storeAppointmentInCookie(hospitalSlug, appointmentData) {
   try {
     console.log('Storing appointment data in cookie for hospital:', hospitalSlug);
+    console.log('Backend response data:', appointmentData);
     
-    // Calculate expiration time (appointment end time + 1 hour buffer)
-    let expirationTime;
-    try {
-      // Combine date and end time
-      const appointmentDate = new Date(appointmentData.appointmentDate);
-      const endTime = new Date(appointmentData.endTime);
-      
-      // Create the full appointment end datetime
-      const appointmentEndTime = new Date(
-        appointmentDate.getFullYear(),
-        appointmentDate.getMonth(),
-        appointmentDate.getDate(),
-        endTime.getHours(),
-        endTime.getMinutes(),
-        endTime.getSeconds()
-      );
-      
-      expirationTime = new Date(appointmentEndTime.getTime() + (60 * 60 * 1000)); // +1 hour buffer
-      
-      console.log('Appointment end time:', appointmentEndTime);
-      console.log('Cookie expiration time:', expirationTime);
-    } catch (error) {
-      console.error('Error parsing appointment time:', error);
-      // Fallback: 24 hours from now
-      expirationTime = new Date(Date.now() + (24 * 60 * 60 * 1000));
-    }
+    // Calculate expiration time (24 hours from now as fallback)
+    // Store the complete backend response without any manipulation
+    const expirationTime = new Date(Date.now() + (24 * 60 * 60 * 1000)); // 24 hours from now
 
     const cookieData = {
-      data: appointmentData,
+      data: appointmentData, // Store complete backend response as-is
       hospitalSlug: hospitalSlug,
       createdAt: Date.now(),
       expiresAt: expirationTime.getTime(),
-      appointmentId: appointmentData.id
+      appointmentId: appointmentData.appointmentId || appointmentData.id // Support both possible ID fields
     };
 
     // Store the appointment data
@@ -85,7 +63,7 @@ export function storeAppointmentInCookie(hospitalSlug, appointmentData) {
     setCookie(cookieName, JSON.stringify(cookieData), expirationTime);
 
     // Update the list of stored appointments across all hospitals
-    updateAppointmentCookieList(hospitalSlug, appointmentData.id, expirationTime.getTime());
+    updateAppointmentCookieList(hospitalSlug, appointmentData.appointmentId || appointmentData.id, expirationTime.getTime());
 
     console.log(`Appointment data stored in cookie for ${hospitalSlug}, expires at: ${expirationTime}`);
     return true;
