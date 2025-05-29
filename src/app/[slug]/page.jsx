@@ -1,49 +1,151 @@
 "use client"
 
-import { useState, use } from 'react';
+import { useState, use, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import DetailsProvider from '@/context/DetailsProvider';
 import AppointmentCreationFlow from "@/components/appointments/AppointmentCreationFlow";
+import ExistingAppointmentView from "@/components/appointments/ExistingAppointmentView";
 import { SuccessDialog } from '@/components/ui/success-dialog';
+import { 
+  storeAppointmentInCookie, 
+  getAppointmentFromCookie, 
+  removeAppointmentFromCookie,
+  initializeAppointmentCookies 
+} from '@/lib/appointmentCookies';
 
 export default function SlugPage({ params }) {
   const { slug } = use(params);
+  const router = useRouter();
+  const successHandledRef = useRef(false);
+  
+  const [existingAppointment, setExistingAppointment] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [successDialog, setSuccessDialog] = useState({
-        isOpen: false,
-        title: '',
-        message: '',
-        details: []
-    });
+  const [successDialog, setSuccessDialog] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    details: []
+  });
 
+  // Initialize cookies and check for existing appointment
+  useEffect(() => {
+    initializeAppointmentCookies();
+    checkForExistingAppointment();
+  }, [slug]);
 
-    const handleAppointmentCreated = (appointmentDetails) => {
+  const checkForExistingAppointment = () => {
+    try {
+      setIsLoading(true);
+      const appointment = getAppointmentFromCookie(slug);
+      console.log('Checking for existing appointment for hospital:', slug);
+      console.log('Found appointment:', appointment);
+      
+      if (appointment) {
+        setExistingAppointment(appointment);
+      } else {
+        setExistingAppointment(null);
+      }
+    } catch (error) {
+      console.error('Error checking for existing appointment:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAppointmentCreated = (appointmentDetails) => {
+    // Prevent double execution in development mode
+    if (successHandledRef.current) {
+      console.log('Success handler already called, ignoring duplicate call');
+      return;
+    }
+    
+    successHandledRef.current = true;
+    
+    console.log('handleAppointmentCreated called with:', appointmentDetails);
+    
+    // Store appointment data in cookie
+    const stored = storeAppointmentInCookie(slug, appointmentDetails);
+    
+    if (stored) {
+      console.log('Appointment data stored in cookie successfully');
+      setExistingAppointment(appointmentDetails);
+    } else {
+      console.error('Failed to store appointment data in cookie');
+    }
+    
+    // Show success dialog
     setSuccessDialog({
       isOpen: true,
-      title: 'Appointment Created',
-      message: 'New appointment has been successfully created.',
+      title: 'Appointment Created Successfully!',
+      message: 'Your appointment has been created and saved.',
       details: [
         `Patient: ${appointmentDetails.patientName}`,
         `Doctor: Dr. ${appointmentDetails.doctorName}`,
-        `Date: ${appointmentDetails.appointmentDate}`,
-        `Time: ${appointmentDetails.appointmentTime}`,
+        `Date: ${new Date(appointmentDetails.appointmentDate).toLocaleDateString('en-IN')}`,
+        `Time: ${new Date(appointmentDetails.startTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}`,
+        `Status: ${appointmentDetails.status}`,
       ]
     });
   };
 
+  const handleCreateNewAppointment = () => {
+    setShowCreateNew(true);
+    setExistingAppointment(null);
+  };
+
+  const handleAppointmentCancelled = (appointmentId) => {
+    console.log('Appointment cancelled:', appointmentId);
+    // Remove from cookie
+    removeAppointmentFromCookie(slug);
+    
+    // Reset state to show create new
+    setExistingAppointment(null);
+    setShowCreateNew(true);
+  };
+
+  const handleBackToExisting = () => {
+    setShowCreateNew(false);
+  };
+
+  if (isLoading) {
+    return (
+      <DetailsProvider subdomain={slug}>
+        <div className="flex flex-col items-center justify-center min-h-screen p-8">
+          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </DetailsProvider>
+    );
+  }
+
   return (
     <DetailsProvider subdomain={slug}>
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">        
-        <AppointmentCreationFlow 
-        onSuccess={handleAppointmentCreated}
-        />
+      <div className="min-h-screen bg-gray-50">
+        {/* Show existing appointment if found and not creating new */}
+        {existingAppointment ? (
+          <ExistingAppointmentView
+            appointmentData={existingAppointment}
+            onCreateNew={handleCreateNewAppointment}
+            onAppointmentCancelled={handleAppointmentCancelled}
+          />
+        ) : (
+          /* Show appointment creation flow */
+          <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">
+            <AppointmentCreationFlow 
+              onSuccess={handleAppointmentCreated}
+            />
+          </div>
+        )}
+        
         <SuccessDialog
-        isOpen={successDialog.isOpen}
-        onClose={() => setSuccessDialog({ ...successDialog, isOpen: false })}
-        title={successDialog.title}
-        message={successDialog.message}
-        details={successDialog.details}
-      />
+          isOpen={successDialog.isOpen}
+          onClose={() => setSuccessDialog({ ...successDialog, isOpen: false })}
+          title={successDialog.title}
+          message={successDialog.message}
+          details={successDialog.details}
+        />
       </div>
     </DetailsProvider>
   );

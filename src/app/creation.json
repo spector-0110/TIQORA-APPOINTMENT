@@ -2,27 +2,18 @@
     "success": true,
     "message": "Appointment created successfully",
     "data": {
-        "id": "921f7999-a786-4784-92de-b4dbee9eeeeb",
-        "hospitalId": "53171dc6-6bdb-4d87-a0ea-5a42395c44fb",
-        "doctorId": "96827b96-31b2-405b-bd9d-6240da990085",
-        "patientName": "fghj",
-        "mobile": "9876543211",
-        "age": 23,
-        "appointmentDate": "2025-05-29T00:00:00.000Z",
+        "id": "104e6a55-d908-4bb7-add0-01731f4d1a14",
+        "patientName": "vatsa",
+        "mobile": "8765432111",
+        "age": 21,
+        "appointmentDate": "2025-05-30T00:00:00.000Z",
         "startTime": "1970-01-01T03:40:00.000Z",
         "endTime": "1970-01-01T03:50:00.000Z",
         "status": "booked",
-        "notificationStatus": "not_sent",
         "paymentStatus": "unpaid",
-        "paymentMethod": null,
-        "createdAt": "2025-05-28T20:42:25.902Z",
         "hospital": {
-            "id": "53171dc6-6bdb-4d87-a0ea-5a42395c44fb",
-            "supabaseUserId": "4edec881-225f-47af-a7ea-05e8a59777e2",
             "name": "Rani Traum",
-            "adminEmail": "raniasmit200204@gmail.com",
-            "subdomain": "ranitraumacentre",
-            "gstin": "09AAACH7409R1ZZ",
+            "logo": null,
             "address": {
                 "city": "Kanpur",
                 "state": "Kanpur",
@@ -34,27 +25,16 @@
             "contactInfo": {
                 "phone": "7880035145",
                 "website": null
-            },
-            "logo": null,
-            "themeColor": "#2563EB",
-            "createdAt": "2025-05-12T18:03:19.565Z",
-            "establishedDate": "2025-05-11"
+            }
         },
         "doctor": {
-            "id": "96827b96-31b2-405b-bd9d-6240da990085",
-            "hospitalId": "53171dc6-6bdb-4d87-a0ea-5a42395c44fb",
             "name": "Rani",
             "specialization": "cardiology",
             "qualification": "MD,MBBS",
             "experience": 12,
             "age": 23,
-            "phone": "7850840367",
-            "email": "spectorcodes@gmail.com",
-            "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/2560px-Image_created_with_a_mobile_phone.png",
-            "aadhar": "987654321111",
-            "status": "active",
-            "createdAt": "2025-05-27T11:22:06.764Z"
+            "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/2560px-Image_created_with_a_mobile_phone.png"
         },
-        "trackingLink": "http://localhost:3000/track/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBvaW50bWVudElkIjoiOTIxZjc5OTktYTc4Ni00Nzg0LTkyZGUtYjRkYmVlOWVlZWViIiwiaG9zcGl0YWxJZCI6IjUzMTcxZGM2LTZiZGItNGQ4Ny1hMGVhLTVhNDIzOTVjNDRmYiIsImRvY3RvcklkIjoiOTY4MjdiOTYtMzFiMi00MDViLWJkOWQtNjI0MGRhOTkwMDg1IiwiaWF0IjoxNzQ4NDY0OTQ3LCJleHAiOjE3NDg3MjQxNDd9.2CgHBu9BAMAAHUEu2mgMIbCfoDTgm-z7t2EElJt9Jsk"
+        "trackingLink": "http://localhost:3000/track/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBvaW50bWVudElkIjoiMTA0ZTZhNTUtZDkwOC00YmI3LWFkZDAtMDE3MzFmNGQxYTE0IiwiaG9zcGl0YWxJZCI6IjUzMTcxZGM2LTZiZGItNGQ4Ny1hMGVhLTVhNDIzOTVjNDRmYiIsImRvY3RvcklkIjoiOTY4MjdiOTYtMzFiMi00MDViLWJkOWQtNjI0MGRhOTkwMDg1IiwiaWF0IjoxNzQ4NTI5NzMyLCJleHAiOjE3NDg3ODg5MzJ9.C1XKTeLvCkZQHB2r7K3sSUmV5Rr5d4hDvCGvV_FY58E"
     }
 }

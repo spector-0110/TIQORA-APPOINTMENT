@@ -91,6 +91,11 @@ const SlotPicker = ({
     });
   };
 
+  const getSlotDisplayTime = (slot) => {
+    // Use the timeDisplay property if available, otherwise fall back to formatted time
+    return slot.timeDisplay || formatTime(slot.time);
+  };
+
   const getTimeOfDay = (timeString) => {
     const hour = parseInt(timeString.split(':')[0]);
     if (hour < 12) return 'Morning';
@@ -219,9 +224,25 @@ const SlotPicker = ({
             <CardTitle className="text-lg">
               Available Times - {formatDateFull(selectedDate)}
             </CardTitle>
-            <p className="text-sm text-gray-600">
-              {groupedSlots[selectedDate].length} slots available
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-600">
+                {groupedSlots[selectedDate].length} slots available
+              </p>
+              <div className="flex items-center gap-4 text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 border border-gray-300 rounded"></div>
+                  <span>Available</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 bg-blue-600 rounded"></div>
+                  <span>Selected</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 bg-gray-200 rounded opacity-50"></div>
+                  <span>Booked</span>
+                </div>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
@@ -238,22 +259,38 @@ const SlotPicker = ({
                       <Clock className="w-4 h-4" />
                       {period}
                     </h4>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
                       {periodSlots.map((slot) => (
                         <Button
-                          key={`${slot.date}-${slot.time}`}
+                          key={slot.id || `${slot.date}-${slot.time}`}
                           variant={
                             selectedSlot && 
-                            selectedSlot.date === slot.date && 
-                            selectedSlot.time === slot.time
+                            (selectedSlot.id === slot.id || 
+                             (selectedSlot.date === slot.date && selectedSlot.time === slot.time))
                               ? "default" 
                               : "outline"
                           }
                           onClick={() => handleSlotSelect(slot)}
-                          className="h-12 text-sm"
+                          className={`h-auto py-2 px-3 text-xs relative ${
+                            !slot.available ? 'opacity-50 cursor-not-allowed' : ''
+                          }`}
                           disabled={!slot.available}
                         >
-                          {formatTime(slot.time)}
+                          <div className="text-center">
+                            <div className="font-medium">
+                              {slot.timeDisplay ? slot.start : formatTime(slot.time)}
+                            </div>
+                            {slot.timeDisplay && (
+                              <div className="text-[10px] opacity-75 mt-1">
+                                {slot.end}
+                              </div>
+                            )}
+                            {!slot.available && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-80 rounded">
+                                <span className="text-[8px] text-gray-600 font-medium">Booked</span>
+                              </div>
+                            )}
+                          </div>
                         </Button>
                       ))}
                     </div>
@@ -267,8 +304,13 @@ const SlotPicker = ({
                 <h4 className="font-medium text-blue-900 mb-2">Selected Appointment</h4>
                 <div className="text-blue-800 text-sm space-y-1">
                   <p><span className="font-medium">Date:</span> {formatDateFull(selectedSlot.date)}</p>
-                  <p><span className="font-medium">Time:</span> {formatTime(selectedSlot.time)}</p>
+                  <p><span className="font-medium">Time:</span> {selectedSlot.timeDisplay || formatTime(selectedSlot.time)}</p>
                   <p><span className="font-medium">Doctor:</span> Dr. {selectedDoctor?.name}</p>
+                  {selectedSlot.datetime && (
+                    <p className="text-xs opacity-75 mt-2">
+                      Appointment ID: {selectedSlot.id}
+                    </p>
+                  )}
                 </div>
               </div>
             )}

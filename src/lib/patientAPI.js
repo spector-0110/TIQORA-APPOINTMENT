@@ -200,3 +200,31 @@ export async function getDetails(subdomain) {
     throw error;
   }
 }
+
+
+
+/**
+ * Create a new appointment (hospital internal)
+ */
+export async function cancelAppointment(subdomain) {
+  try {
+    const response = await fetchWithTimeout(`${BASE_URL}/appointments/details/${subdomain}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+
+    const result = await handleApiResponse(response, 'Failed to get details');
+    return result;
+  } catch (error) {
+    console.error('createAppointment - Error getting appointment creation details:', {
+      message: error.message,
+      status: error.status,
+      data: error.data,
+      error
+    });
+    throw error;
+  }
+}
