@@ -115,8 +115,8 @@ function SlugPageContent({ slug }) {
   // Show loading while fetching hospital details or checking appointments
   if (loading || isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-8">
-        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      <div className="flex flex-col items-center justify-center min-h-screen p-8 border-r-gray-900">
+        <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
         <p className="mt-4 text-gray-600">Loading...</p>
       </div>
     );
@@ -148,11 +148,13 @@ function SlugPageContent({ slug }) {
     <div className="min-h-screen ">
       {/* Show existing appointment if found and not creating new */}
       {existingAppointment && !showCreateNew ? (
+        <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-4">
         <ExistingAppointmentView
           appointmentData={existingAppointment.data}
           onCreateNew={handleCreateNewAppointment}
           onAppointmentCancelled={handleAppointmentCancelled}
         />
+        </div>
       ) : (
         /* Show appointment creation flow */
         <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">

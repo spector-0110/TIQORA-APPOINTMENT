@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cancelAppointment } from '@/lib/patientAPI';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Assuming you have this custom component
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'; 
@@ -45,6 +46,7 @@ const ExistingAppointmentView = ({
   const [cancelError, setCancelError] = useState(null);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [copySuccess, setCopySuccess] = useState('');
+  const isMobile = useIsMobile();
 
   // Helper to extract tracking token from the tracking link URL
   const getTrackingToken = (trackingLink) => {
@@ -152,7 +154,17 @@ const ExistingAppointmentView = ({
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     try {
-      return new Date(dateString).toLocaleDateString('en-IN', {
+      const date = new Date(dateString);
+      if (isMobile) {
+        // Shorter format for mobile: "01 Jan 2024"
+        return date.toLocaleDateString('en-IN', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+      // Full format for desktop
+      return date.toLocaleDateString('en-IN', {
         weekday: 'long',
         day: '2-digit',
         month: 'long',
@@ -189,15 +201,15 @@ const ExistingAppointmentView = ({
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'booked':
-        return 'bg-green-100 text-green-800 border border-green-200';
+        return 'bg-emerald-900/50 text-emerald-300 border border-emerald-700';
       case 'cancelled':
-        return 'bg-red-100 text-red-800 border border-red-200';
+        return 'bg-red-900/50 text-red-300 border border-red-700';
       case 'completed':
-        return 'bg-blue-100 text-blue-800 border border-blue-200';
+        return 'bg-blue-900/50 text-blue-300 border border-blue-700';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+        return 'bg-amber-900/50 text-amber-300 border border-amber-700';
       default:
-        return 'bg-gray-100 text-gray-800 border border-gray-200';
+        return 'bg-slate-700/50 text-slate-300 border border-slate-600';
     }
   };
 
@@ -205,13 +217,13 @@ const ExistingAppointmentView = ({
   const getPaymentStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'paid':
-        return 'bg-green-100 text-green-800 border border-green-200';
+        return 'bg-emerald-900/50 text-emerald-300 border border-emerald-700';
       case 'unpaid':
-        return 'bg-orange-100 text-orange-800 border border-orange-200';
+        return 'bg-orange-900/50 text-orange-300 border border-orange-700';
       case 'pending':
-        return 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+        return 'bg-amber-900/50 text-amber-300 border border-amber-700';
       default:
-        return 'bg-gray-100 text-gray-800 border border-gray-200';
+        return 'bg-slate-700/50 text-slate-300 border border-slate-600';
     }
   };
 
@@ -267,155 +279,193 @@ const ExistingAppointmentView = ({
 
   // Main display for an existing appointment
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 md:space-y-8 bg-gray-50 rounded-xl shadow-lg">
+    <div className={`w-full mx-auto bg-gradient-to-b from-neutral-950 via-gray-900 to-gray-700 ${
+      isMobile 
+        ? 'p-2 space-y-2 min-h-screen max-h-screen overflow-y-auto' 
+        : 'max-w-4xl p-4 lg:p-6 space-y-4 md:space-y-6 rounded-lg shadow-2xl border border-slate-700'
+    }`}>
       
-      {/* Header Section */}
-      <div className="text-center space-y-2">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <CheckCircle className="w-7 h-7 text-green-600 animate-bounce-in" />
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight">Your Appointment Confirmed!</h1>
+      {/* Header Section with Logo - Compact for mobile */}
+      <div className="relative ">
+        {/* Tempus Logo in top-left corner */}
+        <div className="absolute top-0 left-0 z-10">
+          <div className="bg-white rounded-lg p-1 shadow-lg">
+            <img 
+              src="/tempusLogo1.png" 
+              alt="Tempus Logo" 
+              className={`${isMobile ? 'h-6 w-auto' : 'h-8 w-auto'} object-contain`}
+            />
+          </div>
         </div>
-        <p className="text-gray-600 text-sm sm:text-base max-w-md mx-auto">
-          You have an existing appointment at this hospital. All details are below.
-        </p>
+        
+        {/* Main Header Content */}
+        <div className="text-center space-y-1 pt-2">
+          <div className="flex items-center justify-center gap-1 mb-1">
+            <CheckCircle className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5 sm:w-6 sm:h-6'} text-emerald-400`} />
+            <h1 className={`${isMobile ? 'text-base' : 'text-lg sm:text-2xl lg:text-3xl'} font-bold text-white leading-tight`}>
+              {isMobile ? 'Appointment Confirmed!' : 'Your Appointment Confirmed!'}
+            </h1>
+          </div>
+          {!isMobile && (
+            <p className="text-slate-300 text-xs sm:text-sm max-w-md mx-auto">
+              You have an existing appointment at this hospital.
+            </p>
+          )}
+        </div>
       </div>
 
-      {/* Status & Payment Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      {/* Status & Payment Cards - More compact for mobile */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-4">
         {/* Appointment Status Card */}
-        <Card className="border-l-4 border-l-green-500 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-          <CardContent className="p-4 flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Appointment Status</p>
-              <Badge className={`${getStatusColor(appointmentData?.status)} capitalize mt-1 text-base font-semibold`}>
-                {appointmentData?.status || 'Unknown'}
-              </Badge>
-            </div>
-            <Calendar className="w-6 h-6 text-green-500 opacity-80" />
+        <Card className="border-l-2 border-l-emerald-500 bg-gradient-to-br from-neutral-900  to-gray-800 shadow-lg border border-neutral-800">
+          <CardContent className="p-2 sm:p-3 flex flex-col items-center text-center">
+            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 mb-1" />
+            <p className="text-xs text-slate-300">Status</p>
+            <Badge className={`${getStatusColor(appointmentData?.status)} capitalize text-xs font-medium`}>
+              {appointmentData?.status || 'Unknown'}
+            </Badge>
           </CardContent>
         </Card>
 
         {/* Payment Status Card */}
-        <Card className="border-l-4 border-l-blue-500 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
-          <CardContent className="p-4 flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Payment Status</p>
-              <Badge className={`${getPaymentStatusColor(appointmentData?.paymentStatus)} capitalize mt-1 text-base font-semibold`}>
-                {appointmentData?.paymentStatus || 'Unknown'}
-              </Badge>
-            </div>
-            <CreditCard className="w-6 h-6 text-blue-500 opacity-80" />
+        <Card className="border-l-2 border-l-blue-500 bg-gradient-to-br from-neutral-900 to-gray-800 shadow-lg border border-neutral-800">
+          <CardContent className="p-2 sm:p-3 flex flex-col items-center text-center">
+            <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-1" />
+            <p className="text-xs text-slate-300">Payment</p>
+            <Badge className={`${getPaymentStatusColor(appointmentData?.paymentStatus)} capitalize text-xs font-medium`}>
+              {appointmentData?.paymentStatus || 'Unknown'}
+            </Badge>
           </CardContent>
         </Card>
       </div>
 
-      {/* Main Appointment Details Card */}
-      <Card className="bg-white shadow-lg rounded-xl">
-        <CardHeader className="pb-4 border-b border-gray-100">
-          <CardTitle className="text-xl sm:text-2xl font-bold text-gray-800">Your Booking Information</CardTitle>
+      {/* Main Appointment Details Card - Compact mobile layout */}
+      <Card className="bg-gradient-to-br from-neutral-900 to-slate-800 shadow-xl rounded-lg border border-slate-800">
+        <CardHeader className={`${isMobile ? 'pb-1 px-3 pt-2' : 'pb-2'} border-b border-slate-600`}>
+          <CardTitle className={`${isMobile ? 'text-sm' : 'text-base sm:text-lg'} font-bold text-white`}>
+            {isMobile ? 'Details' : 'Booking Information'}
+          </CardTitle>
         </CardHeader>
-        <CardContent className="p-6 space-y-6 lg:space-y-8">
+        <CardContent className={`${isMobile ? 'p-2 space-y-2' : 'p-3 sm:p-4 space-y-3 sm:space-y-4'}`}>
           
-          {/* Date and Time */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex items-start gap-3">
-              <Calendar className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-gray-900">Date</p>
-                <p className="text-gray-600 text-sm sm:text-base">{formatDate(appointmentData?.appointmentDate)}</p>
+          {/* Date and Time - Single column on mobile */}
+          <div className={`grid ${isMobile ? 'grid-cols-2 gap-2' : 'grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3'}`}>
+            <div className="flex items-start gap-2">
+              <Calendar className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-400 mt-0.5 flex-shrink-0`} />
+              <div className="min-w-0">
+                <p className={`font-medium text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Date</p>
+                <p className={`text-slate-300 ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
+                  {formatDate(appointmentData?.appointmentDate)}
+                </p>
               </div>
             </div>
             
-            <div className="flex items-start gap-3">
-              <Clock className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-gray-900">Time</p>
-                <p className="text-gray-600 text-sm sm:text-base">
+            <div className="flex items-start gap-2">
+              <Clock className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-400 mt-0.5 flex-shrink-0`} />
+              <div className="min-w-0">
+                <p className={`font-medium text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Time</p>
+                <p className={`text-slate-300 ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
                   {formatTime(appointmentData?.startTime)} - {formatTime(appointmentData?.endTime)}
                 </p>
               </div>
             </div>
           </div>
 
-          <Separator className="bg-gray-200" />
+          <Separator className="bg-slate-700" />
 
-          {/* Patient Information */}
+          {/* Patient Information - Compact grid */}
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2 text-lg">
-              <User className="w-5 h-5 text-gray-700" />
+            <h3 className={`font-semibold text-white mb-1 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
+              <User className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-slate-300`} />
               Patient Details
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className={`grid ${isMobile ? 'grid-cols-1 gap-1' : 'grid-cols-1 sm:grid-cols-3 gap-2'}`}>
               <div>
-                <p className="text-sm text-gray-600">Name</p>
-                <p className="font-medium text-gray-900">{appointmentData?.patientName || 'N/A'}</p>
+                <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-400`}>Name</p>
+                <p className={`font-medium text-slate-200 ${isMobile ? 'text-xs truncate' : 'text-sm'}`}>
+                  {appointmentData?.patientName || 'N/A'}
+                </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Age</p>
-                <p className="font-medium text-gray-900">{appointmentData?.age ? `${appointmentData.age} years` : 'N/A'}</p>
+                <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-400`}>Age</p>
+                <p className={`font-medium text-slate-200 ${isMobile ? 'text-xs' : 'text-sm'}`}>
+                  {appointmentData?.age ? `${appointmentData.age} years` : 'N/A'}
+                </p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Mobile</p>
-                <p className="font-medium text-gray-900 flex items-center gap-1">
-                    <Phone className="w-4 h-4 text-gray-500" />
-                    {appointmentData?.mobile || 'N/A'}
+                <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-400`}>Mobile</p>
+                <p className={`font-medium text-slate-200 ${isMobile ? 'text-xs' : 'text-sm'} flex items-center gap-1`}>
+                    <Phone className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} text-slate-400`} />
+                    <span className="truncate">{appointmentData?.mobile || 'N/A'}</span>
                 </p>
               </div>
             </div>
           </div>
 
-          <Separator className="bg-gray-200" />
+          <Separator className="bg-slate-600" />
 
-          {/* Doctor Information */}
+          {/* Doctor Information - Compact layout */}
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2 text-lg">
-              <Stethoscope className="w-5 h-5 text-gray-700" />
+            <h3 className={`font-semibold text-white mb-1 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
+              <Stethoscope className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-slate-300`} />
               Doctor Information
             </h3>
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
+            <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
               {appointmentData?.doctor?.photo && (
                 <img
                   src={appointmentData.doctor.photo}
                   alt={`Dr. ${appointmentData?.doctor?.name || 'Doctor'}`}
-                  className="w-20 h-20 rounded-full object-cover border-2 border-blue-200 shadow-md flex-shrink-0"
+                  className={`${isMobile ? 'w-8 h-8' : 'w-12 h-12 sm:w-16 sm:h-16'} rounded-full object-cover border-2 border-blue-400 shadow-lg flex-shrink-0`}
                 />
               )}
-              <div className="flex-1 text-center sm:text-left">
-                <p className="font-bold text-xl text-gray-900">Dr. {appointmentData?.doctor?.name || 'N/A'}</p>
-                <p className="text-blue-600 capitalize text-base mt-1">{appointmentData?.doctor?.specialization || 'N/A'}</p>
-                <p className="text-sm text-gray-600 mt-0.5">{appointmentData?.doctor?.qualification || 'N/A'}</p>
-                <p className="text-sm text-gray-600">
-                  {appointmentData?.doctor?.experience ? `${appointmentData.doctor.experience} years experience` : 'N/A'}
+              <div className="flex-1 min-w-0">
+                <p className={`font-bold ${isMobile ? 'text-xs' : 'text-sm sm:text-base'} text-white truncate`}>
+                  Dr. {appointmentData?.doctor?.name || 'N/A'}
                 </p>
+                <p className={`text-blue-400 capitalize ${isMobile ? 'text-xs' : 'text-xs sm:text-sm'} truncate`}>
+                  {appointmentData?.doctor?.specialization || 'N/A'}
+                </p>
+                {!isMobile && (
+                  <>
+                    <p className="text-xs text-slate-300 truncate">{appointmentData?.doctor?.qualification || 'N/A'}</p>
+                    <p className="text-xs text-slate-300">
+                      {appointmentData?.doctor?.experience ? `${appointmentData.doctor.experience} years exp` : 'N/A'}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
 
-          <Separator className="bg-gray-200" />
+          <Separator className="bg-slate-600" />
 
-          {/* Hospital Information */}
+          {/* Hospital Information - Compact */}
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2 text-lg">
-              <Building2 className="w-5 h-5 text-gray-700" />
+            <h3 className={`font-semibold text-white mb-1 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
+              <Building2 className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-slate-300`} />
               Hospital Details
             </h3>
-            <div className="space-y-2">
-              <p className="font-medium text-lg text-gray-900">{appointmentData?.hospital?.name || 'N/A'}</p>
+            <div className="space-y-1">
+              <p className={`font-medium ${isMobile ? 'text-xs' : 'text-sm sm:text-base'} text-white truncate`}>
+                {appointmentData?.hospital?.name || 'N/A'}
+              </p>
               {appointmentData?.hospital?.address && (
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm text-gray-600">
-                    <p>{appointmentData.hospital.address.street || 'N/A'}</p>
-                    <p>
+                <div className="flex items-start gap-1">
+                  <MapPin className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} text-slate-400 mt-0.5 flex-shrink-0`} />
+                  <div className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-300 min-w-0`}>
+                    <p className="truncate">{appointmentData.hospital.address.street || 'N/A'}</p>
+                    <p className="truncate">
                       {appointmentData.hospital.address.city || 'N/A'}, {appointmentData.hospital.address.state || 'N/A'} {appointmentData.hospital.address.pincode || ''}
                     </p>
                   </div>
                 </div>
               )}
               {appointmentData?.hospital?.contactInfo?.phone && (
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-gray-500" />
-                  <p className="text-sm text-gray-600">{appointmentData.hospital.contactInfo.phone}</p>
+                <div className="flex items-center gap-1">
+                  <Phone className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} text-slate-400`} />
+                  <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-300 truncate`}>
+                    {appointmentData.hospital.contactInfo.phone}
+                  </p>
                 </div>
               )}
             </div>
@@ -423,76 +473,87 @@ const ExistingAppointmentView = ({
         </CardContent>
       </Card>
 
-      {/* Action Buttons Section */}
-      <div className="space-y-4">
-        {/* Tracking Link Card */}
-        <Card className="bg-blue-50 border border-blue-200 shadow-md">
-          <CardContent className="p-4">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* Action Buttons Section - Compact mobile layout */}
+      <div className={`${isMobile ? 'space-y-1' : 'space-y-2'}`}>
+        {/* Tracking Link Card - Compact */}
+        <Card className="bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-700 shadow-lg backdrop-blur-sm">
+          <CardContent className={`${isMobile ? 'p-2' : 'p-3'}`}>
+            <div className="flex flex-col gap-2">
               <div className="flex-1">
-                <h4 className="font-semibold text-blue-900 text-lg mb-1">Track Your Appointment</h4>
-                <p className="text-sm text-blue-700">
-                  Stay updated on your appointment status and queue.
-                </p>
+                <h4 className={`font-semibold text-blue-200 ${isMobile ? 'text-xs mb-0' : 'text-sm mb-1'}`}>
+                  {isMobile ? 'Track Appointment' : 'Track Your Appointment'}
+                </h4>
+                {!isMobile && (
+                  <p className="text-xs text-blue-300">
+                    Stay updated on your appointment status.
+                  </p>
+                )}
               </div>
-              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <div className="flex gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleTrackAppointment}
-                  className="flex-1 sm:flex-auto border-blue-300 text-blue-700 hover:bg-blue-100 transition-colors duration-200"
+                  className={`flex-1 border-blue-500 bg-blue-900/30 text-blue-200 hover:bg-blue-800/50 hover:text-blue-100 ${
+                    isMobile ? 'text-xs px-2 py-1 h-7' : 'text-xs px-2 py-1 h-8'
+                  }`}
                 >
-                  <Eye className="w-4 h-4 mr-2" />
-                  View Tracking
+                  <Eye className={`${isMobile ? 'w-3 h-3 mr-1' : 'w-3 h-3 mr-1'}`} />
+                  Track
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleShareTrackingLink}
-                  className="flex-1 sm:flex-auto border-blue-300 text-blue-700 hover:bg-blue-100 transition-colors duration-200"
+                  className={`flex-1 border-blue-500 bg-blue-900/30 text-blue-200 hover:bg-blue-800/50 hover:text-blue-100 ${
+                    isMobile ? 'text-xs px-2 py-1 h-7' : 'text-xs px-2 py-1 h-8'
+                  }`}
                 >
-                  <Share2 className="w-4 h-4 mr-2" />
-                  Share Link
+                  <Share2 className={`${isMobile ? 'w-3 h-3 mr-1' : 'w-3 h-3 mr-1'}`} />
+                  Share
                 </Button>
               </div>
             </div>
             {copySuccess && (
-              <p className="text-sm text-green-600 font-medium mt-2 text-center sm:text-left">{copySuccess}</p>
+              <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-emerald-300 font-medium mt-1 text-center`}>
+                {copySuccess}
+              </p>
             )}
           </CardContent>
         </Card>
 
-        {/* Cancellation Button */}
-        <div className="flex justify-center"> {/* Center the button for better mobile UX */}
+        {/* Cancellation Button - Compact */}
+        <div className="flex justify-center">
           <Button
-            variant="destructive" // Custom variant for destructive action
+            variant="destructive"
             onClick={() => setShowCancelDialog(true)}
-            className="w-full sm:w-auto px-8 py-3 text-lg font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
-            disabled={appointmentData?.status === 'cancelled' || isCancelling} // Disable if already cancelled or cancelling
+            className={`w-full sm:w-auto px-4 py-2 font-medium rounded-lg shadow-lg transition-all duration-200 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 border border-red-500 ${
+              isMobile ? 'text-xs h-8' : 'text-sm h-9'
+            }`}
+            disabled={appointmentData?.status === 'cancelled' || isCancelling}
           >
             {isCancelling ? (
                 <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className={`animate-spin -ml-1 mr-2 ${isMobile ? 'h-3 w-3' : 'h-4 w-4'} text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Cancelling...
+                    {isMobile ? 'Cancelling...' : 'Cancelling...'}
                 </>
             ) : (
                 <>
-                    <X className="w-5 h-5 mr-2" />
-                    Cancel Appointment
+                    <X className={`${isMobile ? 'w-3 h-3 mr-1' : 'w-4 h-4 mr-1'}`} />
+                    {isMobile ? 'Cancel' : 'Cancel Appointment'}
                 </>
             )}
           </Button>
         </div>
 
-
-        {/* Error Display */}
+        {/* Error Display - Compact */}
         {cancelError && (
-          <div className="p-4 bg-red-50 border border-red-300 rounded-lg flex items-start gap-3 shadow-sm">
-            <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-            <p className="text-red-700 text-sm font-medium">{cancelError}</p>
+          <div className={`${isMobile ? 'p-1' : 'p-2'} bg-red-900/50 border border-red-700 rounded-lg flex items-start gap-2 shadow-lg backdrop-blur-sm`}>
+            <AlertTriangle className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-red-400 flex-shrink-0 mt-0.5`} />
+            <p className={`text-red-300 ${isMobile ? 'text-xs' : 'text-xs'} font-medium`}>{cancelError}</p>
           </div>
         )}
       </div>
@@ -514,165 +575,3 @@ const ExistingAppointmentView = ({
 };
 
 export default ExistingAppointmentView;
-
-// Example of how you might define custom styles or use shadcn/ui components if not already generated.
-// This is illustrative, your shadcn/ui setup will usually handle this.
-
-/*
-// In components/ui/card.jsx (simplified example)
-import * as React from "react";
-import { cn } from "@/lib/utils"; // Your utility for combining class names
-
-const Card = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
-    )}
-    {...props}
-  />
-));
-Card.displayName = "Card";
-
-const CardHeader = React.forwardRef(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-));
-CardHeader.displayName = "CardHeader";
-
-const CardTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-));
-CardTitle.displayName = "CardTitle";
-
-const CardContent = React.forwardRef(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-));
-CardContent.displayName = "CardContent";
-
-// In components/ui/button.jsx (simplified example)
-import { Slot } from "@radix-ui/react-slot";
-import { cva } from "class-variance-authority";
-
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-red-500 text-white hover:bg-red-600", // Custom destructive variant
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-);
-
-const Button = React.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : "button";
-  return (
-    <Comp
-      className={cn(buttonVariants({ variant, size, className }))}
-      ref={ref}
-      {...props}
-    />
-  );
-});
-Button.displayName = "Button";
-
-// In components/ui/badge.jsx (simplified example)
-const Badge = ({ className, variant, ...props }) => {
-  return (
-    <div
-      className={cn(
-        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-        variant === "default" && "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
-        className
-      )}
-      {...props}
-    />
-  );
-};
-
-// In components/ui/separator.jsx (simplified example)
-import * as SeparatorPrimitive from "@radix-ui/react-separator";
-
-const Separator = React.forwardRef(
-  (
-    { className, orientation = "horizontal", decorative = true, ...props },
-    ref
-  ) => (
-    <SeparatorPrimitive.Root
-      ref={ref}
-      decorative={decorative}
-      orientation={orientation}
-      className={cn(
-        "shrink-0 bg-border",
-        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-Separator.displayName = SeparatorPrimitive.Root.displayName;
-
-// In components/ui/confirmation-dialog.jsx (simplified example)
-// This would be a more complex component using shadcn/ui's Dialog or AlertDialog
-const ConfirmationDialog = ({ isOpen, onClose, onConfirm, title, message, confirmText, cancelText, type, isLoading }) => {
-    if (!isOpen) return null;
-    return (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
-                <h3 className="text-xl font-bold mb-3">{title}</h3>
-                <p className="text-gray-600 mb-6">{message}</p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button variant="outline" onClick={onClose} disabled={isLoading} className="flex-1">
-                        {cancelText}
-                    </Button>
-                    <Button 
-                        variant={type === 'destructive' ? 'destructive' : 'default'} 
-                        onClick={onConfirm} 
-                        disabled={isLoading} 
-                        className="flex-1"
-                    >
-                        {isLoading ? (
-                            <svg className="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        ) : null}
-                        {confirmText}
-                    </Button>
-                </div>
-            </div>
-        </div>
-    );
-};
-*/
