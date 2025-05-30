@@ -50,7 +50,7 @@ export default function Home() {
             <CardHeader className="text-center pb-4">
               <CardTitle className="text-2xl text-white">Get Started</CardTitle>
               <CardDescription className="text-lg text-gray-300">
-                Access your hospital's appointment portal using your unique hospital subdomain.
+                Access your hospital&apos;s appointment portal using your unique hospital subdomain.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
