@@ -1,7 +1,31 @@
 import { ServerConnectionError } from './errors';
-const API_TIMEOUT = 10000; // 10 seconds timeout
-const BASE_URL =  process.env.NEXT_PUBLIC_API_URL ;
+import CryptoJS from 'crypto-js';
 
+const API_TIMEOUT = 10000; // 10 seconds timeout
+const BASE_URL =  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const SECRET = process.env.NEXT_PUBLIC_API_SECRET || process.env.API_SECRET;
+
+
+export function generateSignature(timestampMs, secret) {
+  // payload = JSON(body) + timestampMs
+  return CryptoJS.HmacSHA256(timestampMs,secret).toString();
+}
+
+/**
+ * Generate authenticated headers for API requests
+ * @returns {Object} Headers object with authentication
+ */
+export function getHeaders() {
+  
+  const timestampMs = Date.now().toString(); // UTC ms, no timezone
+  const signature = generateSignature(timestampMs, SECRET);
+  
+  return {
+    'Content-Type': 'application/json',
+    'x-timestamp': timestampMs,
+    'x-signature': signature,
+  };
+}
 
 /**
  * Common error handler for API responses
@@ -155,9 +179,7 @@ export async function createAppointment(appointmentData) {
   try {
     const response = await fetchWithTimeout(`${BASE_URL}/appointments`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: getHeaders(),
       body: JSON.stringify(appointmentData),
       cache: 'no-store'
     });
@@ -182,9 +204,7 @@ export async function getDetails(subdomain) {
   try {
     const response = await fetchWithTimeout(`${BASE_URL}/appointments/details/${subdomain}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: getHeaders(),
       cache: 'no-store'
     });
 
@@ -201,8 +221,6 @@ export async function getDetails(subdomain) {
   }
 }
 
-
-
 /**
  * cancel a  appointment 
  */
@@ -210,9 +228,7 @@ export async function cancelAppointment(id) {
   try {
     const response = await fetchWithTimeout(`${BASE_URL}/appointments/${id}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: getHeaders(),
       cache: 'no-store'
     });
 
