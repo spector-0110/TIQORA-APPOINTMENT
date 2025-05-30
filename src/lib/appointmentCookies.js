@@ -43,8 +43,6 @@ function deleteCookie(name) {
  */
 export function storeAppointmentInCookie(hospitalSlug, appointmentData) {
   try {
-    console.log('Storing appointment data in cookie for hospital:', hospitalSlug);
-    console.log('Backend response data:', appointmentData);
     
     // Calculate expiration time (24 hours from now as fallback)
     // Store the complete backend response without any manipulation
@@ -65,7 +63,6 @@ export function storeAppointmentInCookie(hospitalSlug, appointmentData) {
     // Update the list of stored appointments across all hospitals
     updateAppointmentCookieList(hospitalSlug, appointmentData.appointmentId || appointmentData.id, expirationTime.getTime());
 
-    console.log(`Appointment data stored in cookie for ${hospitalSlug}, expires at: ${expirationTime}`);
     return true;
   } catch (error) {
     console.error('Error storing appointment data in cookie:', error);
@@ -93,12 +90,10 @@ export function getAppointmentFromCookie(hospitalSlug) {
     
     // Check if data has expired
     if (Date.now() > cookieData.expiresAt) {
-      console.log(`Appointment cookie expired for hospital: ${hospitalSlug}`);
       removeAppointmentFromCookie(hospitalSlug);
       return null;
     }
 
-    console.log(`Found valid appointment data in cookie for hospital: ${hospitalSlug}`);
     return cookieData.data;
   } catch (error) {
     console.error('Error retrieving appointment data from cookie:', error);
@@ -121,7 +116,6 @@ export function removeAppointmentFromCookie(hospitalSlug) {
     // Update the appointment list
     removeFromAppointmentCookieList(hospitalSlug);
     
-    console.log(`Appointment cookie removed for hospital: ${hospitalSlug}`);
     return true;
   } catch (error) {
     console.error('Error removing appointment cookie:', error);
@@ -202,7 +196,6 @@ export function cleanupExpiredAppointmentCookies() {
         // Remove expired appointment cookie
         const cookieName = `${COOKIE_PREFIX}${item.hospitalSlug}`;
         deleteCookie(cookieName);
-        console.log(`Cleaned up expired appointment cookie: ${item.hospitalSlug}`);
       } else {
         validAppointments.push(item);
       }
@@ -216,7 +209,6 @@ export function cleanupExpiredAppointmentCookies() {
       deleteCookie(COOKIE_LIST);
     }
     
-    console.log(`Cleanup complete. ${appointmentList.length - validAppointments.length} expired appointment cookies removed.`);
   } catch (error) {
     console.error('Error during cookie cleanup:', error);
   }

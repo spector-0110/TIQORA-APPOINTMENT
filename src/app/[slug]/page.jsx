@@ -40,8 +40,6 @@ export default function SlugPage({ params }) {
     try {
       setIsLoading(true);
       const appointment = getAppointmentFromCookie(slug);
-      console.log('Checking for existing appointment for hospital:', slug);
-      console.log('Found appointment:', appointment);
       
       if (appointment) {
         setExistingAppointment(appointment);
@@ -58,7 +56,6 @@ export default function SlugPage({ params }) {
   const handleAppointmentCreated = (appointmentDetails) => {
     // Prevent double execution in development mode
     if (successHandledRef.current) {
-      console.log('Success handler already called, ignoring duplicate call');
       return;
     }
     
@@ -69,7 +66,6 @@ export default function SlugPage({ params }) {
     
     if (stored) {
       setExistingAppointment(appointmentDetails);
-      console.log('Appointment created and stored:', appointmentDetails.data);
 
       setShowCreateNew(false); // Reset to show existing appointment view
     } else {
@@ -97,8 +93,6 @@ export default function SlugPage({ params }) {
   };
 
   const handleAppointmentCancelled = (appointmentId) => {
-    console.log('Appointment cancelled:', appointmentId);
-
     
     // Remove from cookie
     removeAppointmentFromCookie(slug);
