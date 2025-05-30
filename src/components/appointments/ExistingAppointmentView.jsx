@@ -164,18 +164,21 @@ const ExistingAppointmentView = ({
     }
   };
 
-  // Formats time into a readable string (e.g., "10:30 AM")
+  // Extracts and formats time from ISO string (e.g., "09:00")
   const formatTime = (timeString) => {
     if (!timeString) return 'N/A';
 
     try {
-      // Parse the ISO date string and extract time
-      const date = new Date(timeString);
-      return date.toLocaleTimeString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      });
+      // Extract time portion from ISO string "1970-01-01T09:00:00.000Z"
+      const timePart = timeString.split('T')[1]; // Get "09:00:00.000Z"
+      const timeOnly = timePart.split('.')[0]; // Get "09:00:00"
+      const [hours, minutes] = timeOnly.split(':'); // Get ["09", "00"]
+      
+      // Convert to 12-hour format
+      const hour = parseInt(hours);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+      return `${displayHour.toString().padStart(2, '0')}:${minutes} ${ampm}`;
     } catch (error) {
       console.error('Error formatting time:', error, 'Input:', timeString);
       return 'Invalid Time';

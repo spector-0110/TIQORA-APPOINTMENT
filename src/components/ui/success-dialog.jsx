@@ -30,33 +30,37 @@ const SuccessDialog = ({
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
-            <CheckCircle className="h-5 w-5" />
-            <DialogTitle>{title}</DialogTitle>
+      <DialogContent className="w-[95vw] max-w-md mx-4 sm:mx-auto sm:max-w-lg md:max-w-md rounded-lg">
+        <DialogHeader className="pb-2 sm:pb-4">
+          <div className="flex items-center gap-2 sm:gap-3 text-green-600 dark:text-green-400">
+            <CheckCircle className="h-6 w-6 sm:h-5 sm:w-5 flex-shrink-0" />
+            <DialogTitle className="text-lg sm:text-xl font-semibold text-left">{title}</DialogTitle>
           </div>
         </DialogHeader>
         
-        <div className="py-3">
-          <p className="text-sm text-gray-700 dark:text-gray-300">{message}</p>
+        <div className="py-2 sm:py-3 space-y-3 sm:space-y-4">
+          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+            {message}
+          </p>
           
           {details && details.length > 0 && (
-            <div className="mt-3 max-h-60 overflow-auto border rounded-md p-3 bg-gray-50 dark:bg-gray-900">
-              <ul className="list-disc pl-5 text-sm space-y-2">
+            <div className="mt-3 sm:mt-4 max-h-48 sm:max-h-60 overflow-auto border rounded-md p-3 sm:p-4 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700">
+              <ul className="list-disc pl-4 sm:pl-5 text-xs sm:text-sm space-y-1 sm:space-y-2">
                 {details.map((detail, index) => (
-                  <li key={index} className="text-gray-700 dark:text-gray-300">{detail}</li>
+                  <li key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {detail}
+                  </li>
                 ))}
               </ul>
             </div>
           )}
         </div>
         
-        <DialogFooter>
+        <DialogFooter className="pt-2 sm:pt-4 flex-col sm:flex-row gap-2 sm:gap-0">
           <Button 
             onClick={onClose} 
             variant="default"
-            className="bg-green-600 hover:bg-green-700"
+            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-white font-medium py-2.5 sm:py-2 px-6 rounded-md transition-colors duration-200 min-h-[44px] sm:min-h-[36px]"
           >
             Close
           </Button>

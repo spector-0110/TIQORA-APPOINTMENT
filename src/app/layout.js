@@ -15,8 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Appointment",
-  description: "App to create and track appointments",
+  title: "TEMPUS",
 };
 
 export default function RootLayout({ children }) {
