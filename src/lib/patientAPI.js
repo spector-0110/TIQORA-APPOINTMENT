@@ -1,6 +1,6 @@
 import { ServerConnectionError } from './errors';
-const API_TIMEOUT = 8000; // 5 seconds timeout
-const BASE_URL =  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_TIMEOUT = 10000; // 10 seconds timeout
+const BASE_URL =  process.env.NEXT_PUBLIC_API_URL ;
 
 
 /**
