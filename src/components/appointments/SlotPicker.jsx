@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Calendar, Clock, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
+import { DateTime } from 'luxon';
+
 
 /**
  * Time Slot Picker Component
@@ -28,18 +30,35 @@ const SlotPicker = ({
   }, [availableSlots]);
 
   const groupSlotsByDate = () => {
+    // Get current IST time
+    const now = new Date();
+    
+    const nowInIST = DateTime.now().setZone('Asia/Kolkata');
+
     const grouped = availableSlots.reduce((acc, slot) => {
-      const date = slot.date;
-      if (!acc[date]) {
-        acc[date] = [];
+      // Create a DateTime in IST
+      const slotDateTime = DateTime.fromISO(`${slot.date}T${slot.start}`, { zone: 'Asia/Kolkata' });
+
+      console.log(`Slot: ${slot.date} ${slot.start}, Slot DateTime: ${slotDateTime.toISO()}, Now IST: ${nowInIST.toISO()}, Future: ${slotDateTime > nowInIST}`);
+
+      if (slotDateTime > nowInIST) {
+        const date = slot.date;
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(slot);
       }
-      acc[date].push(slot);
+
       return acc;
     }, {});
 
     // Sort slots by time for each date
     Object.keys(grouped).forEach(date => {
-      grouped[date].sort((a, b) => a.time.localeCompare(b.time));
+      grouped[date].sort((a, b) => {
+        const timeA = a.start || a.time;
+        const timeB = b.start || b.time;
+        return timeA.localeCompare(timeB);
+      });
     });
 
     setGroupedSlots(grouped);
@@ -236,7 +255,7 @@ const SlotPicker = ({
             <div className="space-y-6">
               {['Morning', 'Afternoon', 'Evening'].map((period) => {
                 const periodSlots = groupedSlots[selectedDate].filter(slot => 
-                  getTimeOfDay(slot.time) === period
+                  getTimeOfDay(slot.start || slot.time) === period
                 );
                 
                 if (periodSlots.length === 0) return null;
@@ -269,13 +288,13 @@ const SlotPicker = ({
                         >
                           <div className="text-center">
                             <div className={`font-medium ${isSelected ? 'text-white' : 'text-gray-50'}`}>
-                              {slot.timeDisplay ? slot.start : formatTime(slot.time)}
+                              {slot.start ? slot.start : formatTime(slot.time)}
                             </div>
-                            {slot.timeDisplay && (
-                              <div className={`text-[10px] opacity-75 mt-1 ${isSelected ? 'text-white' : 'text-gray-50'}`}>
-                                {slot.end}
-                              </div>
-                            )}
+                          
+                            <div className={`text-[10px] opacity-75 mt-1 ${isSelected ? 'text-white' : 'text-gray-50'}`}>
+                              {slot.end}
+                            </div>
+                            
                             {!slot.available && (
                               <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-800 rounded">
                                 <span className="text-[8px] text-white font-medium">Booked</span>
