@@ -445,7 +445,16 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
           )}
         </div>
 
+        
+
         <div className="flex gap-3">
+          {/* <Button
+            variant="outline"
+            onClick={onCancel}
+            disabled={isLoading || isSubmitting}
+          >
+            Cancel
+          </Button> */}
           
           {currentStep < 4 ? (
             <Button

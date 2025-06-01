@@ -39,8 +39,6 @@ const SlotPicker = ({
       // Create a DateTime in IST
       const slotDateTime = DateTime.fromISO(`${slot.date}T${slot.start}`, { zone: 'Asia/Kolkata' });
 
-      console.log(`Slot: ${slot.date} ${slot.start}, Slot DateTime: ${slotDateTime.toISO()}, Now IST: ${nowInIST.toISO()}, Future: ${slotDateTime > nowInIST}`);
-
       if (slotDateTime > nowInIST) {
         const date = slot.date;
         if (!acc[date]) {
