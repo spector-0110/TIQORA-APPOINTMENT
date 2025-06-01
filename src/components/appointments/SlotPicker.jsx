@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Calendar, Clock, ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
+import { Calendar, Clock, RefreshCw } from 'lucide-react';
 import { DateTime } from 'luxon';
 
 
@@ -55,8 +55,8 @@ const SlotPicker = ({
     // Sort slots by time for each date
     Object.keys(grouped).forEach(date => {
       grouped[date].sort((a, b) => {
-        const timeA = a.start || a.time;
-        const timeB = b.start || b.time;
+        const timeA = a.start ;
+        const timeB = b.start ;
         return timeA.localeCompare(timeB);
       });
     });
