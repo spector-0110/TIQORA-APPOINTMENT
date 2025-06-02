@@ -1,52 +1,115 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
 import ContactUs from "@/components/ContactUs";
+import {checkServerStatus} from "@/lib/patientAPI";
+import { useEffect ,useState} from "react";
+import { NavbarDemo } from "@/components/Navbar";
 
-export default function Home() {
+export default function Home(){
+  const [isServerActive, setServerActive] = useState(false);
+
+  const serverStatus = async() => {
+    try {
+      const active = await checkServerStatus();
+      setServerActive(active.message === "Hello from Express!");
+      if (!active.message) {
+        setServerActive(false);
+      }
+    } catch (error) {
+      // Silently handle error and keep system as inactive
+      setServerActive(false);
+    }
+  }
+
+  useEffect(() => {
+    serverStatus();
+  }
+  , []);
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-700 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-gray-700 bg-gray-900/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-
-              <h1 className="text-xl font-semibold text-white">Tempus</h1>
-            </div>
-            <Badge variant="secondary" className="bg-green-900/50 text-green-300 border-green-700">
-              System Active
-            </Badge>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-900/50 text-blue-300 rounded-full text-sm font-medium mb-6 border border-blue-800">
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              Multi-tenant Appointment System
-            </div>
-            
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Healthcare
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400"> Scheduling</span>
-              <br />Made Simple
-            </h1>
-            
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Streamline your healthcare operations with our intuitive appointment management system. 
-              Each hospital gets their own dedicated portal for seamless patient scheduling.
-            </p>
-          </div>
-
-          {/* Instructions Card */}
-          <Card className="mb-12 shadow-xl bg-gray-800/60 backdrop-blur-sm border border-gray-700">
+    <>
+    <div
+      className="relative mx-auto  flex max-w-8xl flex-col items-center justify-center bg-gradient-to-b from-neutral-950 via-gray-700 to-neutral-900">
+      {/* <Navbar isServerActive={isServerActive} /> */}
+      <NavbarDemo/>
+      <div className="px-4 py-20 md:py-20">
+        <h1
+          className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-neutral-900">
+          {"Healthcare Scheduling Made Simple"
+            .split(" ")
+            .map((word, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.1,
+                  ease: "easeInOut",
+                }}
+                className="mr-2 inline-block">
+                {word}
+              </motion.span>
+            ))}
+        </h1>
+        <motion.p
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            duration: 0.5,
+            delay: 1,
+          }}
+          className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-100">
+          Streamline your healthcare operations with our intuitive appointment management system. Each hospital gets their own dedicated portal for seamless patient scheduling.
+        </motion.p>
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+           transition={{
+            duration: 0.5,
+            delay: 1.6,
+          }}
+          className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="https://hospital.tempus.vatsa.works/"
+            target="_blank"
+            className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+            Explore Now
+          </a>
+          <button
+          onClick={() => document.getElementById('contact-us').scrollIntoView({ behavior: 'smooth' })}
+            className="w-60 transform rounded-lg border border-gray-300 bg-gray-200 px-6 py-2 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-gray-700 dark:bg-black dark:text-white dark:hover:bg-gray-900">
+              
+            Contact Support
+          </button>
+        </motion.div>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.7,
+            delay: 2.2,
+          }}
+          className="relative z-10 mt-20 rounded-3xl  ">
+           {/* Instructions Card */}
+          <Card id="get-started" className="mb-12 shadow-xl bg-neutral-80/60 backdrop-blur-2xl border border-gray-700">
             <CardHeader className="text-center pb-4">
               <CardTitle className="text-2xl text-white">Get Started</CardTitle>
               <CardDescription className="text-lg text-gray-300">
@@ -100,14 +163,66 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+        </motion.div>
 
-          {/* Footer */}
-          
+      </div>
+    </div>
+    {/* Decorative boundary */}
+    {/* <div className="relative">
+      <div className="absolute inset-0 h-1/2 bg-gradient-to-t from-gray-900 to-transparent"></div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="py-16">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+            </div>
+          </div>
         </div>
-      </main>
-
-      {/* Contact Us Section */}
+      </div>
+    </div> */}
+    <div id="contact-us"  className="py-16 bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <ContactUs />
     </div>
+    </>
   );
 }
+
+const Navbar = ({isServerActive}) => {
+  return (
+    <header
+      className="flex w-full items-center justify-between border-t border-b border-neutral-500 px-4 py-4 dark:border-neutral-800">
+      <div className="flex items-center gap-5">
+          <img
+                style={{ backgroundColor: 'white' }}
+                src="/tempusLogo1.png"
+                alt="Tempus Logo"
+                className="h-8 w-8 mr-2 rounded *:hover:opacity-40 transition-opacity duration-500 mx-3 md:mx-5"
+              />
+        <h1 className="text-base font-bold md:text-2xl">Tempus</h1>
+      </div>
+      <div className="flex items-center gap-4">
+        {/* <button
+          onClick={() => document.getElementById('get-started').scrollIntoView({ behavior: 'smooth' })}
+          className="hidden md:block transform rounded-lg border border-gray-300 bg-white px-4 py-1.5 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-gray-700 dark:bg-black dark:text-white dark:hover:bg-gray-900"
+        >
+          Get Started
+        </button>
+        <button
+          onClick={() => document.getElementById('contact-us').scrollIntoView({ behavior: 'smooth' })}
+          className="hidden md:block transform rounded-lg bg-black px-4 py-1.5 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+        >
+          Contact Us
+        </button> */}
+        <Badge 
+          variant="secondary" 
+          className={`${
+            isServerActive 
+              ? "bg-green-00/80 text-green-500 border-green-700"
+              : "bg-red-900/50 text-red-300 border-red-700"
+          }`}
+        >
+          {isServerActive ? "System Active" : "System Inactive"}
+        </Badge>
+      </div>
+    </header>
+  );
+};

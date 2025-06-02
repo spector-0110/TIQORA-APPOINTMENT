@@ -126,6 +126,7 @@ export async function checkServerStatus() {
   }
 }
 
+
 /**
  * Track appointment using public token (no authentication required)
  */
