@@ -7,6 +7,8 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
+import Link from "next/link";
+
 
 import React, { useRef, useState } from "react";
 
@@ -83,6 +85,17 @@ export const NavItems = ({
 }) => {
   const [hovered, setHovered] = useState(null);
 
+  const handleScroll = (e, link) => {
+    if (link.startsWith("#")) {
+      e.preventDefault();
+      const el = document.querySelector(link);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+      if (onItemClick) onItemClick();
+    }
+  };
+
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
@@ -91,19 +104,27 @@ export const NavItems = ({
         className
       )}>
       {items.map((item, idx) => (
-        <a
+        <button
+          key={`nav-button-${idx}`}
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-200 dark:text-neutral-300"
-          key={`link-${idx}`}
-          href={item.link}>
+          onClick={(e) => {
+            e.preventDefault();
+            if (item.onClick) {
+              item.onClick();
+            } else {
+              handleScroll(e, item.link);
+            }
+          }}
+          className="relative px-4 py-2 text-neutral-200 hover:text-neutral-100 transition-colors duration-300"
+        >
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-gray-800" />
+              className="absolute inset-0 h-full w-full rounded-full bg-gray-800"
+            />
           )}
           <span className="relative z-20">{item.name}</span>
-        </a>
+        </button>
       ))}
     </motion.div>
   );

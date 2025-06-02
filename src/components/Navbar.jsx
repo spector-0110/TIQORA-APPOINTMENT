@@ -17,15 +17,22 @@ export function NavbarDemo() {
     {
       name: "Pricing",
       link: "#pricing",
-      onClick: () => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }),
     },
     {
       name: "Contact",
       link: "#contact-us",
-      onClick: () => document.getElementById('contact-us')?.scrollIntoView({ behavior: 'smooth' }),
-      
     },
   ];
+  const handleScroll = (e, link) => {
+    if (link.startsWith("#")) {
+      e.preventDefault();
+      const el = document.querySelector(link);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -52,17 +59,31 @@ export function NavbarDemo() {
 
           <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
             {navItems.map((item, idx) => (
-              <a
-                key={`mobile-link-${idx}`}
-                href={item.link}
+              // <a
+              //   key={`mobile-link-${idx}`}
+              //   href={item.link}
+              //   onClick={(e) => {
+              //     e.preventDefault();
+              //     setIsMobileMenuOpen(false);
+              //     item.onClick?.();
+              //   }}
+              //   className="relative text-neutral-300">
+              //   <span className="block">{item.name}</span>
+              // </a>
+              <button
+                key={`nav-button-${idx}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  setIsMobileMenuOpen(false);
-                  item.onClick?.();
+                  if (item.onClick) {
+                    item.onClick();
+                  } else {
+                    handleScroll(e, item.link);
+                  }
                 }}
-                className="relative text-neutral-300">
-                <span className="block">{item.name}</span>
-              </a>
+                className="relative px-4 py-2 text-neutral-200 hover:text-neutral-100 transition-colors duration-300"
+              >
+                <span className="relative z-20">{item.name}</span>
+              </button>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
