@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getDetails } from '../lib/patientAPI';
+import { getAppointmentFromCookie } from '@/lib/appointmentCookies';
 
 const DetailsContext = createContext();
 
@@ -29,8 +30,22 @@ export default function DetailsProvider({ children, subdomain }) {
     setError(null);
 
     try {
-      const detailsData = await getDetails(subdomainParam);
-      setDetails(detailsData);
+      // First check if we have valid appointment data in cookies
+      const appointmentFromCookie = getAppointmentFromCookie(subdomainParam);
+      if (appointmentFromCookie) {
+        // If we have cookie data, use it and avoid API call
+        setDetails({
+          data: {
+            hospital: appointmentFromCookie.hospital,
+            doctors: appointmentFromCookie.availableDoctors || [],
+            appointment: appointmentFromCookie
+          }
+        });
+      } else {
+        // If no cookie data, fetch from API
+        const detailsData = await getDetails(subdomainParam);
+        setDetails(detailsData);
+      }
       setRetryCount(0); // Reset retry count on success
     } catch (err) {
       console.error('Error fetching details:', err);
