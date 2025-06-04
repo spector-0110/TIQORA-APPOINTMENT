@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 
-export function NavbarDemo() {
+export function NavbarMain() {
   const navItems = [
     {
       name: "Pricing",

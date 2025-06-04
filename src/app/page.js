@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import ContactUs from "@/components/ContactUs";
 import {checkServerStatus} from "@/lib/patientAPI";
 import { useEffect ,useState} from "react";
-import { NavbarDemo } from "@/components/Navbar";
+import { NavbarMain } from "@/components/Navbar";
+import Pricing from "@/components/pricing";
 
 export default function Home(){
   const [isServerActive, setServerActive] = useState(false);
@@ -34,7 +35,7 @@ export default function Home(){
     <div
       className="relative mx-auto  flex max-w-8xl flex-col items-center justify-center bg-gradient-to-b from-neutral-950 via-gray-700 to-neutral-900">
       {/* <Navbar isServerActive={isServerActive} /> */}
-      <NavbarDemo/>
+      <NavbarMain/>
       <div className="px-4 py-20 md:py-20">
         <h1
           className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-slate-200 md:text-4xl lg:text-7xl dark:text-neutral-900">
@@ -167,18 +168,9 @@ export default function Home(){
 
       </div>
     </div>
-    {/* Decorative boundary */}
-    {/* <div className="relative">
-      <div className="absolute inset-0 h-1/2 bg-gradient-to-t from-gray-900 to-transparent"></div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="py-16">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
+    <div id="pricing"  className="py-16 bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
+      <Pricing />
+    </div>
     <div id="contact-us"  className="py-16 bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <ContactUs />
     </div>

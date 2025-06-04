@@ -50,7 +50,7 @@ export default function ContactUs() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400"> Network</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Ready to modernize your healthcare facility? Join hundreds of hospitals already using Tempus for seamless appointment management.
+              Upgrade your healthcare facility—trusted by top hospitals for seamless patient management with Tempus, the all-in-one hospital CRM
             </p>
           </motion.div>
 
@@ -62,9 +62,9 @@ export default function ContactUs() {
             <motion.div variants={fadeInUp}>
               <Card className="bg-gray-800/60 backdrop-blur-sm border border-gray-700 shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-white">Get Started Today</CardTitle>
+                  <CardTitle className="text-2xl text-white">Begin Your Journey Today</CardTitle>
                   <CardDescription className="text-gray-300">
-                    Fill out the form and our team will reach out within 24 hours to set up your custom portal.
+                    Complete the form, and our team will contact you within 24 hours to create your personalized healthcare portal.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -106,7 +106,7 @@ export default function ContactUs() {
                       </label>
                       <Input 
                         type="tel"
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+91 98765 43210"
                         className="bg-gray-900/50 border-gray-600 text-white placeholder-gray-400"
                       />
                     </div>
@@ -114,7 +114,7 @@ export default function ContactUs() {
 
                   <div>
                     <label className="text-sm font-medium text-gray-200 mb-2 block">
-                      Preferred Subdomain *
+                      Preferred Subdomain
                     </label>
                     <div className="flex">
                       <span className="bg-gray-900/50 border border-gray-600 border-r-0 px-3 py-2 text-gray-400 text-sm rounded-l-md">
@@ -176,7 +176,7 @@ export default function ContactUs() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
-                        <span>Quick setup process in minutes</span>
+                        <span>Instant setup in minutes</span>
                       </li>
                       <li className="flex items-start space-x-3">
                         <div className="w-5 h-5 bg-green-600 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
@@ -208,7 +208,7 @@ export default function ContactUs() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
-                        <span>Integration with existing systems</span>
+                        <span>Seamless integration with your systems</span>
                       </li>
                     </ul>
                   </CardContent>
