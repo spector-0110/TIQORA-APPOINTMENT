@@ -108,10 +108,13 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
         time: slot.start, // For backward compatibility
         timeDisplay: slot.timeDisplay,
         available: slot.available,
-        datetime: new Date(`${slot.date}T${slot.start}:00`)
+        datetime: new Date(`${slot.date}T${slot.start}:00`),
+        maxCapacity: slot.maxCapacity,
+        patientCount: slot.patientCount || 0, 
       }));
-      
       setAvailableSlots(transformedSlots);
+
+      console.log("trasformed slots:------",transformedSlots);
       
       if (transformedSlots.length === 0) {
         setError('No available slots found for the selected doctor');

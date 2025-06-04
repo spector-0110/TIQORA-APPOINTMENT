@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cancelAppointment } from '@/lib/patientAPI';
 import { useIsMobile } from '@/hooks/use-mobile';
+import trackingSocket from '@/lib/trackingSocket';
 
 // Assuming you have this custom component
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'; 
@@ -46,7 +47,32 @@ const ExistingAppointmentView = ({
   const [cancelError, setCancelError] = useState(null);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [copySuccess, setCopySuccess] = useState('');
+  const [queueInfo, setQueueInfo] = useState(null);
   const isMobile = useIsMobile();
+
+  // Socket event handlers for tracking
+  useEffect(() => {
+    const handleQueueUpdate = (info) => {
+      setQueueInfo(info);
+    };
+
+    const handleError = (error) => {
+      console.error('Tracking error:', error);
+      setCopySuccess('Error tracking appointment');
+      setTimeout(() => setCopySuccess(''), 2000);
+    };
+
+    // Add socket listeners
+    trackingSocket.addListener('update', handleQueueUpdate);
+    trackingSocket.addListener('error', handleError);
+
+    // Cleanup function
+    return () => {
+      trackingSocket.removeListener('update', handleQueueUpdate);
+      trackingSocket.removeListener('error', handleError);
+      trackingSocket.stopTracking();
+    };
+  }, []);
 
   // Helper to extract tracking token from the tracking link URL
   const getTrackingToken = (trackingLink) => {
@@ -62,7 +88,7 @@ const ExistingAppointmentView = ({
     }
   };
 
-  // Handles tracking the appointment by opening the tracking page
+  // Handles tracking the appointment by opening the tracking page and starting socket tracking
   const handleTrackAppointment = async () => {
     try {
       const trackingLink = appointmentData?.trackingLink;
@@ -78,6 +104,9 @@ const ExistingAppointmentView = ({
         setTimeout(() => setCopySuccess(''), 2000);
         return;
       }
+      
+      // Start socket tracking
+      trackingSocket.startTracking(token);
       
       // Construct tracking URL and open in new tab
       const trackingUrl = `/track/${token}`;
