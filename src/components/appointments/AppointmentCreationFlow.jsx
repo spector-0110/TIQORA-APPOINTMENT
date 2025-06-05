@@ -113,8 +113,6 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
         patientCount: slot.patientCount || 0, 
       }));
       setAvailableSlots(transformedSlots);
-
-      console.log("trasformed slots:------",transformedSlots);
       
       if (transformedSlots.length === 0) {
         setError('No available slots found for the selected doctor');
@@ -483,5 +481,4 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
     </div>
   );
 };
-
 export default AppointmentCreationFlow;
