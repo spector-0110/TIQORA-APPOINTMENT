@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import trackingSocket from '@/lib/trackingSocket';
+import AppointmentTracker from '@/components/appointments/AppointmentTracker';
 
 export default function TrackingPage() {
   const params = useParams();
@@ -17,11 +18,6 @@ export default function TrackingPage() {
     console.log('Initializing tracking with token:', token);
     
     const handleUpdate = (rawInfo) => {
-      console.log('Queue update received:', {
-        timestamp: new Date().toISOString(),
-        rawInfo: rawInfo
-      });
-      
       // Parse the JSON string if it's a string
       const info = typeof rawInfo === 'string' ? JSON.parse(rawInfo) : rawInfo;
       
@@ -75,108 +71,32 @@ export default function TrackingPage() {
 
   if (!queueInfo) {
     return (
-      <Card className="w-full max-w-2xl mx-auto mt-8">
+      <Card className="w-full max-w-2xl mx-auto mt-8 bg-gradient-to-b from-neutral-950 via-gray-900 to-gray-700">
         <CardHeader className="text-center">
           <CardTitle className="text-xl font-semibold">
             Connecting to Queue...
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <Progress value={undefined} className="w-full" />
+            <div className="w-full max-w-5xl mx-auto p-8 rounded-2xl bg-gradient-to-b from-neutral-950 via-gray-900 to-gray-700 shadow-2xl text-center">
+              <div className="animate-pulse">
+                <div className="h-8 bg-gray-800 rounded mb-4 mx-auto w-1/2"></div>
+                <div className="h-4 bg-gray-800 rounded mb-6 mx-auto w-3/4"></div>
+                <div className="h-40 bg-gray-800 rounded"></div>
+              </div>
+              <p className="text-gray-400 mt-6">Loading appointment data...</p>
+            </div>
         </CardContent>
       </Card>
     );
   }
 
-  const formatAppointmentTime = (timeString) => {
-    const time = new Date(timeString);
-    return time.toLocaleTimeString('en-IN', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
-  };
+  // Using formatTime utility function from utils.js in the AppointmentTracker component
 
-  return (
-    <Card className="w-full max-w-2xl mx-auto mt-8">
-      <CardHeader className="text-center">
-        <CardTitle className="text-xl font-semibold">
-          Queue Status
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-lg font-medium">Appointment Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-              <div className="space-y-2">
-                <p className="text-gray-600">
-                  Patient: <span className="text-gray-900">{queueInfo.appointment.patientName}</span>
-                </p>
-                <p className="text-gray-600">
-                  Doctor: <span className="text-gray-900">{queueInfo.doctor.name}</span>
-                  <span className="block text-sm text-gray-500">{queueInfo.doctor.specialization}</span>
-                </p>
-                <p className="text-gray-600">
-                  Hospital: <span className="text-gray-900">{queueInfo.hospital.name}</span>
-                </p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-gray-600">
-                  Date: <span className="text-gray-900">
-                    {new Date(queueInfo.appointment.appointmentDate).toLocaleDateString('en-IN')}
-                  </span>
-                </p>
-                <p className="text-gray-600">
-                  Time: <span className="text-gray-900">
-                    {formatAppointmentTime(queueInfo.appointment.startTime)}
-                  </span>
-                </p>
-                <p className="text-gray-600">
-                  Status: <span className="font-medium text-green-600">{queueInfo.appointment.status}</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-medium">Queue Position</h3>
-            <div className="mt-4 space-y-4">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-lg font-medium text-center text-blue-600">
-                  {queueInfo.queue.queueStatus}
-                </p>
-              </div>
-              
-              <Progress 
-                value={((queueInfo.queue.totalAppointmentsToday - queueInfo.queue.appointmentsAhead) / 
-                        queueInfo.queue.totalAppointmentsToday) * 100} 
-                className="w-full" 
-              />
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 p-3 rounded-lg text-center">
-                  <p className="text-sm text-gray-600">People Ahead</p>
-                  <p className="text-2xl font-bold text-gray-900">{queueInfo.queue.appointmentsAhead}</p>
-                </div>
-                <div className="bg-gray-50 p-3 rounded-lg text-center">
-                  <p className="text-sm text-gray-600">Wait Time</p>
-                  <p className="text-2xl font-bold text-gray-900">{queueInfo.queue.estimatedWaitTime} mins</p>
-                </div>
-              </div>
-              </div>
-            </div>
-          </div>
-        <div className="bg-blue-50 p-4 rounded-lg">
-          <p className="text-sm text-blue-800">
-            Please keep this page open to receive real-time updates about your queue position.
-            <br />
-            <span className="text-xs text-gray-600 mt-1 block">
-              Last updated: {new Date(queueInfo.refreshedAt).toLocaleTimeString('en-IN')}
-            </span>
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  );
+  return(
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-4">
+      <AppointmentTracker data={queueInfo} />
+    </div>
+  )
+  
 }

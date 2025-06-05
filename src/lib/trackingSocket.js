@@ -36,12 +36,10 @@ class TrackingSocket {
 
     this.socket.on('error', (error) => {
       console.error('Socket error:', error);
-      console.debug('Error details:', JSON.stringify(error, null, 2));
       this.notifyListeners('error', error);
     });
 
     this.socket.on('queue-update', (queueInfo) => {
-      console.log('Received queue update:', JSON.stringify(queueInfo, null, 2));
       this.notifyListeners('update', queueInfo);
     });
   }
