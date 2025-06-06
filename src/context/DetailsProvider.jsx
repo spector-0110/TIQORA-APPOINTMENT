@@ -34,6 +34,7 @@ export default function DetailsProvider({ children, subdomain }) {
       const appointmentFromCookie = getAppointmentFromCookie(subdomainParam);
       if (appointmentFromCookie) {
         // If we have cookie data, use it and avoid API call
+        console.log('Using appointment data from cookies:', appointmentFromCookie);
         setDetails({
           data: {
             hospital: appointmentFromCookie.hospital,
