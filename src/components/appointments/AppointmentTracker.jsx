@@ -65,67 +65,182 @@ const ProfessionalProgress = ({ positionProgress, waitTimeProgress, total, curre
   // Weighted average of position progress (70%) and wait time progress (30%)
   const combinedProgress = (positionProgress * 0.7) + (waitTimeProgress * 0.3);
   
+  // Calculate estimated time of consultation
+  const estimatedConsultTime = new Date();
+  if (estimatedWaitTime) {
+    estimatedConsultTime.setMinutes(estimatedConsultTime.getMinutes() + estimatedWaitTime);
+  }
+  
+  // Determine overall status
+  let statusText = "Waiting";
+  let statusColor = "text-blue-400";
+  let statusBg = "bg-blue-600/20";
+  let statusBorder = "border-blue-600/30";
+  
+  if (combinedProgress >= 95) {
+    statusText = "Almost Ready";
+    statusColor = "text-green-400";
+    statusBg = "bg-green-600/20";
+    statusBorder = "border-green-600/30";
+  } else if (combinedProgress >= 75) {
+    statusText = "Getting Close";
+    statusColor = "text-cyan-400";
+    statusBg = "bg-cyan-600/20";
+    statusBorder = "border-cyan-600/30";
+  } else if (combinedProgress >= 50) {
+    statusText = "Halfway There";
+    statusColor = "text-indigo-400";
+    statusBg = "bg-indigo-600/20";
+    statusBorder = "border-indigo-600/30";
+  } else if (combinedProgress >= 25) {
+    statusText = "In Progress";
+    statusColor = "text-purple-400";
+    statusBg = "bg-purple-600/20";
+    statusBorder = "border-purple-600/30";
+  }
+  
   return (
-    <div className="space-y-3">
-      <div className="flex justify-between text-sm text-slate-300">
-        <span>Queue Progress</span>
-        <span>{current} of {total}</span>
+    <div className="space-y-6">
+      {/* Progress Overview */}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className={`p-2 rounded-lg ${statusBg} border ${statusBorder}`}>
+            <Timer className={`h-4 w-4 ${statusColor}`} />
+          </div>
+          <div>
+            <h4 className={`font-semibold ${statusColor}`}>{statusText}</h4>
+            <p className="text-xs text-gray-400">Queue Position: {current} of {total}</p>
+          </div>
+        </div>
+        
+        <div className={`px-4 py-2 rounded-lg ${statusBg} border ${statusBorder}`}>
+          <p className={`text-sm font-bold ${statusColor}`}>
+            {Math.round(combinedProgress)}% Complete
+          </p>
+        </div>
       </div>
       
-      <div className="relative h-4 bg-gray-800 rounded-full overflow-hidden">
-        {/* Combined progress bar */}
-        <motion.div
-          className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${combinedProgress}%` }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        />
+      {/* Main Progress Bar with Milestones */}
+      <div className="relative">
+        {/* Background Track */}
+        <div className="relative h-6 bg-gray-800 rounded-full overflow-hidden">
+          {/* Combined progress bar */}
+          <motion.div
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${combinedProgress}%` }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          />
+          
+          {/* Current position indicator */}
+          <motion.div 
+            className="absolute top-0 w-2 h-6 bg-white rounded-full shadow-lg"
+            style={{ left: `${Math.max(0, combinedProgress - 1)}%` }}
+            animate={{ 
+              opacity: [0.7, 1, 0.7],
+              boxShadow: [
+                '0 0 5px 2px rgba(255,255,255,0.3)',
+                '0 0 8px 3px rgba(255,255,255,0.5)',
+                '0 0 5px 2px rgba(255,255,255,0.3)'
+              ]
+            }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          />
+          
+          {/* Milestone markers */}
+          {[25, 50, 75].map(milestone => (
+            <div 
+              key={milestone}
+              className="absolute top-0 bottom-0 w-0.5 bg-gray-600"
+              style={{ left: `${milestone}%` }}
+            >
+              <div 
+                className={`absolute -top-6 transform -translate-x-1/2 text-xs ${
+                  combinedProgress >= milestone ? 'text-blue-300' : 'text-gray-500'
+                }`}
+                style={{ left: '50%' }}
+              >
+                {milestone}%
+              </div>
+            </div>
+          ))}
+        </div>
         
-        {/* Position-based indicator */}
-        <motion.div 
-          className="absolute top-0 h-1 bg-blue-300/30 rounded-full"
-          style={{ 
-            left: 0,
-            width: `${positionProgress}%`,
-            top: 0
-          }}
-        />
-        
-        {/* Time-based indicator */}
-        <motion.div 
-          className="absolute bottom-0 h-1 bg-green-300/30 rounded-full"
-          style={{ 
-            left: 0,
-            width: `${waitTimeProgress}%`,
-            bottom: 0
-          }}
-        />
-        
-        {/* Current position indicator */}
-        <motion.div 
-          className="absolute top-0 w-1.5 h-4 bg-white rounded-full shadow-lg"
-          style={{ left: `${Math.max(0, combinedProgress - 1)}%` }}
-          animate={{ opacity: [0.7, 1, 0.7] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        />
+        {/* Secondary Progress Indicators */}
+        <div className="mt-2 flex">
+          {/* Position Progress */}
+          <div className="flex-1 pr-1">
+            <div className="relative h-2 bg-gray-800/50 rounded-full overflow-hidden">
+              <motion.div
+                className="absolute inset-y-0 left-0 bg-blue-500/70 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${positionProgress}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              />
+            </div>
+          </div>
+          
+          {/* Wait Time Progress */}
+          <div className="flex-1 pl-1">
+            <div className="relative h-2 bg-gray-800/50 rounded-full overflow-hidden">
+              <motion.div
+                className="absolute inset-y-0 left-0 bg-emerald-500/70 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${waitTimeProgress}%` }}
+                transition={{ duration: 1, ease: "easeOut" }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       
-      {/* Progress breakdown */}
-      <div className="flex justify-between items-center text-xs text-slate-400">
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-2 bg-blue-300/30 rounded-full"></div>
-          <span>Position: {Math.round(positionProgress)}%</span>
+      {/* Progress Details */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className={`p-3 rounded-lg bg-blue-600/10 border border-blue-600/20`}>
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-1.5">
+              <Users className="h-3.5 w-3.5 text-blue-400" />
+              <span className="text-xs font-medium text-blue-400">Position Progress</span>
+            </div>
+            <span className="text-xs font-bold text-blue-400">{Math.round(positionProgress)}%</span>
+          </div>
+          <p className="text-xs text-gray-400">Based on your queue position: {current} of {total}</p>
         </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-2 bg-green-300/30 rounded-full"></div>
-          <span>Time: {Math.round(waitTimeProgress)}%</span>
+        
+        <div className={`p-3 rounded-lg bg-emerald-600/10 border border-emerald-600/20`}>
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-emerald-400" />
+              <span className="text-xs font-medium text-emerald-400">Time Progress</span>
+            </div>
+            <span className="text-xs font-bold text-emerald-400">{Math.round(waitTimeProgress)}%</span>
+          </div>
+          <p className="text-xs text-gray-400">
+            {estimatedWaitTime ? `Est. time remaining: ${formatWaitTime(estimatedWaitTime)}` : 'Time-based estimate'}
+          </p>
         </div>
-        <div className="flex items-center gap-1.5 text-blue-300 cursor-help" 
-             title="Progress is calculated using a weighted average: 70% position-based and 30% time-based">
-          <div className="w-3 h-2 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full"></div>
-          <span>Combined: {Math.round(combinedProgress)}%</span>
-          <span>ⓘ</span>
+      </div>
+      
+      {/* Estimated Time of Consultation */}
+      <div className="flex justify-between items-center p-3 rounded-lg bg-indigo-600/10 border border-indigo-600/30">
+        <div className="flex items-center gap-2">
+          <Bell className="h-4 w-4 text-indigo-400" />
+          <span className="text-sm text-indigo-400 font-medium">Estimated Consultation</span>
         </div>
+        <div>
+          <p className="text-sm font-bold text-white">
+            {estimatedWaitTime ? formatTime(estimatedConsultTime) : 'Calculating...'}
+          </p>
+          <p className="text-xs text-gray-400 text-right">
+            {estimatedWaitTime ? formatDate(estimatedConsultTime, 'short') : ''}
+          </p>
+        </div>
+      </div>
+      
+      {/* Weighted Progress Explanation */}
+      <div className="flex items-center justify-between text-xs text-gray-500 bg-gray-800/30 p-2 rounded">
+        <span>Combined progress uses weighted average (70% position, 30% time)</span>
+        <span className="cursor-help" title="Our algorithm uses multiple factors to predict your queue position, including historical data for this physician">ⓘ</span>
       </div>
     </div>
   );
@@ -345,93 +460,7 @@ export default function AppointmentTracker({ data }) {
             <StatusIndicator status={appointment.status} />
           </motion.div>
 
-          {/* Doctor and Patient Information */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            {/* Doctor Profile */}
-            <div className="lg:col-span-1">
-              <div className="p-6 rounded-xl bg-gray-800/50 border border-gray-700/50">
-                <div className="text-center">
-                  <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-blue-500/30">
-                    {doctor.photo ? (
-                      <img 
-                        src={doctor.photo} 
-                        alt={doctor.name} 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800 text-blue-400">
-                        <Stethoscope size={32} />
-                      </div>
-                    )}
-                  </div>
-                  
-                  <h3 className="text-lg font-bold text-white">{doctor.name}</h3>
-                  <p className="text-sm text-gray-400 mb-1">{doctor.qualification || "Medical Professional"}</p>
-                  <p className="text-sm text-blue-400 font-medium">{doctor.specialization}</p>
-                  
-                  <div className="flex items-center justify-center gap-4 mt-3 text-xs text-gray-400">
-                    {doctor.experience && (
-                      <div className="flex items-center gap-1">
-                        <Shield className="h-3 w-3 text-green-400" />
-                        <span>{doctor.experience} yrs experience</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Appointment Details */}
-            <div className="lg:col-span-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <InfoCard 
-                  icon={User} 
-                  label="Patient Information" 
-                  value={`Name: ${appointment.patientName}`}
-                  color="green"
-                />
-                <InfoCard 
-                  icon={MapPin} 
-                  label="Location" 
-                  value={`${hospital.address.city}, ${hospital.address.district}`}
-                  sublabel={hospital.address ? 
-                    `${hospital.address.street}, ${hospital.address.city}, ${hospital.address.district}, ${hospital.address.state}, ${hospital.address.country} - ${hospital.address.pincode}` 
-                    : "No address provided"}
-                  color="blue"
-                  actionable={true}
-                  onIconClick={() => {
-                    // Construct address for Google Maps
-                    const address = hospital.address ?
-                      `${hospital.address.street}, ${hospital.address.city}, ${hospital.address.district}, ${hospital.address.state}, ${hospital.address.country}, ${hospital.address.pincode}`
-                      : hospital.name;
-                    
-                    // Open Google Maps in a new tab
-                    window.open(`https://maps.google.com/?q=${encodeURIComponent(address)}`, '_blank');
-                  }}
-                />
-                <InfoCard 
-                  icon={Phone} 
-                  label="Contact" 
-                  value={hospital.contactInfo?.phone || "N/A"}
-                  sublabel="Main Reception"
-                  color="orange"
-                  actionable={hospital.contactInfo?.phone ? true : false}
-                  onIconClick={() => {
-                    if (hospital.contactInfo?.phone) {
-                      window.location.href = `tel:${hospital.contactInfo.phone.replace(/\s+/g, '')}`;
-                    }
-                  }}
-                />
-                <InfoCard 
-                  icon={CreditCard} 
-                  label="Payment Status" 
-                  value={appointment.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
-                  sublabel={appointment.paymentStatus === 'paid' ? 'Transaction Complete' : 'Payment Required'}
-                  color={appointment.paymentStatus === 'paid' ? 'green' : 'orange'}
-                />
-              </div>
-            </div>
-          </motion.div>
+          
 
           {/* Queue Management Section */}
           <motion.div
