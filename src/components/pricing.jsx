@@ -14,7 +14,7 @@ const PRICING = {
   VOLUME_DISCOUNTS: [
     { minDoctors: 10, discount: 10 },
     { minDoctors: 20, discount: 15 },
-    { minDoctors: 200, discount: 20 },
+    { minDoctors: 50, discount: 20 },
   ]
 };
 
