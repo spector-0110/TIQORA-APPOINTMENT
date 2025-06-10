@@ -316,7 +316,7 @@ const ExistingAppointmentView = ({
       
       {/* Header Section with Logo - Compact for mobile */}
       <div className="relative ">
-        {/* Tempus Logo in top-left corner */}
+        {/* TIQORA Logo in top-left corner */}
         <div className="absolute top-0 left-0 z-10">
           <div className="bg-white rounded-lg p-1 shadow-lg">
             <img 

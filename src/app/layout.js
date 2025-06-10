@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "TEMPUS",
+  title: "TIQORA",
 };
 
 export default function RootLayout({ children }) {

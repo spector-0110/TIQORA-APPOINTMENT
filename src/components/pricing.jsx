@@ -29,7 +29,7 @@ const fadeInUp = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.4,
       ease: "easeOut"
     }
   }
@@ -96,7 +96,7 @@ const sliderStyles = `
 `;
 
 export default function Pricing() {
-  const [doctorCount, setDoctorCount] = useState(5);
+  const [doctorCount, setDoctorCount] = useState(2);
   const [isYearly, setIsYearly] = useState(false);
 
   // Inject custom styles for the slider
@@ -156,9 +156,9 @@ export default function Pricing() {
 
   // Feature tiers based on doctor count
   const getFeatureTier = (count) => {
-    if (count >= 200) return 'enterprise';
-    if (count >= 50) return 'professional';
-    if (count >= 10) return 'standard';
+    if (count >= 10) return 'enterprise';
+    if (count >= 2) return 'professional';
+    if (count >= 1) return 'standard';
     return 'basic';
   };
 
@@ -454,7 +454,7 @@ export default function Pricing() {
                     asChild
                     className="w-full h-12 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
                   >
-                    <a href="https://hospital.tempus.vatsa.works" target="_blank" rel="noopener noreferrer">
+                    <a href="https://hospital.tiqora.in" target="_blank" rel="noopener noreferrer">
                       Start Free Trial
                     </a>
                   </Button>

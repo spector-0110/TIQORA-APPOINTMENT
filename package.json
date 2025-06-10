@@ -37,6 +37,7 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.16.0",
+    "googleapis": "^150.0.1",
     "js": "^0.1.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",

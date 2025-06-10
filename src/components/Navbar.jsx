@@ -44,7 +44,7 @@ export function NavbarMain() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary" href={'https://hospital.tempus.vatsa.works'} target={'_blank'}>Explore Now</NavbarButton>
+            <NavbarButton variant="primary" href={'https://hospital.tiqora.in'} target={'_blank'}>Explore Now</NavbarButton>
           </div>
         </NavBody>
 
@@ -89,7 +89,7 @@ export function NavbarMain() {
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
-                href={'https://hospital.tempus.vatsa.works'}
+                href={'https://hospital.tiqora.in'}
                 target={'_blank'}
               >
                 Book a call

@@ -83,7 +83,7 @@ export default function Home(){
           }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="https://hospital.tempus.vatsa.works/"
+            href="https://hospital.tiqora.in"
             target="_blank"
             className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
             Explore Now
@@ -126,7 +126,7 @@ export default function Home(){
                   <span className="font-medium text-gray-700">Your URL Format</span>
                 </div>
                 <div className="bg-white px-4 py-3 rounded-lg border border-gray-300 font-mono text-center">
-                  <span className="text-gray-500">tempus.vatsa.works/</span>
+                  <span className="text-gray-500">tiqora.in/</span>
                   <span className="text-blue-600 font-semibold">[your-hospital-subdomain]</span>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export default function Home(){
     <div id="pricing"  className="py-16 bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <Pricing />
     </div>
-    <div id="contact-us"  className="py-16 bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
+    <div id="contact-us"  className=" bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <ContactUs />
     </div>
     </>
