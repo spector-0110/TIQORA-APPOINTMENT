@@ -3,8 +3,8 @@
  * Stores appointment data in cookies with automatic expiration
  */
 
-const COOKIE_PREFIX = 'tempus_appt_';
-const COOKIE_LIST = 'tempus_appt_list';
+const COOKIE_PREFIX = 'tiqora_appt_';
+const COOKIE_LIST = 'tiqora_appt_list';
 
 /**
  * Set a cookie with expiration

@@ -3,7 +3,6 @@ import "./global.css";
 import { checkServerStatus } from '@/lib/patientAPI';
 import { Spinner } from "@/components/ui/spinner";
 import ThemeProvider from '@/context/ThemeProvider';
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

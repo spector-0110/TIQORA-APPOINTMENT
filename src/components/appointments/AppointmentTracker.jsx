@@ -414,12 +414,12 @@ export default function AppointmentTracker({ data }) {
         {/* Header Bar */}
         <div className="h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600" />
         
-        {/* Tempus Logo in top-left corner
+        {/* Tiqora Logo in top-left corner
         <div className="absolute top-2 left-2 z-10">
           <div className="bg-white rounded-lg p-1 shadow-lg">
             <img 
-              src="/tempusLogo1.png" 
-              alt="Tempus Logo" 
+              src="/Tiqora1.png" 
+              alt="Tiqora Logo" 
               className={`${isMobile ? 'h-6 w-auto' : 'h-8 w-auto'} object-contain`}
             />
           </div>

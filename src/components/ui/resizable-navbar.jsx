@@ -214,12 +214,12 @@ export const NavbarLogo = () => {
   return (
     <a
       href="/"
-      className="relative z-20 h-12 w-12 mr-2 rounded *:hover:opacity-40 transition-opacity duration-500 bg-white">
+      className="relative z-20 h-12 w-12 *:hover:opacity-40 transition-opacity duration-500 bg-neutral rounded-lg">
       <img
         style={{ backgroundColor: 'white' }}
-        src="/tempusLogo1.png"
-        alt="Tempus Logo"
-        className="h-12 w-14 mr-4 rounded-full *:hover:opacity-40 transition-opacity duration-500"
+        src="/Tiqora1.png"
+        alt="Tiqora Logo"
+        className="h-12 w-12 object-cover *:hover:opacity-40 transition-opacity duration-500 rounded-lg"
       />
     </a>
   );

@@ -8,6 +8,7 @@ import {checkServerStatus} from "@/lib/patientAPI";
 import { useEffect ,useState} from "react";
 import { NavbarMain } from "@/components/Navbar";
 import Pricing from "@/components/pricing";
+import Footer from "@/components/Footer";
 
 export default function Home(){
   const [isServerActive, setServerActive] = useState(false);
@@ -64,8 +65,8 @@ export default function Home(){
             opacity: 1,
           }}
           transition={{
-            duration: 0.5,
-            delay: 1,
+            duration: 0.3,
+            delay: 0.5,
           }}
           className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-400 dark:text-neutral-100">
           Streamline your healthcare operations with our intuitive appointment management system. Each hospital gets their own dedicated portal for seamless patient scheduling.
@@ -78,8 +79,8 @@ export default function Home(){
             opacity: 1,
           }}
            transition={{
-            duration: 0.5,
-            delay: 1.6,
+            duration: 0.3,
+            delay: 0.8,
           }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
@@ -105,8 +106,8 @@ export default function Home(){
             y: 0,
           }}
           transition={{
-            duration: 0.7,
-            delay: 2.2,
+            duration: 0.5,
+            delay: 1.0,
           }}
           className="relative z-10 mt-20 rounded-3xl  ">
            {/* Instructions Card */}
@@ -174,6 +175,8 @@ export default function Home(){
     <div id="contact-us"  className=" bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <ContactUs />
     </div>
+              <Footer />
+
     </>
   );
 }

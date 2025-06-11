@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance optimizations for faster rendering */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  will-change: auto;
+}
+
+/* Optimize animations for better performance */
+.motion-reduce-preferences {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

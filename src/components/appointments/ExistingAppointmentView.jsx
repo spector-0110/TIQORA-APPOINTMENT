@@ -320,8 +320,8 @@ const ExistingAppointmentView = ({
         <div className="absolute top-0 left-0 z-10">
           <div className="bg-white rounded-lg p-1 shadow-lg">
             <img 
-              src="/tempusLogo1.png" 
-              alt="Tempus Logo" 
+              src="/Tiqora1.png" 
+              alt="Tiqora Logo" 
               className={`${isMobile ? 'h-6 w-auto' : 'h-8 w-auto'} object-contain`}
             />
           </div>
