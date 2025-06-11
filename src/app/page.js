@@ -175,7 +175,9 @@ export default function Home(){
     <div id="contact-us"  className=" bg-gradient-to-b from-neutral-900 via-gray-800 to-neutral-900 shadow-xl">
       <ContactUs />
     </div>
-              <Footer />
+    <div   className="py-1">
+        <Footer />
+    </div>
 
     </>
   );

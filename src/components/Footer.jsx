@@ -57,7 +57,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <Phone className="w-5 h-5 text-green-400" />
-                <span>+91 (555) 123-4567</span>
+                <span>+91 9696415586</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin className="w-5 h-5 text-red-400" />
@@ -72,7 +72,6 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { name: 'Home', href: '/' },
-                { name: 'Book Appointment', href: '/#book' },
                 { name: 'Pricing', href: '/#pricing' },
                 { name: 'About Us', href: '/#about' },
                 { name: 'Contact', href: '/#contact' },
@@ -145,18 +144,19 @@ export default function Footer() {
             </div>
 
             {/* Copyright */}
-            <div className="text-center md:text-right">
-              <p className="text-gray-400 text-sm">
-                © {currentYear} TIQORA. All rights reserved.
-              </p>
-              <p className="text-gray-500 text-xs mt-1">
-                Made with ❤️ for better healthcare
-              </p>
-            </div>
-          </div>
-        </div>
+                        <div className="text-center md:text-right">
+                          <p className="text-gray-400 text-sm">
+                            © {currentYear} TIQORA. All rights reserved.
+                          </p>
+                          <p className="text-gray-500 text-xs mt-1">
+                            Made with ❤️ by nextgenscale<br />
+                            for better healthcare
+                          </p>
+                        </div>
+                      </div>
+                    </div>
 
-        {/* CTA Section */}
+                    {/* CTA Section */}
         <div className="mt-12 text-center">
           <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/20">
             <h3 className="text-2xl font-bold text-white mb-4">
@@ -174,12 +174,6 @@ export default function Footer() {
               >
                 For Healthcare Providers
                 <ExternalLink className="w-4 h-4" />
-              </a>
-              <a
-                href="/#book"
-                className="px-8 py-3 border border-blue-500 text-blue-400 font-semibold rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-200 hover:scale-105"
-              >
-                Book Appointment
               </a>
             </div>
           </div>
