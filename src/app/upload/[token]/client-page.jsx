@@ -29,6 +29,7 @@ const getFileTypeIcon = (fileName) => {
     case 'jpg':
     case 'jpeg':
     case 'png':
+    case 'jpeg':
       return (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -73,7 +74,7 @@ export default function UploadClientPage({ tokenData, token }) {
     // Validate each file
     const invalidFiles = selectedFiles.filter(file => !validateFile(file));
     if (invalidFiles.length > 0) {
-      setDialogMessage('Only images (JPG, PNG) and PDF files up to 10MB are allowed.');
+      setDialogMessage('Only images (JPG, PNG, JPEG) and PDF files up to 10MB are allowed.');
       setShowErrorDialog(true);
       return;
     }
@@ -160,7 +161,7 @@ export default function UploadClientPage({ tokenData, token }) {
                       {files.length > 0 ? 'Add more files' : 'Drag and drop files here'}
                     </span>
                     <span className="text-sm text-gray-500">
-                      or click to browse (JPG, PNG, PDF up to 10MB)
+                      or click to browse (JPG, PNG, JPEG, PDF up to 10MB)
                     </span>
                   </div>
                   <Input 
@@ -176,7 +177,7 @@ export default function UploadClientPage({ tokenData, token }) {
               </div>
               
               <div className="text-xs text-gray-500 mt-2">
-                Maximum 5 files. Supported formats: JPG, PNG, PDF. Max size: 10MB per file.
+                Maximum 5 files. Supported formats: JPG, PNG, JPEG, PDF. Max size: 10MB per file.
               </div>
             </div>
             

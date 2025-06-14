@@ -1,7 +1,7 @@
 import { ServerConnectionError } from './errors';
 import CryptoJS from 'crypto-js';
 
-const API_TIMEOUT = 15000; // 15 seconds timeout
+const API_TIMEOUT = 25000; // 25 seconds timeout
 const BASE_URL =  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"; ;
 const SECRET = process.env.NEXT_PUBLIC_API_SECRET || process.env.API_SECRET;
 

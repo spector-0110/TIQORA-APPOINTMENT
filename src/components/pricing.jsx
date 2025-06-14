@@ -10,7 +10,7 @@ import { useState, useCallback, useEffect, useMemo, memo } from "react";
 // Pricing configuration
 const PRICING = {
   BASE_PRICE_PER_DOCTOR: 4999.99,
-  YEARLY_DISCOUNT_PERCENTAGE: 20,
+  YEARLY_DISCOUNT_PERCENTAGE: 12,
   VOLUME_DISCOUNTS: [
     { minDoctors: 10, discount: 10 },
     { minDoctors: 20, discount: 15 },
@@ -166,11 +166,10 @@ export default function Pricing() {
     basic: [
       "Patient Appointment Booking",
       "Queue Management System",
-      "Basic Admin Dashboard",
+      "Admin Dashboard",
       "WhatsApp & SMS Alerts",
       "Email Notifications",
       "Basic Analytics",
-      "24/7 Email Support"
     ],
     standard: [
       "All Basic Features",
@@ -286,9 +285,6 @@ export default function Pricing() {
                   
                   <div className="flex justify-between text-sm text-gray-400 px-2">
                     <span>{LIMITS.MIN_DOCTORS}</span>
-                    <span className="text-center">
-                      {LIMITS.MAX_DOCTORS / 2} doctors
-                    </span>
                     <span>{LIMITS.MAX_DOCTORS}</span>
                   </div>
                   
@@ -300,7 +296,7 @@ export default function Pricing() {
                         type="number"
                         value={doctorCount}
                         onChange={(e) => handleDoctorCountChange(e.target.value)}
-                        min={LIMITS.MIN_DOCTORS}
+                        min={0}
                         max={LIMITS.MAX_DOCTORS}
                         className="w-20 h-8 text-sm bg-gray-700 border-gray-600 text-white text-center"
                       />
@@ -326,7 +322,7 @@ export default function Pricing() {
                     >
                       Yearly
                       <Badge className="ml-2 bg-green-500 text-white text-xs">
-                        Save 20%
+                        {PRICING.YEARLY_DISCOUNT_PERCENTAGE}% off
                       </Badge>
                     </Button>
                   </div>
