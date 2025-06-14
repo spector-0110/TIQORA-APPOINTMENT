@@ -7,8 +7,11 @@ import { redirect } from 'next/navigation';
  * Handles token validation before rendering the client component
  */
 export default async function UploadPage({ params }) {
+  // Await params before using its properties
+  const { token } = await params;
+  
   // Server-side token validation
-  const result = await validateUploadToken(params.token);
+  const result = await validateUploadToken(token);
   
   // If validation fails, redirect to error page
   if (!result.success) {
@@ -16,7 +19,7 @@ export default async function UploadPage({ params }) {
   }
   
   // Pass the validated token data to the client component
-  return <UploadClientPage tokenData={result.data} token={params.token} />;
+  return <UploadClientPage tokenData={result.data} token={token} />;
 }
 
 // // File types display helper

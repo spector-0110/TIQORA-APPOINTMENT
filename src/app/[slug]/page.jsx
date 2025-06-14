@@ -55,7 +55,7 @@ function SlugPageContent({ slug }) {
     try {
       setIsLoading(true);
       const appointment = getAppointmentFromCookie(slug);
-      // console.log('Existing appointment from cookie:', appointment);
+      console.log('Existing appointment :', appointment);
       
       if (appointment) {
         // setExistingAppointment(appointment);
