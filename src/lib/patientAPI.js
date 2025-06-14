@@ -266,3 +266,25 @@ export async function getAppointmentDetails(id) {
     throw error;
   }
 }
+
+export async function uploadDocuments(token, documentData) {
+  try {
+    const response = await fetchWithTimeout(`${BASE_URL}/appointments/documents/${token}`, {
+      method: 'PATCH',
+      headers: getHeaders(),
+      body: JSON.stringify(documentData),
+      cache: 'no-store'
+    });
+
+    const result = await handleApiResponse(response, 'Failed to upload documents');
+    return result;
+  } catch (error) {
+    console.error('uploadDocuments - Error Uploading Documents :', {
+      message: error.message,
+      status: error.status,
+      data: error.data,
+      error
+    });
+    throw error;
+  }
+}
