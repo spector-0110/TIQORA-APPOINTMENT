@@ -1,7 +1,7 @@
 import { ServerConnectionError } from './errors';
 import CryptoJS from 'crypto-js';
 
-const API_TIMEOUT = 10000; // 10 seconds timeout
+const API_TIMEOUT = 15000; // 15 seconds timeout
 const BASE_URL =  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"; ;
 const SECRET = process.env.NEXT_PUBLIC_API_SECRET || process.env.API_SECRET;
 
@@ -237,6 +237,27 @@ export async function cancelAppointment(id) {
     return result;
   } catch (error) {
     console.error('cancelAppointment - Error deleting appointment:', {
+      message: error.message,
+      status: error.status,
+      data: error.data,
+      error
+    });
+    throw error;
+  }
+}
+
+export async function getAppointmentDetails(id) {
+  try {
+    const response = await fetchWithTimeout(`${BASE_URL}/appointments/public/${id}`, {
+      method: 'GET',
+      headers: getHeaders(),
+      cache: 'no-store'
+    });
+
+    const result = await handleApiResponse(response, 'Failed to fetch appointment');
+    return result;
+  } catch (error) {
+    console.error('getAppointmentDetails - Error fetching appointment:', {
       message: error.message,
       status: error.status,
       data: error.data,

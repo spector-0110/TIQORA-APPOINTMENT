@@ -433,67 +433,117 @@ const ExistingAppointmentView = ({
 
           <Separator className="bg-slate-600" />
 
-          {/* Doctor Information - Compact layout */}
+          {/* Doctor Information - Photo on left, info on right with reduced gap */}
           <div>
             <h3 className={`font-semibold text-white mb-1 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
               <Stethoscope className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-slate-300`} />
               Doctor Information
             </h3>
-            <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'}`}>
+            <div className="flex items-center gap-2">
+              {/* Doctor Photo - Left side */}
               {appointmentData?.doctor?.photo && (
-                <img
-                  src={appointmentData.doctor.photo}
-                  alt={`Dr. ${appointmentData?.doctor?.name || 'Doctor'}`}
-                  className={`${isMobile ? 'w-8 h-8' : 'w-12 h-12 sm:w-16 sm:h-16'} rounded-full object-cover border-2 border-blue-400 shadow-lg flex-shrink-0`}
-                />
+                <div className="flex-shrink-0">
+                  <img
+                    src={appointmentData.doctor.photo}
+                    alt={`Dr. ${appointmentData?.doctor?.name || 'Doctor'}`}
+                    className={`${isMobile ? 'w-12 h-12' : 'w-16 h-16 sm:w-20 sm:h-20'} rounded-full object-cover border-2 border-blue-400 shadow-lg`}
+                  />
+                </div>
               )}
-              <div className="flex-1 min-w-0">
+              
+              {/* Doctor Info - Right side with minimal gap */}
+              <div className="flex-1 min-w-0 pl-1">
                 <p className={`font-bold ${isMobile ? 'text-xs' : 'text-sm sm:text-base'} text-white truncate`}>
                   Dr. {appointmentData?.doctor?.name || 'N/A'}
                 </p>
                 <p className={`text-blue-400 capitalize ${isMobile ? 'text-xs' : 'text-xs sm:text-sm'} truncate`}>
                   {appointmentData?.doctor?.specialization || 'N/A'}
                 </p>
-                {!isMobile && (
-                  <>
-                    <p className="text-xs text-slate-300 truncate">{appointmentData?.doctor?.qualification || 'N/A'}</p>
-                    <p className="text-xs text-slate-300">
-                      {appointmentData?.doctor?.experience ? `${appointmentData.doctor.experience} years exp` : 'N/A'}
-                    </p>
-                  </>
-                )}
+                <div className={isMobile ? 'mt-0.5' : 'mt-1'}>
+                  <p className="text-xs text-slate-300 truncate">{appointmentData?.doctor?.qualification || 'N/A'}</p>
+                  <p className="text-xs text-slate-300">
+                    {appointmentData?.doctor?.experience ? `${appointmentData.doctor.experience} years exp` : 'N/A'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
           <Separator className="bg-slate-600" />
 
-          {/* Hospital Information - Compact */}
-          <div>
-            <h3 className={`font-semibold text-white mb-1 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
+          {/* Hospital Information - Enhanced Professional Layout */}
+          <div className="w-full">
+            <h3 className={`font-semibold text-white mb-2 flex items-center gap-1 ${isMobile ? 'text-xs' : 'text-sm sm:text-base'}`}>
               <Building2 className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-slate-300`} />
               Hospital Details
             </h3>
-            <div className="space-y-1">
-              <p className={`font-medium ${isMobile ? 'text-xs' : 'text-sm sm:text-base'} text-white truncate`}>
-                {appointmentData?.hospital?.name || 'N/A'}
-              </p>
-              {appointmentData?.hospital?.address && (
-                <div className="flex items-start gap-1">
-                  <MapPin className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} text-slate-400 mt-0.5 flex-shrink-0`} />
-                  <div className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-300 min-w-0`}>
-                    <p className="truncate">{appointmentData.hospital.address.street || 'N/A'}</p>
-                    <p className="truncate">
-                      {appointmentData.hospital.address.city || 'N/A'}, {appointmentData.hospital.address.state || 'N/A'} {appointmentData.hospital.address.pincode || ''}
-                    </p>
+            <div className="w-full bg-gradient-to-r from-slate-800/70 to-gray-800/70 rounded-lg border border-slate-700 p-3">
+              {/* Hospital Name with optional type badge */}
+              <div className="flex items-center justify-between mb-2">
+                <p className={`font-bold ${isMobile ? 'text-sm' : 'text-base'} text-white`}>
+                  {appointmentData?.hospital?.name || 'N/A'}
+                </p>
+                {appointmentData?.hospital?.type && (
+                  <Badge className="bg-blue-600 text-white text-xs">
+                    {appointmentData.hospital.type}
+                  </Badge>
+                )}
+              </div>
+              
+              {/* Hospital Address */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
+                {appointmentData?.hospital?.address && (
+                  <div className="flex items-start gap-2">
+                    <div className=" p-1 rounded-full flex-shrink-0">
+                      <MapPin className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-300`} />
+                    </div>
+                    <div className="text-slate-200 min-w-0">
+                      <p className={`${isMobile ? 'text-xs' : 'text-sm'}`}>
+                        {appointmentData.hospital.address.street || 'N/A'}
+                      </p>
+                      <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-slate-300`}>
+                        {appointmentData.hospital.address.city || 'N/A'}, {appointmentData.hospital.address.state || 'N/A'} {appointmentData.hospital.address.pincode || ''}
+                      </p>
+                    </div>
                   </div>
+                )}
+                
+                {/* Hospital Contact */}
+                <div className="flex flex-col space-y-1.5">
+                  {appointmentData?.hospital?.contactInfo?.phone && (
+                    <div className="flex items-center gap-2">
+                      <div className=" p-1 rounded-full">
+                        <Phone className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-300`} />
+                      </div>
+                      <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-slate-200`}>
+                        {appointmentData.hospital.contactInfo.phone}
+                      </p>
+                    </div>
+                  )}
+                  {appointmentData?.hospital?.contactInfo?.email && (
+                    <div className="flex items-center gap-2">
+                      <div className="bg-slate-700/80 p-1 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-300`}>
+                          <rect width="20" height="16" x="2" y="4" rx="2" />
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                        </svg>
+                      </div>
+                      <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-slate-200 truncate`}>
+                        {appointmentData.hospital.contactInfo.email}
+                      </p>
+                    </div>
+                  )}
                 </div>
-              )}
-              {appointmentData?.hospital?.contactInfo?.phone && (
-                <div className="flex items-center gap-1">
-                  <Phone className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} text-slate-400`} />
-                  <p className={`${isMobile ? 'text-xs' : 'text-xs'} text-slate-300 truncate`}>
-                    {appointmentData.hospital.contactInfo.phone}
+              </div>
+              
+              {/* Hospital working hours or additional info (if available) */}
+              {appointmentData?.hospital?.workingHours && (
+                <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-600/50">
+                  <div className="bg-slate-700/80 p-1 rounded-full">
+                    <Clock className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-300`} />
+                  </div>
+                  <p className={`${isMobile ? 'text-xs' : 'text-sm'} text-slate-200`}>
+                    {appointmentData.hospital.workingHours}
                   </p>
                 </div>
               )}

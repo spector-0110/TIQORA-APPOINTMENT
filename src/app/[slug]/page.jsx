@@ -14,6 +14,9 @@ import {
   initializeAppointmentCookies 
 } from '@/lib/appointmentCookies';
 
+import { getAppointmentDetails } from '@/lib/patientAPI';
+
+
 export default function SlugPage({ params }) {
   const { slug } = use(params);
   
@@ -40,16 +43,50 @@ function SlugPageContent({ slug }) {
   // Initialize cookies and check for existing appointment
   useEffect(() => {
     initializeAppointmentCookies();
-    checkForExistingAppointment();
+     const fetchExistingAppointment = async () => {
+      await checkForExistingAppointment();
+    };
+    
+    fetchExistingAppointment();
+
   }, [slug]);
 
-  const checkForExistingAppointment = () => {
+  const checkForExistingAppointment = async() => {
     try {
       setIsLoading(true);
       const appointment = getAppointmentFromCookie(slug);
+      // console.log('Existing appointment from cookie:', appointment);
       
       if (appointment) {
-        setExistingAppointment(appointment);
+        // setExistingAppointment(appointment);
+        try { 
+              const appointmentId = appointment.data.id || appointment.data.appointmentId;
+              if (appointmentId) {
+              const latestAppointmentDetails = await getAppointmentDetails(appointmentId);
+                
+              if (latestAppointmentDetails && latestAppointmentDetails.data) {
+              // console.log('Fetched latest appointment details:', latestAppointmentDetails.data);
+              // Check if the appointment is completed
+              if (latestAppointmentDetails.data.status === "completed" || latestAppointmentDetails.data.status === "cancelled") {
+              // If appointment is completed, remove from cookie
+              removeAppointmentFromCookie(slug);
+              setExistingAppointment(null);
+              setShowCreateNew(true);
+              successHandledRef.current = false;
+            }
+          } else {
+              // If appointment no longer exists on server, use cached data
+              setExistingAppointment(appointment);
+            }
+          } else {
+              // No appointment ID found, use cached data
+              setExistingAppointment(appointment);
+            }
+          } catch (fetchError) {
+              console.error('Error fetching latest appointment details:', fetchError);
+              // If fetch fails, fallback to using cached data
+              setExistingAppointment(appointment);
+            }
       } else {
         setExistingAppointment(null);
       }
@@ -106,6 +143,7 @@ function SlugPageContent({ slug }) {
     // Reset state to show create new
     setExistingAppointment(null);
     setShowCreateNew(true);
+    successHandledRef.current = false;
   };
 
   return (
