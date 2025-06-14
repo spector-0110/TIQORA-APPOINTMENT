@@ -222,7 +222,7 @@ const ProfessionalProgress = ({ positionProgress, waitTimeProgress, total, curre
       </div>
       
       {/* Estimated Time of Consultation */}
-      <div className="flex justify-between items-center p-3 rounded-lg bg-indigo-600/10 border border-indigo-600/30">
+      {/* <div className="flex justify-between items-center p-3 rounded-lg bg-indigo-600/10 border border-indigo-600/30">
         <div className="flex items-center gap-2">
           <Bell className="h-4 w-4 text-indigo-400" />
           <span className="text-sm text-indigo-400 font-medium">Estimated Consultation</span>
@@ -235,7 +235,7 @@ const ProfessionalProgress = ({ positionProgress, waitTimeProgress, total, curre
             {estimatedWaitTime ? formatDate(estimatedConsultTime, 'short') : ''}
           </p>
         </div>
-      </div>
+      </div> */}
       
       {/* Weighted Progress Explanation */}
       <div className="flex items-center justify-between text-xs text-gray-500 bg-gray-800/30 p-2 rounded">
