@@ -44,7 +44,7 @@ export async function uploadFilesToSupabase(files, hospitalId, appointmentId) {
         
         // Get the public URL for the uploaded file
         const { data } = supabase.storage
-          .from('appointment')
+          .from('appointments')
           .getPublicUrl(`${uploadPath}/${fileName}`);
           
         return data.publicUrl;
