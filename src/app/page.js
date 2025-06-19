@@ -10,6 +10,7 @@ import { NavbarMain } from "@/components/Navbar";
 import Pricing from "@/components/pricing";
 import Footer from "@/components/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
+import Image from "next/image";
 
 export default function Home(){
   const [isServerActive, setServerActive] = useState(false);
@@ -161,10 +162,12 @@ export default function Home(){
                 {/* Main image container */}
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 transform scale-110">
                   <div className="aspect-[5/5] overflow-hidden">
-                    <img
+                    <Image
                       src="/HeroImg1.jpeg"
                       alt="Healthcare professionals using modern scheduling system"
                       className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                      width={500}
+                      height={500}
                     />
                   </div>
                   
@@ -175,10 +178,12 @@ export default function Home(){
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                              <img
+                              <Image
                                 src="/Tiqora1.png"
                                 alt="Tiqora"
                                 className="w-8 h-8 rounded-md"
+                                width={32}
+                                height={32}
                               />
                             </div>
                             <div>
@@ -255,8 +260,8 @@ export default function Home(){
                 Get Started in Minutes
               </CardTitle>
               <CardDescription className="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto">
-                Access your hospital's personalized appointment portal using your unique subdomain. 
-                Simple, secure, and tailored to your healthcare facility's needs.
+                Access your hospital&apos;s personalized appointment portal using your unique subdomain. 
+                Simple, secure, and tailored to your healthcare facility&apos;s needs.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8 pb-8">
