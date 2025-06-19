@@ -15,6 +15,10 @@ import { useState } from "react";
 export function NavbarMain() {
   const navItems = [
     {
+      name: "features",
+      link: "#features",
+    },
+    {
       name: "Pricing",
       link: "#pricing",
     },
@@ -22,6 +26,7 @@ export function NavbarMain() {
       name: "Contact",
       link: "#contact-us",
     },
+    
   ];
   const handleScroll = (e, link) => {
     if (link.startsWith("#")) {
@@ -59,17 +64,6 @@ export function NavbarMain() {
 
           <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
             {navItems.map((item, idx) => (
-              // <a
-              //   key={`mobile-link-${idx}`}
-              //   href={item.link}
-              //   onClick={(e) => {
-              //     e.preventDefault();
-              //     setIsMobileMenuOpen(false);
-              //     item.onClick?.();
-              //   }}
-              //   className="relative text-neutral-300">
-              //   <span className="block">{item.name}</span>
-              // </a>
               <button
                 key={`nav-button-${idx}`}
                 onClick={(e) => {

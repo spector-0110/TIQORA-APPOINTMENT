@@ -156,7 +156,7 @@ export default function Footer() {
                       </div>
                     </div>
 
-                    {/* CTA Section */}
+                    {/* CTA Section
         <div className="mt-12 text-center">
           <div className="bg-gradient-to-r from-white/80 to-gray-100 rounded-2xl p-8 border border-gray-600 shadow-soft hover:shadow-medium transition-all duration-300">
             <h3 className="text-2xl font-bold text-neutral-900 mb-4">
@@ -177,7 +177,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
