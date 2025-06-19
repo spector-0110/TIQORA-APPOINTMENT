@@ -80,7 +80,7 @@ export function NavbarMain() {
                     handleScroll(e, item.link);
                   }
                 }}
-                className="relative px-4 py-2 text-neutral-200 hover:text-neutral-100 transition-colors duration-300"
+                className="relative px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors duration-300"
               >
                 <span className="relative z-20">{item.name}</span>
               </button>
@@ -92,7 +92,7 @@ export function NavbarMain() {
                 href={'https://hospital.tiqora.in'}
                 target={'_blank'}
               >
-                Book a call
+                Explore Now
               </NavbarButton>
             </div>
           </MobileNavMenu>
