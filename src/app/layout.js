@@ -1,7 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./global.css";
-import { checkServerStatus } from '@/lib/patientAPI';
-import { Spinner } from "@/components/ui/spinner";
 import ThemeProvider from '@/context/ThemeProvider';
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +11,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : "http://localhost:3000";
+
+
 export const metadata = {
-  title: "TIQORA",
+  metadataBase: new URL(defaultUrl),
+  title: "Tiqora",
+  description: "Modern healthcare management platform with seamless appointment scheduling and analytics",
+  keywords: ["healthcare", "appointments", "hospital management", "medical"],
+  authors: [{ name: "Tiqora Team" }],
+  creator: "Tiqora",
+  publisher: "Tiqora",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  icons: {
+    icon: "/tiqora.ico",
+    shortcut: "/tiqora.ico",
+    apple: "/tiqora.ico",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({ children }) {
