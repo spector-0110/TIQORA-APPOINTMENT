@@ -58,6 +58,35 @@ module.exports = {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			// Enhanced semantic colors
+  			success: {
+  				DEFAULT: 'hsl(var(--success))',
+  				foreground: 'hsl(var(--success-foreground))',
+  				muted: 'hsl(var(--success-muted))'
+  			},
+  			warning: {
+  				DEFAULT: 'hsl(var(--warning))',
+  				foreground: 'hsl(var(--warning-foreground))',
+  				muted: 'hsl(var(--warning-muted))'
+  			},
+  			info: {
+  				DEFAULT: 'hsl(var(--info))',
+  				foreground: 'hsl(var(--info-foreground))',
+  				muted: 'hsl(var(--info-muted))'
+  			},
+  			// Brand colors
+  			brand: {
+  				primary: 'hsl(var(--brand-primary))',
+  				secondary: 'hsl(var(--brand-secondary))',
+  				accent: 'hsl(var(--brand-accent))'
+  			},
+  			// Status colors
+  			status: {
+  				completed: 'hsl(var(--status-completed))',
+  				pending: 'hsl(var(--status-pending))',
+  				cancelled: 'hsl(var(--status-cancelled))',
+  				missed: 'hsl(var(--status-missed))'
   			}
   		},
   		borderRadius: {

@@ -121,9 +121,9 @@ export default function ContactUs() {
             variants={fadeInUp}
             className="text-center mb-12 md:mb-20"
           >
-            <p className="text-xl md:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
               Join hundreds of healthcare providers who trust Tiqora for seamless patient management. 
-              <span className="text-blue-900 font-semibold"> Let's build your personalized portal together.</span>
+              <span className="text-foreground font-semibold"> Let's build your personalized portal together.</span>
             </p>
           </motion.div>
 
@@ -133,18 +133,18 @@ export default function ContactUs() {
           >
             {/* Contact Form */}
             <motion.div variants={fadeInUp}>
-              <Card className="bg-white/95 backdrop-blur-xl border-0 shadow-strong hover:shadow-xl transition-all duration-500 rounded-3xl">
+              <Card className="bg-card/95 backdrop-blur-xl border-0 shadow-strong hover:shadow-xl transition-all duration-500 rounded-3xl">
                 <CardHeader className="relative">
                   <div className="absolute -top-6 left-6">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 bg-gradient-to-br from-success to-primary rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
                       <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                   </div>
                   <div className="pt-8">
-                    <CardTitle className="text-3xl text-blue-900 mb-3">Get Started Today</CardTitle>
-                    <CardDescription className="text-slate-700 text-lg">
+                    <CardTitle className="text-3xl text-foreground mb-3">Get Started Today</CardTitle>
+                    <CardDescription className="text-muted-foreground text-lg">
                       Complete this form and our team will contact you within 24 hours to create your personalized healthcare portal.
                     </CardDescription>
                   </div>
@@ -153,8 +153,8 @@ export default function ContactUs() {
                   {submitStatus && (
                     <div className={`mb-4 p-3 rounded-md ${
                       submitStatus.type === 'success' 
-                        ? 'bg-green-50 border border-green-200 text-green-700' 
-                        : 'bg-red-50 border border-red-200 text-red-700'
+                        ? 'bg-success/10 border border-success/20 text-success' 
+                        : 'bg-destructive/10 border border-destructive/20 text-destructive'
                     }`}>
                       {submitStatus.message}
                     </div>
@@ -162,7 +162,7 @@ export default function ContactUs() {
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <label className="text-sm font-medium text-slate-800 mb-2 block">
+                      <label className="text-sm font-medium text-foreground mb-2 block">
                         Full Name *
                       </label>
                       <Input 
@@ -170,13 +170,13 @@ export default function ContactUs() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="Dr. Ram"
-                        className="bg-white border-blue-200 text-slate-800 placeholder-slate-500 focus:border-blue-400"
+                        className="bg-background border-border text-foreground placeholder-muted-foreground focus:border-primary"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-slate-800 mb-2 block">
+                      <label className="text-sm font-medium text-foreground mb-2 block">
                         Email Address *
                       </label>
                       <Input 
@@ -185,13 +185,13 @@ export default function ContactUs() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="admin@hospital.com"
-                        className="bg-white border-blue-200 text-slate-800 placeholder-slate-500 focus:border-blue-400"
+                        className="bg-background border-border text-foreground placeholder-muted-foreground focus:border-primary"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-slate-800 mb-2 block">
+                      <label className="text-sm font-medium text-foreground mb-2 block">
                         Mobile Number * (10 digits)
                       </label>
                       <Input 
@@ -200,15 +200,15 @@ export default function ContactUs() {
                         value={formData.mobile}
                         onChange={handleInputChange}
                         placeholder="9876543210"
-                        className="bg-white border-blue-200 text-slate-800 placeholder-slate-500 focus:border-blue-400"
+                        className="bg-background border-border text-foreground placeholder-muted-foreground focus:border-primary"
                         maxLength={10}
                         required
                       />
-                      <p className="text-xs text-slate-600 mt-1">Enter 10-digit mobile number without country code</p>
+                      <p className="text-xs text-muted-foreground mt-1">Enter 10-digit mobile number without country code</p>
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-slate-800 mb-2 block">
+                      <label className="text-sm font-medium text-foreground mb-2 block">
                         Location/City *
                       </label>
                       <Input 
@@ -216,7 +216,7 @@ export default function ContactUs() {
                         value={formData.location}
                         onChange={handleInputChange}
                         placeholder="Mumbai, Maharashtra"
-                        className="bg-white border-blue-200 text-slate-800 placeholder-slate-500 focus:border-blue-400"
+                        className="bg-background border-border text-foreground placeholder-muted-foreground focus:border-primary"
                         required
                       />
                     </div>
@@ -239,12 +239,12 @@ export default function ContactUs() {
               className="space-y-6"
             >
               <motion.div variants={fadeInUp}>
-                <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/90 backdrop-blur-sm border-0 shadow-medium hover:shadow-strong transition-all duration-300 rounded-2xl">
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-blue-900 mb-4">Why Choose Tiqora?</h3>
-                    <ul className="space-y-3 text-slate-700">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">Why Choose Tiqora?</h3>
+                    <ul className="space-y-3 text-muted-foreground">
                       <li className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-5 h-5 bg-success rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -252,7 +252,7 @@ export default function ContactUs() {
                         <span>Instant setup in minutes</span>
                       </li>
                       <li className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-5 h-5 bg-success rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -260,7 +260,7 @@ export default function ContactUs() {
                         <span>Custom branding and domain</span>
                       </li>
                       <li className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-5 h-5 bg-success rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -268,7 +268,7 @@ export default function ContactUs() {
                         <span>24/7 technical support</span>
                       </li>
                       <li className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-5 h-5 bg-success rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -276,7 +276,7 @@ export default function ContactUs() {
                         <span>Secured payment method</span>
                       </li>
                       <li className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-green-500 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-5 h-5 bg-success rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center">
                           <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
@@ -289,24 +289,24 @@ export default function ContactUs() {
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <Card className="bg-gradient-to-r from-blue-50 to-purple-50 backdrop-blur-sm border border-blue-200 shadow-medium hover:shadow-strong transition-all duration-300 rounded-2xl">
+                <Card className="bg-gradient-to-r from-primary/10 to-brand-secondary/10 backdrop-blur-sm border border-border shadow-medium hover:shadow-strong transition-all duration-300 rounded-2xl">
                   <CardContent className="p-6 text-center">
-                    <h3 className="text-xl font-semibold text-blue-900 mb-2">Enterprise Solution</h3>
-                    <p className="text-slate-700 mb-4">
+                    <h3 className="text-xl font-semibold text-foreground mb-2">Enterprise Solution</h3>
+                    <p className="text-muted-foreground mb-4">
                       Serving 200+ healthcare facilities worldwide with 99.9% uptime
                     </p>
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <div>
-                        <div className="text-2xl font-bold text-blue-600">50K+</div>
-                        <div className="text-xs text-slate-600">Daily Appointments</div>
+                        <div className="text-2xl font-bold text-primary">50K+</div>
+                        <div className="text-xs text-muted-foreground">Daily Appointments</div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-blue-600">99.9%</div>
-                        <div className="text-xs text-slate-600">System Uptime</div>
+                        <div className="text-2xl font-bold text-primary">99.9%</div>
+                        <div className="text-xs text-muted-foreground">System Uptime</div>
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-blue-600">24/7</div>
-                        <div className="text-xs text-slate-600">Support Available</div>
+                        <div className="text-2xl font-bold text-primary">24/7</div>
+                        <div className="text-xs text-muted-foreground">Support Available</div>
                       </div>
                     </div>
                   </CardContent>
@@ -314,28 +314,28 @@ export default function ContactUs() {
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <Card className="bg-white/80 backdrop-blur-sm border border-blue-100 shadow-soft hover:shadow-medium transition-all duration-300 rounded-2xl">
+                <Card className="bg-card/80 backdrop-blur-sm border border-border shadow-soft hover:shadow-medium transition-all duration-300 rounded-2xl">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-blue-900 mb-3">Contact Information</h3>
-                    <div className="space-y-2 text-slate-700">
+                    <h3 className="text-lg font-semibold text-foreground mb-3">Contact Information</h3>
+                    <div className="space-y-2 text-muted-foreground">
                       <div className="flex items-center space-x-3">
-                        <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         <a 
                           href="mailto:info@tiqora.in" 
-                          className="hover:text-blue-800 transition-colors cursor-pointer"
+                          className="hover:text-primary transition-colors cursor-pointer"
                         >
                           info@tiqora.in
                         </a>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                         <a 
                           href="tel:+919696415586" 
-                          className="hover:text-blue-800 transition-colors cursor-pointer"
+                          className="hover:text-primary transition-colors cursor-pointer"
                         >
                           +91 9696415586
                         </a>

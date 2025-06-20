@@ -18,7 +18,7 @@ const getFileTypeIcon = (fileName) => {
   switch (extension) {
     case 'pdf':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-destructive" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
           <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -31,7 +31,7 @@ const getFileTypeIcon = (fileName) => {
     case 'png':
     case 'jpeg':
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
           <circle cx="8.5" cy="8.5" r="1.5"></circle>
           <polyline points="21 15 16 10 5 21"></polyline>
@@ -39,7 +39,7 @@ const getFileTypeIcon = (fileName) => {
       );
     default:
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
         </svg>
@@ -143,7 +143,7 @@ export default function UploadClientPage({ tokenData, token }) {
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="text-center border-b pb-4">
           <CardTitle className="text-2xl font-bold">Upload Documents</CardTitle>
-          <p className="text-gray-500 mt-2">
+          <p className="text-muted-foreground mt-2">
             Please upload your medical documents (images or PDFs)
           </p>
         </CardHeader>
@@ -151,16 +151,16 @@ export default function UploadClientPage({ tokenData, token }) {
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
-              <div className="border-2 border-dashed rounded-lg p-6 text-center bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
+              <div className="border-2 border-dashed rounded-lg p-6 text-center bg-muted/50 hover:bg-muted/80 cursor-pointer transition-colors">
                 <Label htmlFor="file-upload" className="cursor-pointer">
                   <div className="flex flex-col items-center justify-center space-y-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
-                    <span className="text-lg font-medium text-gray-700">
+                    <span className="text-lg font-medium text-foreground">
                       {files.length > 0 ? 'Add more files' : 'Drag and drop files here'}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-muted-foreground">
                       or click to browse (JPG, PNG, JPEG, PDF up to 10MB)
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export default function UploadClientPage({ tokenData, token }) {
                 </Label>
               </div>
               
-              <div className="text-xs text-gray-500 mt-2">
+              <div className="text-xs text-muted-foreground mt-2">
                 Maximum 5 files. Supported formats: JPG, PNG, JPEG, PDF. Max size: 10MB per file.
               </div>
             </div>
@@ -186,12 +186,12 @@ export default function UploadClientPage({ tokenData, token }) {
                 <h3 className="text-lg font-semibold mb-2">Selected Files</h3>
                 <div className="space-y-2">
                   {files.map((file, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-md">
+                    <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
                       <div className="flex items-center space-x-2">
                         {getFileTypeIcon(file.name)}
                         <div className="flex flex-col">
                           <span className="font-medium truncate max-w-[200px]">{file.name}</span>
-                          <span className="text-xs text-gray-500">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                          <span className="text-xs text-muted-foreground">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
                         </div>
                       </div>
                       <Button 
@@ -201,7 +201,7 @@ export default function UploadClientPage({ tokenData, token }) {
                         onClick={() => removeFile(index)}
                         disabled={isUploading}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500 hover:text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-muted-foreground hover:text-destructive" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                         </svg>
                       </Button>
@@ -220,7 +220,7 @@ export default function UploadClientPage({ tokenData, token }) {
                 <Progress 
                   value={uploadProgress} 
                   className="h-2" 
-                  indicatorClassName="bg-blue-500" 
+                  indicatorClassName="bg-primary" 
                 />
               </div>
             )}

@@ -97,7 +97,7 @@ export default function Footer() {
                 { name: 'Privacy Policy', href: '/privacy-policy' },
                 { name: 'Terms of Service', href: '/terms' },
                 { name: 'Data Deletion', href: '/data-deletion' },
-                { name: 'Help Center', href: '/#help' },
+                { name: 'Help Center', href: '/help' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link 

@@ -11,11 +11,12 @@ import {
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 export function NavbarMain() {
   const navItems = [
     {
-      name: "features",
+      name: "Features",
       link: "#features",
     },
     {
@@ -35,6 +36,9 @@ export function NavbarMain() {
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       }
+    } else {
+      // For regular navigation links like /help, let default behavior handle it
+      window.location.href = link;
     }
     setIsMobileMenuOpen(false);
   };
@@ -49,6 +53,7 @@ export function NavbarMain() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <NavbarButton variant="primary" href={'https://hospital.tiqora.in'} target={'_blank'}>Explore Now</NavbarButton>
           </div>
         </NavBody>
@@ -74,7 +79,7 @@ export function NavbarMain() {
                     handleScroll(e, item.link);
                   }
                 }}
-                className="relative px-4 py-2 text-gray-700 hover:text-gray-900 transition-colors duration-300"
+                className="relative px-4 py-2 text-foreground hover:text-primary transition-colors duration-300"
               >
                 <span className="relative z-20">{item.name}</span>
               </button>

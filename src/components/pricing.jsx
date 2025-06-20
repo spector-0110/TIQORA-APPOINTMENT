@@ -213,32 +213,32 @@ export default function Pricing() {
           className="text-center mb-12 md:mb-20"
         >
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-900 mb-6">
-            Transparent <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">Pricing</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-6">
+            Transparent <span className="bg-gradient-to-r from-primary via-brand-secondary to-primary bg-clip-text text-transparent">Pricing</span>
           </h2>
-          <p className="text-xl md:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Flexible pricing that grows with your practice. Start small, scale seamlessly. 
-            <span className="text-blue-900 font-semibold"> No hidden fees, no surprises.</span>
+            <span className="text-foreground font-semibold"> No hidden fees, no surprises.</span>
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 md:gap-16 max-w-7xl mx-auto">
           {/* Pricing Calculator */}
           <motion.div variants={fadeInUp}>
-            <Card className="bg-white/95 backdrop-blur-xl border-0 shadow-strong hover:shadow-xl transition-all duration-500 rounded-3xl">
+            <Card className="bg-card/95 backdrop-blur-xl border-0 shadow-strong hover:shadow-xl transition-all duration-500 rounded-3xl">
               <CardHeader className="text-center pb-8 relative">
                 <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-brand-secondary rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
                   </div>
                 </div>
                 <div className="pt-8">
-                  <CardTitle className="text-3xl font-bold text-blue-900 mb-3">
+                  <CardTitle className="text-3xl font-bold text-foreground mb-3">
                     Pricing Calculator
                   </CardTitle>
-                  <p className="text-slate-700 text-lg">
+                  <p className="text-muted-foreground text-lg">
                     Discover your custom pricing in real-time
                   </p>
                 </div>
@@ -248,12 +248,12 @@ export default function Pricing() {
                 {/* Doctor Count Slider */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <Label className="text-slate-800 text-lg font-medium flex items-center gap-2">
-                      <Users className="h-5 w-5 text-blue-500" />
+                    <Label className="text-foreground text-lg font-medium flex items-center gap-2">
+                      <Users className="h-5 w-5 text-primary" />
                       Number of Doctors
                     </Label>
-                    <div className="bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                      <span className="text-blue-700 font-semibold text-lg">{doctorCount}</span>
+                    <div className="bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+                      <span className="text-primary font-semibold text-lg">{doctorCount}</span>
                     </div>
                   </div>
                   
@@ -266,7 +266,7 @@ export default function Pricing() {
                         max={LIMITS.MAX_DOCTORS}
                         value={doctorCount}
                         onChange={(e) => setDoctorCount(parseInt(e.target.value))}
-                        className="w-full h-3 bg-blue-100 rounded-lg appearance-none cursor-pointer slider"
+                        className="w-full h-3 bg-muted rounded-lg appearance-none cursor-pointer slider"
                         style={{
                           background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${((doctorCount - LIMITS.MIN_DOCTORS) / (LIMITS.MAX_DOCTORS - LIMITS.MIN_DOCTORS)) * 100}%, #e0e7ff ${((doctorCount - LIMITS.MIN_DOCTORS) / (LIMITS.MAX_DOCTORS - LIMITS.MIN_DOCTORS)) * 100}%, #e0e7ff 100%)`
                         }}
@@ -298,7 +298,7 @@ export default function Pricing() {
                   
                   {/* Direct Input Option */}
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-slate-600">Or enter manually:</span>
+                    <span className="text-muted-foreground">Or enter manually:</span>
                     <div className="relative">
                       <Input
                         type="number"
@@ -306,7 +306,7 @@ export default function Pricing() {
                         onChange={(e) => handleDoctorCountChange(e.target.value)}
                         min={0}
                         max={LIMITS.MAX_DOCTORS}
-                        className="w-20 h-8 text-sm bg-white border-blue-200 text-slate-800 text-center"
+                        className="w-20 h-8 text-sm bg-background border-input text-foreground text-center"
                       />
                     </div>
                   </div>
@@ -314,7 +314,7 @@ export default function Pricing() {
 
                 {/* Billing Cycle Toggle */}
                 <div className="space-y-3">
-                  <Label className="text-slate-800 text-lg font-medium">Billing Cycle</Label>
+                  <Label className="text-foreground text-lg font-medium">Billing Cycle</Label>
                   <div className="flex gap-2">
                     <Button
                       variant={!isYearly ? "default" : "outline"}
@@ -329,7 +329,7 @@ export default function Pricing() {
                       className="flex-1 relative"
                     >
                       Yearly
-                      <Badge className="ml-2 bg-green-500 text-white text-xs">
+                      <Badge className="ml-2 bg-success text-success-foreground text-xs">
                         {PRICING.YEARLY_DISCOUNT_PERCENTAGE}% off
                       </Badge>
                     </Button>
@@ -337,32 +337,32 @@ export default function Pricing() {
                 </div>
 
                 {/* Price Display */}
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+                <div className="bg-gradient-to-r from-muted/50 to-accent/50 rounded-lg p-6 border border-border">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-blue-900 mb-2">
+                    <div className="text-4xl font-bold text-foreground mb-2">
                       {formatPrice(isYearly ? pricing.yearlyPrice : pricing.monthlyPrice)}
-                      <span className="text-lg text-slate-600 font-normal">
+                      <span className="text-lg text-muted-foreground font-normal">
                         /{isYearly ? 'month' : 'month'}
                       </span>
                     </div>
                     
-                    <div className="text-sm text-slate-600 mb-4">
+                    <div className="text-sm text-muted-foreground mb-4">
                       {formatPrice(pricing.pricePerDoctor)} per doctor per month
                     </div>
 
                     {/* Discounts Display */}
                     <div className="space-y-2">
                       {pricing.volumeDiscount > 0 && (
-                        <Badge className="bg-blue-100 text-blue-700 border-blue-300">
+                        <Badge className="bg-info/10 text-info border-info/20">
                           Volume Discount: {pricing.volumeDiscount}% off
                         </Badge>
                       )}
                       {isYearly && (
                         <div>
-                          <Badge className="bg-green-100 text-green-700 border-green-300">
+                          <Badge className="bg-success/10 text-success border-success/20">
                             Yearly Discount: {pricing.yearlyDiscount}% off
                           </Badge>
-                          <p className="text-sm text-green-600 mt-2">
+                          <p className="text-sm text-success mt-2">
                             You save {formatPrice(pricing.totalSavings)} per year!
                           </p>
                         </div>

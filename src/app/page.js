@@ -72,7 +72,7 @@ export default function Home(){
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="inline-flex items-center"
               >
-                <Badge variant="outline" className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-50 to-purple-50 text-blue-800 border-blue-200 rounded-full shadow-sm">
+                <Badge variant="outline" className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-info/5 to-brand-secondary/5 text-info border-info/20 rounded-full shadow-sm">
                   ✨ Transforming Healthcare Scheduling
                 </Badge>
               </motion.div>
@@ -82,11 +82,11 @@ export default function Home(){
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-blue-900 leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-foreground leading-tight"
               >
                 Transform Healthcare
                 <br />
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent">
                   Appointment Scheduling
                 </span>
               </motion.h1>
@@ -96,10 +96,10 @@ export default function Home(){
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-lg md:text-xl lg:text-2xl text-slate-700 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0"
               >
                 Streamline patient care with intelligent appointment management. 
-                <span className="font-semibold text-blue-900"> Personalized hospital portals</span> deliver 
+                <span className="font-semibold text-foreground"> Personalized hospital portals</span> deliver 
                 seamless experiences and boost operational efficiency by up to 60%.
               </motion.p>
 
@@ -130,17 +130,17 @@ export default function Home(){
                 transition={{ duration: 0.8, delay: 0.8 }}
                 className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4"
               >
-                <div className="flex items-center gap-2 px-4 py-2 bg-green-50 rounded-full border border-green-200">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-green-700">HIPAA Compliant</span>
+                <div className="flex items-center gap-2 px-4 py-2 bg-success/10 rounded-full border border-success/20">
+                  <div className="w-3 h-3 bg-success rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-success">HIPAA Compliant</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full border border-blue-200">
-                  <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-blue-700">Real-time Sync</span>
+                <div className="flex items-center gap-2 px-4 py-2 bg-info/10 rounded-full border border-info/20">
+                  <div className="w-3 h-3 bg-info rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-info">Real-time Sync</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full border border-purple-200">
-                  <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-purple-700">24/7 Support</span>
+                <div className="flex items-center gap-2 px-4 py-2 bg-brand-secondary/10 rounded-full border border-brand-secondary/20">
+                  <div className="w-3 h-3 bg-brand-secondary rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-brand-secondary">24/7 Support</span>
                 </div>
               </motion.div>
             </div>
