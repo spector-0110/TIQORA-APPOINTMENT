@@ -682,24 +682,6 @@ export default function Home(){
       </div>
     </section>
     
-    {/* Pricing Section */}
-    <div id="pricing" className="py-16 md:py-24 section-gradient-2 relative overflow-hidden">
-      {/* Background pattern
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='m0 40l40-40h-40v40zm40 0v-40h-40l40 40z'/%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
-      </div> */}
-      
-      {/* Gradient overlays */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
-      
-      <div className="relative">
-        <Pricing />
-      </div>
-    </div>
-    
     {/* Contact Section */}
     <div id="contact-us" className="py-16 md:py-24 section-gradient-3 relative overflow-hidden">
       {/* Background elements */}
