@@ -7,7 +7,6 @@ import ContactUs from "@/components/ContactUs";
 import {checkServerStatus} from "@/lib/patientAPI";
 import { useEffect ,useState} from "react";
 import { NavbarMain } from "@/components/Navbar";
-import Pricing from "@/components/pricing";
 import Footer from "@/components/Footer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
