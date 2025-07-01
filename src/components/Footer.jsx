@@ -72,7 +72,6 @@ export default function Footer() {
             <ul className="space-y-2 md:space-y-3">
               {[
                 { name: 'Home', href: '/' },
-                { name: 'Pricing', href: '/#pricing' },
                 { name: 'About Us', href: '/#about' },
                 { name: 'Contact', href: '/#contact' },
               ].map((link) => (
@@ -125,10 +124,10 @@ export default function Footer() {
               <span className="text-gray-400 text-sm">Follow us:</span>
               <div className="flex gap-3">
                 {[
-                  { icon: Twitter, href: 'https://twitter.com/tiqora', color: 'hover:text-blue-400' },
+                  { icon: Twitter, href: 'https://x.com/tiqorahealth', color: 'hover:text-blue-400' },
                   { icon: Linkedin, href: 'https://linkedin.com/company/tiqora', color: 'hover:text-blue-500' },
                   { icon: Facebook, href: 'https://facebook.com/tiqora', color: 'hover:text-blue-400' },
-                  { icon: Instagram, href: 'https://instagram.com/tiqora', color: 'hover:text-pink-400' },
+                  { icon: Instagram, href: 'https://www.instagram.com/tiqora_', color: 'hover:text-pink-400' },
                 ].map((social, index) => (
                   <a
                     key={index}
