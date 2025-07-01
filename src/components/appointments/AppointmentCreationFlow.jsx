@@ -308,7 +308,7 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Create New Appointment</h2>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-muted-foreground">
             Step {currentStep} of {steps.length}
           </span>
         </div>
@@ -321,10 +321,10 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium mb-2 ${
                   currentStep > step.number
-                    ? 'bg-green-600 text-white'
+                    ? 'bg-success text-white'
                     : currentStep === step.number
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-600'
+                    ? 'bg-info text-white'
+                    : 'bg-muted text-muted-foreground'
                 }`}
               >
                 {currentStep > step.number ? (
@@ -335,7 +335,7 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
               </div>
               <div className="hidden sm:block">
                 <p className="text-sm font-medium">{step.title}</p>
-                <p className="text-xs text-gray-500">{step.description}</p>
+                <p className="text-xs text-muted-foreground">{step.description}</p>
               </div>
             </div>
           ))}
@@ -417,9 +417,9 @@ const AppointmentCreationFlow = ({ onSuccess }) => {
                 </div>
               </div>
               
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-medium text-blue-900 mb-2">Important Notes:</h4>
-                <ul className="text-blue-800 text-sm space-y-1">
+              <div className="bg-info/10 p-4 rounded-lg">
+                <h4 className="font-medium text-info mb-2">Important Notes:</h4>
+                <ul className="text-info text-sm space-y-1">
                   <li>• Please arrive 30 minutes before your appointment</li>
                   <li>• Bring a valid ID and any relevant medical documents</li>
                   <li>• The appointment confirmation will be sent to the mobile number provided</li>

@@ -230,15 +230,15 @@ const ExistingAppointmentView = ({
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'booked':
-        return 'bg-emerald-900/50 text-emerald-300 border border-emerald-700';
+        return 'bg-success/10 text-success border border-success/30';
       case 'cancelled':
-        return 'bg-red-900/50 text-red-300 border border-red-700';
+        return 'bg-destructive/10 text-destructive border border-destructive/30';
       case 'completed':
-        return 'bg-blue-900/50 text-blue-300 border border-blue-700';
+        return 'bg-info/10 text-info border border-info/30';
       case 'pending':
-        return 'bg-amber-900/50 text-amber-300 border border-amber-700';
+        return 'bg-warning/10 text-warning border border-warning/30';
       default:
-        return 'bg-slate-700/50 text-slate-300 border border-slate-600';
+        return 'bg-muted text-muted-foreground border border-border';
     }
   };
 
@@ -246,13 +246,13 @@ const ExistingAppointmentView = ({
   const getPaymentStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case 'paid':
-        return 'bg-emerald-900/50 text-emerald-300 border border-emerald-700';
+        return 'bg-success/10 text-success border border-success/30';
       case 'unpaid':
-        return 'bg-orange-900/50 text-orange-300 border border-orange-700';
+        return 'bg-warning/10 text-warning border border-warning/30';
       case 'pending':
-        return 'bg-amber-900/50 text-amber-300 border border-amber-700';
+        return 'bg-info/10 text-info border border-info/30';
       default:
-        return 'bg-slate-700/50 text-slate-300 border border-slate-600';
+        return 'bg-muted text-muted-foreground border border-border';
     }
   };
 
@@ -318,7 +318,7 @@ const ExistingAppointmentView = ({
       <div className="relative ">
         {/* TIQORA Logo in top-left corner */}
         <div className="absolute top-0 left-0 z-10">
-          <div className="bg-white rounded-lg p-1 shadow-lg">
+          <div className="bg-card rounded-lg p-1 shadow-lg">
             <img 
               src="/Tiqora1.png" 
               alt="Tiqora Logo" 
@@ -336,7 +336,7 @@ const ExistingAppointmentView = ({
             </h1>
           </div>
           {!isMobile && (
-            <p className="text-slate-300 text-xs sm:text-sm max-w-md mx-auto">
+            <p className="text-muted-foreground text-xs sm:text-sm max-w-md mx-auto">
               You have an existing appointment at this hospital.
             </p>
           )}
@@ -349,7 +349,7 @@ const ExistingAppointmentView = ({
         <Card className="border-l-2 border-l-emerald-500 bg-gradient-to-br from-neutral-900  to-gray-800 shadow-lg border border-neutral-800">
           <CardContent className="p-2 sm:p-3 flex flex-col items-center text-center">
             <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 mb-1" />
-            <p className="text-xs text-slate-300">Status</p>
+            <p className="text-xs text-muted-foreground">Status</p>
             <Badge className={`${getStatusColor(appointmentData?.status)} capitalize text-xs font-medium`}>
               {appointmentData?.status || 'Unknown'}
             </Badge>
@@ -359,8 +359,8 @@ const ExistingAppointmentView = ({
         {/* Payment Status Card */}
         <Card className="border-l-2 border-l-blue-500 bg-gradient-to-br from-neutral-900 to-gray-800 shadow-lg border border-neutral-800">
           <CardContent className="p-2 sm:p-3 flex flex-col items-center text-center">
-            <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 mb-1" />
-            <p className="text-xs text-slate-300">Payment</p>
+            <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-info mb-1" />
+            <p className="text-xs text-muted-foreground">Payment</p>
             <Badge className={`${getPaymentStatusColor(appointmentData?.paymentStatus)} capitalize text-xs font-medium`}>
               {appointmentData?.paymentStatus || 'Unknown'}
             </Badge>
@@ -380,27 +380,27 @@ const ExistingAppointmentView = ({
           {/* Date and Time - Single column on mobile */}
           <div className={`grid ${isMobile ? 'grid-cols-2 gap-2' : 'grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3'}`}>
             <div className="flex items-start gap-2">
-              <Calendar className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-400 mt-0.5 flex-shrink-0`} />
+              <Calendar className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-info mt-0.5 flex-shrink-0`} />
               <div className="min-w-0">
                 <p className={`font-medium text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Date</p>
-                <p className={`text-slate-300 ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
+                <p className={`text-muted-foreground ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
                   {formatDate(appointmentData?.appointmentDate)}
                 </p>
               </div>
             </div>
             
             <div className="flex items-start gap-2">
-              <Clock className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-blue-400 mt-0.5 flex-shrink-0`} />
+              <Clock className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} text-info mt-0.5 flex-shrink-0`} />
               <div className="min-w-0">
                 <p className={`font-medium text-white ${isMobile ? 'text-xs' : 'text-sm'}`}>Time</p>
-                <p className={`text-slate-300 ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
+                <p className={`text-muted-foreground ${isMobile ? 'text-xs truncate' : 'text-xs sm:text-sm'}`}>
                   {formatTime(appointmentData?.startTime)} - {formatTime(appointmentData?.endTime)}
                 </p>
               </div>
             </div>
           </div>
 
-          <Separator className="bg-slate-700" />
+          <Separator className="bg-border" />
 
           {/* Patient Information - Compact grid */}
           <div>

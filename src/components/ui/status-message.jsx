@@ -9,7 +9,7 @@ const StatusMessage = ({ type, message }) => {
   const styles = {
     success: 'bg-green-50 text-green-700 border border-green-200',
     error: 'bg-red-50 text-red-700 border border-red-200',
-    info: 'bg-blue-50 text-blue-700 border border-blue-200',
+    info: 'bg-info/10 text-info border border-info/30',
     warning: 'bg-yellow-50 text-yellow-700 border border-yellow-200'
   };
   

@@ -39,15 +39,15 @@ const SuccessDialog = ({
         </DialogHeader>
         
         <div className="py-2 sm:py-3 space-y-3 sm:space-y-4">
-          <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             {message}
           </p>
           
           {details && details.length > 0 && (
-            <div className="mt-3 sm:mt-4 max-h-48 sm:max-h-60 overflow-auto border rounded-md p-3 sm:p-4 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700">
+            <div className="mt-3 sm:mt-4 max-h-48 sm:max-h-60 overflow-auto border rounded-md p-3 sm:p-4 bg-muted/50 border-border">
               <ul className="list-disc pl-4 sm:pl-5 text-xs sm:text-sm space-y-1 sm:space-y-2">
                 {details.map((detail, index) => (
-                  <li key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <li key={index} className="text-muted-foreground leading-relaxed">
                     {detail}
                   </li>
                 ))}

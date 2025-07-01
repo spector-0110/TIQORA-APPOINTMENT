@@ -29,7 +29,7 @@ export const getStatusStyles = (status) => {
     },
     missed: {
       background: 'bg-warning/10',
-      text: 'text-warning-foreground',
+      text: 'text-warning',
       border: 'border-warning/30',
       dot: 'bg-warning'
     },
@@ -127,25 +127,25 @@ export const getNotificationStyles = (type) => {
   const notificationMap = {
     success: {
       background: 'bg-success/10',
-      text: 'text-success-foreground',
+      text: 'text-success',
       border: 'border-success/30',
       icon: 'text-success'
     },
     error: {
       background: 'bg-destructive/10',
-      text: 'text-destructive-foreground',
+      text: 'text-destructive',
       border: 'border-destructive/30',
       icon: 'text-destructive'
     },
     warning: {
       background: 'bg-warning/10',
-      text: 'text-warning-foreground',
+      text: 'text-warning',
       border: 'border-warning/30',
       icon: 'text-warning'
     },
     info: {
       background: 'bg-info/10',
-      text: 'text-info-foreground',
+      text: 'text-info',
       border: 'border-info/30',
       icon: 'text-info'
     },
@@ -177,7 +177,7 @@ export const gradientClasses = {
 // Theme-aware button variants
 export const buttonVariants = {
   primary: 'cta-primary text-primary-foreground',
-  secondary: 'cta-secondary text-secondary-foreground',
+  secondary: 'cta-secondary text-foreground',
   tertiary: 'cta-tertiary text-foreground',
   success: 'bg-success hover:bg-success/90 text-success-foreground',
   warning: 'bg-warning hover:bg-warning/90 text-warning-foreground',

@@ -174,7 +174,7 @@ const PatientForm = ({
 
           {/* Privacy Notice */}
           <div className="text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               <span className="inline-block w-3 h-3 bg-success/20 border border-success rounded-full mr-2"></span>
               Your information is secure and will only be used for appointment booking and medical records.
             </p>

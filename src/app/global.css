@@ -78,59 +78,59 @@ html {
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 217.2 32.6% 17.5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 217.2 32.6% 17.5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-primary-foreground: 222.2 84% 4.9%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Enhanced Semantic Colors for Dark Mode */
-    --success: 142 84% 24%;
-    --success-foreground: 0 0% 98%;
-    --success-muted: 142 30% 15%;
-    --warning: 38 92% 30%;
-    --warning-foreground: 0 0% 98%;
-    --warning-muted: 48 30% 15%;
-    --info: 221 83% 33%;
-    --info-foreground: 0 0% 98%;
-    --info-muted: 214 30% 15%;
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+    --success-muted: 142 32% 25%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 222.2 84% 4.9%;
+    --warning-muted: 38 32% 25%;
+    --info: 217.2 91.2% 59.8%;
+    --info-foreground: 222.2 84% 4.9%;
+    --info-muted: 217.2 32% 25%;
     
     /* Brand Colors for Dark Mode */
-    --brand-primary: 221 83% 53%;
+    --brand-primary: 217.2 91.2% 59.8%;
     --brand-secondary: 262 83% 58%;
-    --brand-accent: 142 84% 44%;
+    --brand-accent: 142 76% 36%;
     
     /* Status Colors for Dark Mode */
-    --status-completed: 142 84% 44%;
+    --status-completed: 142 76% 36%;
     --status-pending: 38 92% 50%;
-    --status-cancelled: 0 62% 50%;
+    --status-cancelled: 0 72.2% 50.6%;
     --status-missed: 25 95% 53%;
   }
 }
@@ -144,6 +144,87 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Ensure proper text contrast in dark mode */
+  .dark {
+    color-scheme: dark;
+  }
+  
+  /* Fix text color inheritance in dark mode */
+  .dark .text-gray-500 {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .text-gray-600 {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .text-gray-700 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .text-gray-800 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .text-gray-900 {
+    color: hsl(var(--foreground));
+  }
+  
+  /* Fix background colors in dark mode */
+  .dark .bg-gray-50 {
+    background-color: hsl(var(--muted));
+  }
+  
+  .dark .bg-gray-100 {
+    background-color: hsl(var(--muted));
+  }
+  
+  .dark .bg-gray-200 {
+    background-color: hsl(var(--muted));
+  }
+  
+  .dark .bg-white {
+    background-color: hsl(var(--card));
+  }
+  
+  /* Fix border colors in dark mode */
+  .dark .border-gray-200 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-gray-300 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-slate-200 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-slate-700 {
+    border-color: hsl(var(--border));
+  }
+  
+  /* Specific card and content area fixes */
+  .dark .bg-slate-900 {
+    background-color: hsl(var(--card));
+  }
+  
+  .dark .bg-neutral-900 {
+    background-color: hsl(var(--card));
+  }
+  
+  .dark .text-slate-200 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .text-slate-300 {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .text-slate-400 {
+    color: hsl(var(--muted-foreground));
+  }
 }
 
 /* Custom Scrollbar Styles */
@@ -160,57 +241,36 @@ html {
     scrollbar-color: rgb(191 219 254) rgb(243 244 246);
   }
   
-  /* Webkit browsers */
+  /* Webkit browsers - Theme-aware */
   .scrollbar-thin::-webkit-scrollbar {
     width: 6px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-track {
-    background: rgb(243 244 246);
+    background: hsl(var(--muted));
     border-radius: 3px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgb(191 219 254);
+    background: hsl(var(--muted-foreground) / 0.3);
     border-radius: 3px;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgb(147 197 253);
-  }
-}
-
-/* Custom Scrollbar Styles */
-@layer utilities {
-  .scrollbar-thin {
-    scrollbar-width: thin;
+    background: hsl(var(--muted-foreground) / 0.5);
   }
   
-  .scrollbar-thumb-blue-200 {
-    scrollbar-color: rgb(191 219 254) transparent;
+  /* Dark mode scrollbar */
+  .dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
   }
   
-  .scrollbar-track-gray-100 {
-    scrollbar-color: rgb(191 219 254) rgb(243 244 246);
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.4);
   }
   
-  /* Webkit browsers */
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: rgb(243 244 246);
-    border-radius: 3px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgb(191 219 254);
-    border-radius: 3px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgb(147 197 253);
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.6);
   }
 }
 
@@ -381,6 +441,16 @@ html {
     hsl(var(--background) / 0.95) 100%);
 }
 
+.dark .hero-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--background)) 0%, 
+    hsl(var(--muted) / 0.5) 20%, 
+    hsl(var(--background)) 40%, 
+    hsl(var(--accent) / 0.3) 60%, 
+    hsl(var(--muted) / 0.5) 80%, 
+    hsl(var(--background)) 100%);
+}
+
 .section-gradient-1 {
  background: linear-gradient(
   135deg,
@@ -388,6 +458,13 @@ html {
   hsl(var(--background)) 50%,
   hsl(var(--accent)) 100%
 );
+}
+
+.dark .section-gradient-1 {
+  background: linear-gradient(135deg, 
+    hsl(var(--info-muted) / 0.3) 0%, 
+    hsl(var(--background)) 50%, 
+    hsl(var(--accent) / 0.3) 100%);
 }
 
 .section-gradient-2 {
@@ -398,11 +475,26 @@ html {
     hsl(var(--info-muted) / 0.8) 100%);
 }
 
+.dark .section-gradient-2 {
+  background: linear-gradient(135deg, 
+    hsl(var(--info-muted) / 0.3) 0%, 
+    hsl(var(--background)) 25%, 
+    hsl(var(--background)) 75%, 
+    hsl(var(--info-muted) / 0.2) 100%);
+}
+
 .section-gradient-3 {
   background: linear-gradient(135deg, 
     hsl(var(--background)) 0%, 
     hsl(var(--muted)) 25%, 
     hsl(var(--info-muted) / 0.8) 100%);
+}
+
+.dark .section-gradient-3 {
+  background: linear-gradient(135deg, 
+    hsl(var(--background)) 0%, 
+    hsl(var(--muted) / 0.5) 25%, 
+    hsl(var(--info-muted) / 0.2) 100%);
 }
 
 /* Smooth text color transitions - Theme-aware */
@@ -434,4 +526,282 @@ html {
 
 .will-change-opacity {
   will-change: opacity;
+}
+
+/* Enhanced dark mode color overrides for better theme consistency */
+@layer utilities {
+  .dark .text-blue-600 {
+    color: hsl(var(--info));
+  }
+  
+  .dark .text-blue-400 {
+    color: hsl(var(--info));
+  }
+  
+  .dark .text-green-600 {
+    color: hsl(var(--success));
+  }
+  
+  .dark .text-green-400 {
+    color: hsl(var(--success));
+  }
+  
+  .dark .text-red-600 {
+    color: hsl(var(--destructive));
+  }
+  
+  .dark .text-red-400 {
+    color: hsl(var(--destructive));
+  }
+  
+  .dark .text-orange-600 {
+    color: hsl(var(--warning));
+  }
+  
+  .dark .text-orange-400 {
+    color: hsl(var(--warning));
+  }
+  
+  .dark .text-purple-600 {
+    color: hsl(var(--brand-secondary));
+  }
+  
+  .dark .text-purple-400 {
+    color: hsl(var(--brand-secondary));
+  }
+  
+  .dark .text-indigo-600 {
+    color: hsl(var(--brand-primary));
+  }
+  
+  .dark .text-indigo-400 {
+    color: hsl(var(--brand-primary));
+  }
+  
+  /* Background color overrides */
+  .dark .bg-blue-100 {
+    background-color: hsl(var(--info-muted));
+  }
+  
+  .dark .bg-blue-900 {
+    background-color: hsl(var(--info-muted));
+  }
+  
+  .dark .bg-green-100 {
+    background-color: hsl(var(--success-muted));
+  }
+  
+  .dark .bg-red-100 {
+    background-color: hsl(var(--destructive) / 0.1);
+  }
+  
+  .dark .bg-orange-100 {
+    background-color: hsl(var(--warning-muted));
+  }
+  
+  .dark .bg-indigo-100 {
+    background-color: hsl(var(--brand-primary) / 0.1);
+  }
+  
+  /* Border color overrides */
+  .dark .border-blue-300 {
+    border-color: hsl(var(--info) / 0.3);
+  }
+  
+  .dark .border-blue-700 {
+    border-color: hsl(var(--info) / 0.3);
+  }
+  
+  .dark .border-green-300 {
+    border-color: hsl(var(--success) / 0.3);
+  }
+  
+  .dark .border-red-300 {
+    border-color: hsl(var(--destructive) / 0.3);
+  }
+  
+  .dark .border-orange-300 {
+    border-color: hsl(var(--warning) / 0.3);
+  }
+  
+  .dark .border-indigo-300 {
+    border-color: hsl(var(--brand-primary) / 0.3);
+  }
+  
+  .dark .border-indigo-700 {
+    border-color: hsl(var(--brand-primary) / 0.3);
+  }
+}
+
+/* Additional gradient and background fixes for dark mode */
+.dark .from-orange-100\/50 {
+  --tw-gradient-from: hsl(var(--warning-muted) / 0.5);
+}
+
+.dark .to-orange-50 {
+  --tw-gradient-to: hsl(var(--warning-muted) / 0.3);
+}
+
+.dark .from-orange-900\/30 {
+  --tw-gradient-from: hsl(var(--warning-muted) / 0.3);
+}
+
+.dark .to-orange-900\/10 {
+  --tw-gradient-to: hsl(var(--warning-muted) / 0.1);
+}
+
+/* Fix specific component backgrounds in dark mode */
+.dark .bg-gradient-to-br.from-neutral-950 {
+  background: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--muted)));
+}
+
+.dark .bg-gradient-to-br.from-neutral-900 {
+  background: linear-gradient(to bottom right, hsl(var(--card)), hsl(var(--muted)));
+}
+
+/* Ensure all text has proper contrast in dark mode */
+.dark * {
+  /* This ensures text inherits proper colors */
+  color: inherit;
+}
+
+/* Additional dark mode overrides for comprehensive theme coverage */
+@layer utilities {
+  /* Specific component overrides */
+  .dark .bg-neutral-950 {
+    background-color: hsl(var(--background));
+  }
+  
+  .dark .from-neutral-950 {
+    --tw-gradient-from: hsl(var(--background));
+  }
+  
+  .dark .to-gray-800 {
+    --tw-gradient-to: hsl(var(--muted));
+  }
+  
+  .dark .from-neutral-900 {
+    --tw-gradient-from: hsl(var(--card));
+  }
+  
+  .dark .to-slate-800 {
+    --tw-gradient-to: hsl(var(--muted));
+  }
+  
+  .dark .border-neutral-800 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-slate-600 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-slate-700 {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .border-slate-800 {
+    border-color: hsl(var(--border));
+  }
+  
+  /* Text color overrides for slate variants */
+  .dark .text-slate-600 {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .dark .text-slate-700 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .text-slate-800 {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .text-slate-900 {
+    color: hsl(var(--foreground));
+  }
+  
+  /* Button and hover state improvements */
+  .dark .hover\:bg-gray-50:hover {
+    background-color: hsl(var(--muted));
+  }
+  
+  .dark .hover\:border-gray-400:hover {
+    border-color: hsl(var(--border));
+  }
+  
+  .dark .hover\:bg-blue-800\/50:hover {
+    background-color: hsl(var(--info) / 0.5);
+  }
+  
+  .dark .text-blue-100 {
+    color: hsl(var(--info-foreground));
+  }
+  
+  .dark .text-blue-200 {
+    color: hsl(var(--info));
+  }
+  
+  .dark .text-blue-300 {
+    color: hsl(var(--info));
+  }
+  
+  .dark .bg-blue-900\/30 {
+    background-color: hsl(var(--info-muted) / 0.3);
+  }
+  
+  /* Ensure gradients work properly in dark mode */
+  .dark .from-blue-100\/30 {
+    --tw-gradient-from: hsl(var(--info) / 0.1);
+  }
+  
+  .dark .to-purple-100\/30 {
+    --tw-gradient-to: hsl(var(--brand-secondary) / 0.1);
+  }
+  
+  .dark .from-purple-100\/20 {
+    --tw-gradient-from: hsl(var(--brand-secondary) / 0.1);
+  }
+  
+  .dark .to-blue-100\/20 {
+    --tw-gradient-to: hsl(var(--info) / 0.1);
+  }
+  
+  .dark .from-blue-200\/10 {
+    --tw-gradient-from: hsl(var(--info) / 0.05);
+  }
+  
+  .dark .to-purple-200\/10 {
+    --tw-gradient-to: hsl(var(--brand-secondary) / 0.05);
+  }
+}
+
+/* Ensure all interactive elements have proper focus states in dark mode */
+.dark button:focus,
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  outline-color: hsl(var(--brand-primary));
+}
+
+/* Fix any remaining contrast issues */
+.dark .text-white {
+  color: hsl(var(--foreground));
+}
+
+/* Ensure proper card contrast in dark mode */
+.dark .shadow-xl {
+  box-shadow: 0 20px 25px -5px hsl(var(--foreground) / 0.1), 0 8px 10px -6px hsl(var(--foreground) / 0.1);
+}
+
+.dark .shadow-2xl {
+  box-shadow: 0 25px 50px -12px hsl(var(--foreground) / 0.25);
+}
+
+.dark .hover\:shadow-2xl:hover {
+  box-shadow: 0 25px 50px -12px hsl(var(--foreground) / 0.3);
+}
+
+.dark .hover\:shadow-3xl:hover {
+  box-shadow: 0 35px 60px -12px hsl(var(--foreground) / 0.35);
 }

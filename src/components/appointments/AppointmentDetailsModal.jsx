@@ -16,25 +16,25 @@ const statusConfig = {
     label: "Booked", 
     variant: "default", 
     icon: Calendar,
-    color: "text-blue-600 bg-blue-50 border-blue-200"
+    color: "text-info bg-info/10 border-info/30"
   },
   completed: { 
     label: "Completed", 
     variant: "secondary", 
     icon: CheckCircle,
-    color: "text-emerald-600 bg-emerald-50 border-emerald-200"
+    color: "text-success bg-success/10 border-success/30"
   },
   cancelled: { 
     label: "Cancelled", 
     variant: "destructive", 
     icon: XCircle,
-    color: "text-red-600 bg-red-50 border-red-200"
+    color: "text-destructive bg-destructive/10 border-destructive/30"
   },
   missed: { 
     label: "Missed", 
     variant: "destructive", 
     icon: AlertCircle,
-    color: "text-orange-600 bg-orange-50 border-orange-200"
+    color: "text-warning bg-warning/10 border-warning/30"
   }
 };
 
@@ -43,13 +43,13 @@ const paymentStatusConfig = {
     label: "Paid",
     variant: "secondary",
     icon: CheckCircle,
-    color: "text-green-600 bg-green-50 border-green-200"
+    color: "text-success bg-success/10 border-success/30"
   },
   unpaid: {
     label: "Unpaid",
     variant: "outline",
     icon: CreditCard,
-    color: "text-gray-600 bg-gray-50 border-gray-200"
+    color: "text-muted-foreground bg-muted border-border"
   }
 };
 
@@ -57,17 +57,17 @@ const paymentMethodConfig = {
   cash: {
     label: "Cash",
     icon: IndianRupee,
-    color: "text-green-600"
+    color: "text-success"
   },
   upi: {
     label: "UPI",
     icon: Smartphone,
-    color: "text-blue-600"
+    color: "text-info"
   },
   card: {
     label: "Card",
     icon: CreditCard,
-    color: "text-purple-600"
+    color: "text-brand-secondary"
   }
 };
 
@@ -275,20 +275,19 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
                   Date & Time
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
-                  <span className="font-medium">{formatAppointmentDate(appointment.appointmentDate)}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-gray-500" />
-                  <span>{formatAppointmentTime(appointment.appointmentDate)}</span>
-                </div>
-                {appointment.duration && (
-                  <div className="text-sm text-gray-600">
-                    Duration: {appointment.duration} minutes
+              <CardContent className="space-y-3">                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span className="font-medium">{formatAppointmentDate(appointment.appointmentDate)}</span>
                   </div>
-                )}
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    <span>{formatAppointmentTime(appointment.appointmentDate)}</span>
+                  </div>
+                  {appointment.duration && (
+                    <div className="text-sm text-muted-foreground">
+                      Duration: {appointment.duration} minutes
+                    </div>
+                  )}
               </CardContent>
             </Card>
 
@@ -302,14 +301,14 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-gray-500" />
+                  <User className="h-4 w-4 text-muted-foreground" />
                   <span className="font-medium">Dr. {appointment.doctor?.name}</span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-muted-foreground">
                   {appointment.doctor?.specialization}
                 </div>
                 {appointment.doctor?.department && (
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-muted-foreground">
                     {appointment.doctor.department}
                   </div>
                 )}
@@ -328,16 +327,16 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-gray-500" />
+                  <User className="h-4 w-4 text-muted-foreground" />
                   <span className="font-medium">{appointment.patient?.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-gray-500" />
+                  <Phone className="h-4 w-4 text-muted-foreground" />
                   <span>{appointment.patient?.mobile}</span>
                 </div>
                 {appointment.patient?.email && (
                   <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-gray-500" />
+                    <Mail className="h-4 w-4 text-muted-foreground" />
                     <span>{appointment.patient.email}</span>
                   </div>
                 )}
@@ -345,17 +344,17 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
               <div className="space-y-3">
                 {appointment.patient?.age && (
                   <div className="text-sm">
-                    <span className="text-gray-500">Age:</span> {appointment.patient.age} years
+                    <span className="text-muted-foreground">Age:</span> {appointment.patient.age} years
                   </div>
                 )}
                 {appointment.patient?.gender && (
                   <div className="text-sm">
-                    <span className="text-gray-500">Gender:</span> {appointment.patient.gender}
+                    <span className="text-muted-foreground">Gender:</span> {appointment.patient.gender}
                   </div>
                 )}
                 {appointment.patient?.address && (
                   <div className="flex items-start gap-2">
-                    <MapPin className="h-4 w-4 text-gray-500 mt-0.5" />
+                    <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
                     <span className="text-sm">{appointment.patient.address}</span>
                   </div>
                 )}
@@ -372,14 +371,14 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
               <CardContent className="space-y-3">
                 {appointment.reason && (
                   <div>
-                    <span className="text-sm font-medium text-gray-700">Reason for Visit:</span>
-                    <p className="text-sm text-gray-600 mt-1">{appointment.reason}</p>
+                    <span className="text-sm font-medium text-foreground">Reason for Visit:</span>
+                    <p className="text-sm text-muted-foreground mt-1">{appointment.reason}</p>
                   </div>
                 )}
                 {appointment.notes && (
                   <div>
-                    <span className="text-sm font-medium text-gray-700">Notes:</span>
-                    <p className="text-sm text-gray-600 mt-1">{appointment.notes}</p>
+                    <span className="text-sm font-medium text-foreground">Notes:</span>
+                    <p className="text-sm text-muted-foreground mt-1">{appointment.notes}</p>
                   </div>
                 )}
               </CardContent>
@@ -409,7 +408,7 @@ export default function AppointmentDetailsModal({ appointment, isOpen, onClose, 
                           size="sm"
                           onClick={() => handleStatusUpdate(status)}
                           disabled={isUpdatingStatus || isUpdatingPayment}
-                          className="flex items-center gap-2 hover:bg-neutral-900 hover:shadow-md cursor-pointer transition-colors"
+                          className="flex items-center gap-2 hover:bg-muted hover:shadow-md cursor-pointer transition-colors"
                         >
                           <StatusIcon className="h-4 w-4" />
                           Mark as {config.label}
