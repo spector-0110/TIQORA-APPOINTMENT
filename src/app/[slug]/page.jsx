@@ -55,34 +55,31 @@ function SlugPageContent({ slug }) {
     try {
       setIsLoading(true);
       const appointment = getAppointmentFromCookie(slug);
-      console.log('Existing appointment :', appointment);
       
       if (appointment) {
         // setExistingAppointment(appointment);
         try { 
               const appointmentId = appointment.data.id || appointment.data.appointmentId;
               if (appointmentId) {
-              const latestAppointmentDetails = await getAppointmentDetails(appointmentId);
+                const latestAppointmentDetails = await getAppointmentDetails(appointmentId);
                 
-              if (latestAppointmentDetails && latestAppointmentDetails.data) {
-              // console.log('Fetched latest appointment details:', latestAppointmentDetails.data);
-              // Check if the appointment is completed
-              if (latestAppointmentDetails.data.status === "completed" || latestAppointmentDetails.data.status === "cancelled") {
-              // If appointment is completed, remove from cookie
-              removeAppointmentFromCookie(slug);
-              setExistingAppointment(null);
-              setShowCreateNew(true);
-              successHandledRef.current = false;
-            }
-          } else {
-              // If appointment no longer exists on server, use cached data
-              setExistingAppointment(appointment);
-            }
-          } else {
-              // No appointment ID found, use cached data
-              setExistingAppointment(appointment);
-            }
-          } catch (fetchError) {
+                if (latestAppointmentDetails && latestAppointmentDetails.data) {
+                  // Check if the appointment is completed
+                  if (latestAppointmentDetails.data.status === "completed" || latestAppointmentDetails.data.status === "cancelled") {
+                    // If appointment is completed, remove from cookie
+                    removeAppointmentFromCookie(slug);
+                    setExistingAppointment(null);
+                    setShowCreateNew(true);
+                    successHandledRef.current = false;
+                  } else {
+                    setExistingAppointment(appointment);
+                  }
+                }
+              } else {
+                // No appointment ID found, use cached data
+                 setExistingAppointment(appointment);
+              }
+            } catch (fetchError) {
               console.error('Error fetching latest appointment details:', fetchError);
               // If fetch fails, fallback to using cached data
               setExistingAppointment(appointment);

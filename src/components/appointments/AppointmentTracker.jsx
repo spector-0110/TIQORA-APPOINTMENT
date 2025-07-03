@@ -392,7 +392,7 @@ export default function AppointmentTracker({ data }) {
       className={`w-full ${isMobile ? 'mx-auto' : 'max-w-4xl mx-auto'}`}
     >
       {/* Main Professional Card */}
-      <div className={`relative overflow-hidden rounded-2xl bg-card border border-border shadow-lg ${
+      <div className={`relative overflow-hidden  bg-card border border-border shadow-lg ${
         isMobile ? 'p-2 space-y-2' : 'p-4 space-y-4'
       }`}>
         {/* Header Bar */}

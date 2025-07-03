@@ -14,9 +14,7 @@ export default function TrackingPage() {
 
   useEffect(() => {
     const token = params.token;
-    
-    console.log('Initializing tracking with token:', token);
-    
+        
     const handleUpdate = (rawInfo) => {
       // Parse the JSON string if it's a string
       const info = typeof rawInfo === 'string' ? JSON.parse(rawInfo) : rawInfo;

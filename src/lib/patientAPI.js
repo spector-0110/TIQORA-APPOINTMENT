@@ -267,6 +267,63 @@ export async function getAppointmentDetails(id) {
   }
 }
 
+/**
+ * Verify upload token and check if documents already exist
+ */
+export async function verifyUploadToken(token) {
+  try {
+    console.log('verifyUploadToken - Verifying upload token:', token);
+    const response = await fetchWithTimeout(`${BASE_URL}/appointments/verify_upload/${token}`, {
+      method: 'GET',
+      headers: getHeaders(),
+      cache: 'no-store'
+    });
+
+    const result = await handleApiResponse(response, 'Failed to verify upload token');
+    console.log('verifyUploadToken - Token verification result:', result);
+    return result;
+  } catch (error) {
+    console.error('verifyUploadToken - Error verifying upload token:', error);
+    
+    // Enhanced error handling for upload token verification
+    if (error.status === 404) {
+      const enhancedError = new Error('Appointment not found. The upload link may have expired or the appointment may not exist.');
+      enhancedError.status = 404;
+      enhancedError.type = 'not-found';
+      throw enhancedError;
+    } else if (error.status === 400) {
+      const enhancedError = new Error('Invalid upload token. Please check the URL and try again.');
+      enhancedError.status = 400;
+      enhancedError.type = 'invalid-token';
+      throw enhancedError;
+    } else if (error.status === 401) {
+      const enhancedError = new Error('Invalid or expired upload token. Please request a new upload link.');
+      enhancedError.status = 401;
+      enhancedError.type = 'unauthorized';
+      throw enhancedError;
+    } else if (error.status === 405) {
+      
+      const enhancedError = new Error('Documents already exist for this appointment. Upload not allowed.');
+      enhancedError.status = 405;
+      enhancedError.type = 'documents-exist';
+      throw enhancedError;
+    } else if (error.status === 410) {
+      const enhancedError = new Error('This upload link has expired. Please contact the hospital for a new link.');
+      enhancedError.status = 410;
+      enhancedError.type = 'expired';
+      throw enhancedError;
+    } else if (error.message?.includes('NetworkError') || error.message?.includes('Failed to fetch')) {
+      const enhancedError = new Error('Unable to connect to the server. Please check your internet connection and try again.');
+      enhancedError.status = 0;
+      enhancedError.type = 'network';
+      throw enhancedError;
+    }
+    
+    throw error;
+  }
+}
+
+
 export async function uploadDocuments(token, documentData) {
   try {
     const response = await fetchWithTimeout(`${BASE_URL}/appointments/documents/${token}`, {

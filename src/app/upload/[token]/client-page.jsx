@@ -109,9 +109,11 @@ export default function UploadClientPage({ tokenData, token }) {
       }, 500);
       
       // Upload files to Supabase
+      // Use hospitalId from tokenData if available, otherwise use appointmentId as fallback
+      const hospitalId = tokenData.hospitalId || tokenData.appointmentId || 'default';
       const fileUrls = await uploadFilesToSupabase(
         files,
-        tokenData.hospitalId,
+        hospitalId,
         tokenData.appointmentId
       );
       
